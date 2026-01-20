@@ -7,171 +7,681 @@
 
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-
   <!-- Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
 
   <style>
-    body { background:#f2f4f7; }
-    .brand { font-weight:700; font-size:1.4rem; }
+    :root {
+      --primary:#7b2ff7;
+      --primary-dark:#4c1bb3;
+      --accent:#ff6b6b;
+      --bg:#f3f5fb;
+    }
+    body { background:var(--bg); font-family:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+
+    /* NAVBAR */
+    .navbar-gradient {
+      background:linear-gradient(135deg, #7b2ff7, #f953c6);
+    }
+    .brand { font-weight:700; font-size:1.4rem; letter-spacing:0.5px; }
+
+    /* METRICS */
     .metric-card {
-      border-radius:14px;
+      border-radius:16px;
       background:white;
       padding:18px;
-      box-shadow:0 2px 8px rgba(0,0,0,0.08);
+      box-shadow:0 10px 25px rgba(15, 23, 42, 0.08);
       transition:0.2s;
+      border:0;
     }
-    .metric-card:hover { transform:translateY(-3px); }
-    .metric-title { font-size:0.85rem; color:#6c757d; }
-    .metric-value { font-size:1.4rem; font-weight:700; }
-    .section-title { font-weight:600; font-size:1.1rem; }
+    .metric-card:hover { transform:translateY(-4px); box-shadow:0 16px 35px rgba(15, 23, 42, 0.12); }
+    .metric-title { font-size:0.8rem; color:#6c757d; text-transform:uppercase; letter-spacing:0.06em; }
+    .metric-value { font-size:1.5rem; font-weight:700; }
+    .metric-pill {
+      display:inline-flex;
+      align-items:center;
+      gap:4px;
+      padding:2px 8px;
+      border-radius:999px;
+      font-size:0.7rem;
+      background:rgba(123,47,247,0.08);
+      color:var(--primary-dark);
+    }
+
+    .low-stock { color:#e03131; font-weight:600; }
+
+    /* APP NAV */
+    .app-nav {
+      background:white;
+      border-bottom:1px solid #e5e7eb;
+      position:sticky;
+      top:0;
+      z-index:50;
+    }
+    .app-nav .nav-link {
+      border-radius:999px;
+      padding:6px 14px;
+      font-size:0.9rem;
+      color:#4b5563;
+    }
+    .app-nav .nav-link.active {
+      background:linear-gradient(135deg, #7b2ff7, #f953c6);
+      color:white !important;
+      box-shadow:0 8px 18px rgba(123,47,247,0.35);
+    }
+
+    /* PRODUCT CARDS */
     .product-card {
-      border-radius:12px;
+      border-radius:14px;
       padding:12px;
       background:white;
-      box-shadow:0 2px 6px rgba(0,0,0,0.06);
+      box-shadow:0 6px 16px rgba(15, 23, 42, 0.06);
+      border:0;
     }
-    .low-stock { color:#d9534f; font-weight:600; }
+    .product-tag {
+      display:inline-block;
+      padding:2px 8px;
+      border-radius:999px;
+      font-size:0.7rem;
+      background:#eef2ff;
+      color:#3730a3;
+    }
+
+    .section-title {
+      font-weight:600;
+      font-size:1.05rem;
+      color:#111827;
+    }
+
+    .hidden { display:none !important; }
+
+    /* LOGIN OVERLAY */
+    #loginOverlay {
+      position:fixed;
+      inset:0;
+      background:radial-gradient(circle at top, rgba(123,47,247,0.4), rgba(15,23,42,0.95));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:9999;
+    }
+    #loginCard {
+      background:white;
+      border-radius:18px;
+      padding:24px 22px;
+      width:100%;
+      max-width:380px;
+      box-shadow:0 20px 45px rgba(15, 23, 42, 0.45);
+    }
+    #loginCard h4 { font-weight:700; }
+    .login-badge {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:4px 10px;
+      border-radius:999px;
+      background:rgba(123,47,247,0.08);
+      color:var(--primary-dark);
+      font-size:0.75rem;
+    }
+
+    /* TABLE */
+    .table thead { font-size:0.8rem; text-transform:uppercase; letter-spacing:0.05em; }
+    .table td { vertical-align:middle; font-size:0.9rem; }
+
+    /* CHIP */
+    .chip {
+      display:inline-flex;
+      align-items:center;
+      gap:4px;
+      padding:2px 8px;
+      border-radius:999px;
+      font-size:0.75rem;
+      background:#e0f2fe;
+      color:#0369a1;
+    }
+
+    /* SMALL BADGE */
+    .badge-soft {
+      background:#fee2e2;
+      color:#b91c1c;
+      border-radius:999px;
+      font-size:0.7rem;
+      padding:2px 8px;
+    }
   </style>
 </head>
 
 <body>
 
+<!-- LOGIN OVERLAY -->
+<div id="loginOverlay">
+  <div id="loginCard">
+    <div class="text-center mb-3">
+      <div class="login-badge mb-2">
+        <i class="bi bi-gem"></i>
+        <span>Cosmetics & Jewelry Admin</span>
+      </div>
+      <h4>Al Syed Sales Point</h4>
+      <p class="text-muted mb-0" style="font-size:0.85rem;">Staff / Admin Login (Demo)</p>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input id="loginEmail" type="email" class="form-control" placeholder="admin@alsyed.com">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Password</label>
+      <input id="loginPassword" type="password" class="form-control" placeholder="******">
+    </div>
+    <button class="btn btn-primary w-100 mb-2" style="background:linear-gradient(135deg,#7b2ff7,#f953c6);border:0;" onclick="fakeLogin()">
+      Sign In
+    </button>
+    <small class="text-muted d-block text-center" style="font-size:0.8rem;">Demo mode: koi bhi email/password chalega</small>
+  </div>
+</div>
+
 <!-- NAVBAR -->
-<nav class="navbar navbar-dark bg-dark px-3">
-  <span class="navbar-brand brand">Al Syed Sales Point</span>
-  <span class="text-white"><i class="bi bi-person-circle"></i> Admin</span>
+<nav class="navbar navbar-gradient px-3">
+  <span class="navbar-brand brand text-white d-flex align-items-center gap-2">
+    <i class="bi bi-bag-heart-fill"></i>
+    <span>Al Syed Sales Point</span>
+  </span>
+  <span class="text-white d-flex align-items-center gap-2">
+    <i class="bi bi-person-circle fs-5"></i>
+    <span id="userName">Admin</span>
+  </span>
 </nav>
+
+<!-- APP NAV -->
+<div class="app-nav">
+  <div class="container">
+    <ul class="nav nav-pills py-2 gap-2">
+      <li class="nav-item">
+        <button class="nav-link active" data-section="dashboard" onclick="showSection(event,'dashboard')">
+          <i class="bi bi-speedometer2 me-1"></i>Dashboard
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" data-section="products" onclick="showSection(event,'products')">
+          <i class="bi bi-box-seam me-1"></i>Products
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" data-section="sales" onclick="showSection(event,'sales')">
+          <i class="bi bi-receipt me-1"></i>Sales
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" data-section="alerts" onclick="showSection(event,'alerts')">
+          <i class="bi bi-exclamation-triangle me-1"></i>Stock Alerts
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
 
 <div class="container my-4">
 
-  <!-- DASHBOARD METRICS -->
-  <div class="row g-3">
-    <div class="col-6 col-md-3">
-      <div class="metric-card">
-        <div class="metric-title">Total Products</div>
-        <div class="metric-value">320</div>
-      </div>
-    </div>
-
-    <div class="col-6 col-md-3">
-      <div class="metric-card">
-        <div class="metric-title">Total Orders</div>
-        <div class="metric-value">1,245</div>
-      </div>
-    </div>
-
-    <div class="col-6 col-md-3">
-      <div class="metric-card">
-        <div class="metric-title">Total Sales</div>
-        <div class="metric-value">5,80,500 PKR</div>
-      </div>
-    </div>
-
-    <div class="col-6 col-md-3">
-      <div class="metric-card">
-        <div class="metric-title">Low Stock</div>
-        <div class="metric-value low-stock">8</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- BEST SELLING -->
-  <div class="mt-4">
-    <div class="section-title mb-2">Best Selling Items</div>
+  <!-- DASHBOARD SECTION -->
+  <div id="section-dashboard">
     <div class="row g-3">
-
       <div class="col-6 col-md-3">
-        <div class="product-card text-center">
-          <strong>Gold Necklace</strong><br>
-          <small>Earnings: 3,00,000 PKR</small>
+        <div class="metric-card">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <span class="metric-title">Total Products</span>
+            <span class="metric-pill"><i class="bi bi-box"></i> Live</span>
+          </div>
+          <div class="metric-value" id="metricTotalProducts">0</div>
         </div>
       </div>
 
       <div class="col-6 col-md-3">
-        <div class="product-card text-center">
-          <strong>Lipstick Set</strong><br>
-          <small>Earnings: 180,000 PKR</small>
+        <div class="metric-card">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <span class="metric-title">Total Orders</span>
+            <span class="metric-pill"><i class="bi bi-cart-check"></i> Today</span>
+          </div>
+          <div class="metric-value" id="metricTotalOrders">0</div>
         </div>
       </div>
 
       <div class="col-6 col-md-3">
-        <div class="product-card text-center">
-          <strong>Diamond Ring</strong><br>
-          <small>Earnings: 150,000 PKR</small>
+        <div class="metric-card">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <span class="metric-title">Total Sales</span>
+            <span class="metric-pill"><i class="bi bi-cash-stack"></i> PKR</span>
+          </div>
+          <div class="metric-value" id="metricTotalSales">0 PKR</div>
         </div>
       </div>
 
       <div class="col-6 col-md-3">
-        <div class="product-card text-center">
-          <strong>Eyeshadow Palette</strong><br>
-          <small>Earnings: 120,000 PKR</small>
+        <div class="metric-card">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <span class="metric-title">Low Stock</span>
+            <span class="metric-pill"><i class="bi bi-bell"></i> Alerts</span>
+          </div>
+          <div class="metric-value low-stock" id="metricLowStock">0</div>
         </div>
       </div>
+    </div>
 
+    <!-- BEST SELLING -->
+    <div class="mt-4">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <div class="section-title">Best Selling Items</div>
+        <span class="chip"><i class="bi bi-fire"></i> Hot Products</span>
+      </div>
+      <div class="row g-3" id="bestSellingContainer">
+        <!-- JS will fill -->
+      </div>
+    </div>
+
+    <!-- TODAY SALES SUMMARY -->
+    <div class="row g-3 mt-3">
+      <div class="col-md-7">
+        <div class="card shadow-sm border-0">
+          <div class="card-header bg-white fw-bold d-flex justify-content-between align-items-center">
+            <span>Today's Sales (Demo)</span>
+            <span class="badge-soft"><i class="bi bi-calendar-day me-1"></i> Live Summary</span>
+          </div>
+          <div class="card-body">
+            <h4 id="todaySalesAmount" class="mb-1">0 PKR</h4>
+            <p class="text-muted mb-2" style="font-size:0.85rem;">Total revenue from recorded sales.</p>
+            <p class="low-stock mb-0">Items Out of Stock: <span id="todayOutOfStock">0</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="card shadow-sm border-0">
+          <div class="card-header bg-white fw-bold">
+            Quick Snapshot
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled mb-0" style="font-size:0.9rem;">
+              <li class="mb-1"><i class="bi bi-check-circle text-success me-1"></i> Inventory in / out auto adjust</li>
+              <li class="mb-1"><i class="bi bi-check-circle text-success me-1"></i> Most selling products highlighted</li>
+              <li class="mb-1"><i class="bi bi-check-circle text-success me-1"></i> Low stock alerts visible</li>
+              <li><i class="bi bi-check-circle text-success me-1"></i> All data handled in browser (lite)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- PRODUCT TABLE -->
-  <div class="card mt-4 shadow-sm">
-    <div class="card-header bg-white fw-bold">
-      All Products
+  <!-- PRODUCTS SECTION -->
+  <div id="section-products" class="hidden">
+    <div class="section-title mb-2 d-flex justify-content-between align-items-center">
+      <span>Products</span>
+      <span class="chip"><i class="bi bi-box-seam"></i> Manage Inventory</span>
     </div>
-    <div class="card-body table-responsive">
-      <table class="table table-bordered table-sm">
-        <thead class="table-light">
-          <tr>
-            <th>Product</th>
-            <th>Purchase</th>
-            <th>Sale</th>
-            <th>Discount</th>
-            <th>Stock</th>
-            <th>Sold</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Ruby Necklace</td>
-            <td>15,000</td>
-            <td>20,000</td>
-            <td>18,000</td>
-            <td>300</td>
-            <td>200</td>
-          </tr>
-          <tr>
-            <td>Matte Lipstick</td>
-            <td>300</td>
-            <td>600</td>
-            <td>450</td>
-            <td>80</td>
-            <td>150</td>
-          </tr>
-          <tr>
-            <td>Jewelry Set</td>
-            <td>1,200</td>
-            <td>2,400</td>
-            <td>2,000</td>
-            <td class="low-stock">0</td>
-            <td>400</td>
-          </tr>
-        </tbody>
-      </table>
+
+    <!-- Add/Edit Form -->
+    <div class="card mb-3 shadow-sm border-0">
+      <div class="card-header bg-white fw-bold">
+        Add / Edit Product
+      </div>
+      <div class="card-body">
+        <form class="row g-2" onsubmit="saveProduct(event)">
+          <input type="hidden" id="prodId">
+          <div class="col-md-3">
+            <label class="form-label">Name</label>
+            <input id="prodName" type="text" class="form-control" required>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Category</label>
+            <input id="prodCategory" type="text" class="form-control" placeholder="Jewelry / Cosmetics">
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Purchase</label>
+            <input id="prodPurchase" type="number" class="form-control" required>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Sale</label>
+            <input id="prodSale" type="number" class="form-control" required>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Discount</label>
+            <input id="prodDiscount" type="number" class="form-control" placeholder="0">
+          </div>
+          <div class="col-md-1">
+            <label class="form-label">Stock</label>
+            <input id="prodStock" type="number" class="form-control" required>
+          </div>
+          <div class="col-12 mt-2">
+            <button class="btn btn-success">
+              <i class="bi bi-save me-1"></i>Save Product
+            </button>
+            <button type="button" class="btn btn-outline-secondary btn-sm ms-2" onclick="resetProductForm()">
+              Clear
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Products Table -->
+    <div class="card shadow-sm border-0">
+      <div class="card-header bg-white fw-bold d-flex justify-content-between align-items-center">
+        <span>All Products</span>
+        <span class="text-muted" style="font-size:0.8rem;">Purchase / Sale / Discount / Stock / Sold</span>
+      </div>
+      <div class="card-body table-responsive">
+        <table class="table table-bordered table-sm align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Product</th>
+              <th>Category</th>
+              <th>Purchase</th>
+              <th>Sale</th>
+              <th>Discount</th>
+              <th>Stock</th>
+              <th>Sold</th>
+              <th style="width:130px;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="productsTableBody">
+            <!-- JS will fill -->
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 
-  <!-- TODAY SALES -->
-  <div class="card mt-4 shadow-sm">
-    <div class="card-header bg-white fw-bold">
-      Today's Sales
+  <!-- SALES SECTION -->
+  <div id="section-sales" class="hidden">
+    <div class="section-title mb-2 d-flex justify-content-between align-items-center">
+      <span>Sales</span>
+      <span class="chip"><i class="bi bi-receipt"></i> Record Orders</span>
     </div>
-    <div class="card-body">
-      <h5>48,500 PKR</h5>
-      <p class="low-stock">Items Out of Stock: 3</p>
+
+    <!-- Add Sale -->
+    <div class="card mb-3 shadow-sm border-0">
+      <div class="card-header bg-white fw-bold">
+        Add Sale
+      </div>
+      <div class="card-body">
+        <form class="row g-2" onsubmit="addSale(event)">
+          <div class="col-md-6">
+            <label class="form-label">Product</label>
+            <select id="saleProduct" class="form-select" required>
+              <!-- JS will fill -->
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Quantity</label>
+            <input id="saleQuantity" type="number" class="form-control" min="1" required>
+          </div>
+          <div class="col-md-3 d-flex align-items-end">
+            <button class="btn btn-primary w-100" style="background:linear-gradient(135deg,#7b2ff7,#f953c6);border:0;">
+              <i class="bi bi-plus-circle me-1"></i>Add Sale
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Sales List -->
+    <div class="card shadow-sm border-0">
+      <div class="card-header bg-white fw-bold">
+        Recent Sales (Demo)
+      </div>
+      <div class="card-body">
+        <ul class="list-group" id="salesList">
+          <!-- JS will fill -->
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALERTS SECTION -->
+  <div id="section-alerts" class="hidden">
+    <div class="section-title mb-2 d-flex justify-content-between align-items-center">
+      <span>Low Stock & Out of Stock</span>
+      <span class="chip"><i class="bi bi-bell"></i> Alerts</span>
+    </div>
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+        <ul class="list-group" id="alertsList">
+          <!-- JS will fill -->
+        </ul>
+      </div>
     </div>
   </div>
 
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Demo data
+  let products = [
+    {id:1, name:"Ruby Necklace", category:"Jewelry", purchase:15000, sale:20000, discount:18000, stock:300, sold:200},
+    {id:2, name:"Matte Lipstick", category:"Cosmetics", purchase:300, sale:600, discount:450, stock:80, sold:150},
+    {id:3, name:"Jewelry Set", category:"Jewelry", purchase:1200, sale:2400, discount:2000, stock:0, sold:400}
+  ];
+  let sales = [
+    {id:1, productId:1, quantity:2, total:36000},
+    {id:2, productId:2, quantity:5, total:2250}
+  ];
+  let nextProductId = 4;
+  let nextSaleId = 3;
+
+  function fakeLogin() {
+    document.getElementById('loginOverlay').style.display = 'none';
+    renderAll();
+  }
+
+  function showSection(ev, name) {
+    const sections = ["dashboard","products","sales","alerts"];
+    sections.forEach(s => {
+      document.getElementById("section-"+s).classList.add("hidden");
+    });
+    document.getElementById("section-"+name).classList.remove("hidden");
+
+    document.querySelectorAll(".app-nav .nav-link").forEach(btn => btn.classList.remove("active"));
+    if (ev && ev.target) ev.target.classList.add("active");
+  }
+
+  function renderAll() {
+    renderMetrics();
+    renderBestSelling();
+    renderProductsTable();
+    renderSaleProductOptions();
+    renderSalesList();
+    renderAlerts();
+  }
+
+  function renderMetrics() {
+    const totalProducts = products.length;
+    const totalOrders = sales.length;
+    const totalSales = sales.reduce((sum,s) => sum + s.total, 0);
+    const lowStockCount = products.filter(p => p.stock <= 5).length;
+    const outOfStockCount = products.filter(p => p.stock === 0).length;
+
+    document.getElementById('metricTotalProducts').innerText = totalProducts;
+    document.getElementById('metricTotalOrders').innerText = totalOrders;
+    document.getElementById('metricTotalSales').innerText = totalSales.toLocaleString() + " PKR";
+    document.getElementById('metricLowStock').innerText = lowStockCount;
+    document.getElementById('todaySalesAmount').innerText = totalSales.toLocaleString() + " PKR";
+    document.getElementById('todayOutOfStock').innerText = outOfStockCount;
+  }
+
+  function renderBestSelling() {
+    const container = document.getElementById('bestSellingContainer');
+    container.innerHTML = "";
+    const sorted = [...products].sort((a,b) => b.sold - a.sold).slice(0,4);
+    sorted.forEach(p => {
+      const div = document.createElement('div');
+      div.className = "col-6 col-md-3";
+      div.innerHTML = `
+        <div class="product-card text-center">
+          <div class="mb-1"><span class="product-tag">${p.category || 'Product'}</span></div>
+          <strong>${p.name}</strong><br>
+          <small>Sold: ${p.sold}</small>
+        </div>`;
+      container.appendChild(div);
+    });
+  }
+
+  function renderProductsTable() {
+    const tbody = document.getElementById('productsTableBody');
+    tbody.innerHTML = "";
+    products.forEach(p => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${p.name}</td>
+        <td>${p.category || ""}</td>
+        <td>${p.purchase}</td>
+        <td>${p.sale}</td>
+        <td>${p.discount || "-"}</td>
+        <td class="${p.stock <= 5 ? 'low-stock' : ''}">${p.stock}</td>
+        <td>${p.sold}</td>
+        <td>
+          <button class="btn btn-sm btn-outline-primary me-1" onclick='editProduct(${p.id})'>
+            <i class="bi bi-pencil"></i>
+          </button>
+          <button class="btn btn-sm btn-outline-danger" onclick='deleteProduct(${p.id})'>
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function renderSaleProductOptions() {
+    const select = document.getElementById('saleProduct');
+    select.innerHTML = `<option value="">Select product</option>`;
+    products.forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p.id;
+      opt.textContent = `${p.name} (Stock: ${p.stock})`;
+      select.appendChild(opt);
+    });
+  }
+
+  function renderSalesList() {
+    const list = document.getElementById('salesList');
+    list.innerHTML = "";
+    sales.slice().reverse().forEach(s => {
+      const p = products.find(x => x.id === s.productId);
+      const li = document.createElement('li');
+      li.className = "list-group-item d-flex justify-content-between align-items-center";
+      li.innerHTML = `
+        <span>${p ? p.name : 'Product'} x ${s.quantity}</span>
+        <span>${s.total.toLocaleString()} PKR</span>`;
+      list.appendChild(li);
+    });
+  }
+
+  function renderAlerts() {
+    const list = document.getElementById('alertsList');
+    list.innerHTML = "";
+    const low = products.filter(p => p.stock <= 5);
+    if (low.length === 0) {
+      const li = document.createElement('li');
+      li.className = "list-group-item";
+      li.textContent = "No low stock items.";
+      list.appendChild(li);
+      return;
+    }
+    low.forEach(p => {
+      const li = document.createElement('li');
+      li.className = "list-group-item d-flex justify-content-between align-items-center";
+      li.innerHTML = `
+        <span>${p.name} (${p.category || ''})</span>
+        <span class="low-stock">Stock: ${p.stock}</span>`;
+      list.appendChild(li);
+    });
+  }
+
+  function saveProduct(e) {
+    e.preventDefault();
+    const id = document.getElementById('prodId').value;
+    const name = document.getElementById('prodName').value.trim();
+    const category = document.getElementById('prodCategory').value.trim();
+    const purchase = Number(document.getElementById('prodPurchase').value);
+    const sale = Number(document.getElementById('prodSale').value);
+    const discount = Number(document.getElementById('prodDiscount').value || 0);
+    const stock = Number(document.getElementById('prodStock').value);
+
+    if (!name) return;
+
+    if (id) {
+      const p = products.find(x => x.id == id);
+      if (p) {
+        p.name = name;
+        p.category = category;
+        p.purchase = purchase;
+        p.sale = sale;
+        p.discount = discount;
+        p.stock = stock;
+      }
+    } else {
+      products.push({
+        id: nextProductId++,
+        name, category, purchase, sale, discount, stock, sold:0
+      });
+    }
+    resetProductForm();
+    renderAll();
+  }
+
+  function resetProductForm() {
+    document.getElementById('prodId').value = "";
+    document.getElementById('prodName').value = "";
+    document.getElementById('prodCategory').value = "";
+    document.getElementById('prodPurchase').value = "";
+    document.getElementById('prodSale').value = "";
+    document.getElementById('prodDiscount').value = "";
+    document.getElementById('prodStock').value = "";
+  }
+
+  function editProduct(id) {
+    const p = products.find(x => x.id === id);
+    if (!p) return;
+    document.getElementById('prodId').value = p.id;
+    document.getElementById('prodName').value = p.name;
+    document.getElementById('prodCategory').value = p.category;
+    document.getElementById('prodPurchase').value = p.purchase;
+    document.getElementById('prodSale').value = p.sale;
+    document.getElementById('prodDiscount').value = p.discount;
+    document.getElementById('prodStock').value = p.stock;
+    showSection(null,'products');
+    document.querySelectorAll(".app-nav .nav-link").forEach(btn => {
+      if (btn.dataset.section === 'products') btn.classList.add('active'); else btn.classList.remove('active');
+    });
+  }
+
+  function deleteProduct(id) {
+    if (!confirm("Delete this product?")) return;
+    products = products.filter(p => p.id !== id);
+    renderAll();
+  }
+
+  function addSale(e) {
+    e.preventDefault();
+    const prodId = Number(document.getElementById('saleProduct').value);
+    const qty = Number(document.getElementById('saleQuantity').value);
+    if (!prodId || qty <= 0) return;
+
+    const p = products.find(x => x.id === prodId);
+    if (!p) return;
+    if (p.stock < qty) {
+      alert("Not enough stock!");
+      return;
+    }
+    const price = p.discount > 0 ? p.discount : p.sale;
+    const total = price * qty;
+
+    p.stock -= qty;
+    p.sold += qty;
+    sales.push({id: nextSaleId++, productId: prodId, quantity: qty, total});
+    document.getElementById('saleQuantity').value = "";
+    document.getElementById('saleProduct').value = "";
+
+    renderAll();
+  }
+</script>
 </body>
 </html>

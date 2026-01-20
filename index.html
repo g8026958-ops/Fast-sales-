@@ -1,1207 +1,655 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Al Syed Sales Point</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Al Syed Sales Point - POS System</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
-/* ———————————————
-   GLOBAL THEME
-——————————————— */
 :root {
-  --primary:#ff4b9a;
-  --primary-dark:#c2185b;
-  --accent:#ffcc00;
-  --bg:#f7f7fb;
-  --black:#111111;
-  --card-bg:#ffffff;
+  --primary: #ff2d75;
+  --dark: #000;
+  --light: #fff;
 }
 
+/* GLOBAL */
 body {
-  background:var(--bg);
-  font-family:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color:var(--black);
-  padding-bottom:70px;
+  background: #000;
+  color: #fff;
+  padding-bottom: 70px;
+  font-family: system-ui, sans-serif;
 }
 
-/* ———————————————
-   NAVBAR
-——————————————— */
-.navbar-gradient {
-  background:linear-gradient(135deg, #000000, #ff4b9a);
+.section {
+  padding: 15px;
 }
 
-.brand {
-  font-weight:700;
-  font-size:1.4rem;
-  letter-spacing:0.5px;
+.hidden {
+  display: none !important;
 }
 
-/* ———————————————
-   METRIC CARDS
-——————————————— */
+/* TOP BAR */
+.top-bar {
+  background: #111;
+  padding: 12px 15px;
+  border-bottom: 1px solid #222;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+/* DASHBOARD CARDS */
 .metric-card {
-  border-radius:16px;
-  background:var(--card-bg);
-  padding:18px;
-  box-shadow:0 10px 25px rgba(0, 0, 0, 0.12);
-  transition:0.2s;
-  border:0;
+  background: #111;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 12px;
+  border: 1px solid #222;
 }
 
-.metric-card:hover {
-  transform:translateY(-4px);
-  box-shadow:0 16px 35px rgba(0, 0, 0, 0.18);
-}
-
-.metric-title {
-  font-size:0.8rem;
-  color:#6c757d;
-  text-transform:uppercase;
-  letter-spacing:0.06em;
+.metric-label {
+  font-size: 0.8rem;
+  color: #bbb;
 }
 
 .metric-value {
-  font-size:1.5rem;
-  font-weight:700;
-  color:var(--black);
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--primary);
 }
 
-.metric-pill {
-  display:inline-flex;
-  align-items:center;
-  gap:4px;
-  padding:2px 8px;
-  border-radius:999px;
-  font-size:0.7rem;
-  background:rgba(255,75,154,0.12);
-  color:var(--primary-dark);
-}
-
-/* ———————————————
-   PRODUCT CARDS
-——————————————— */
-.product-card {
-  border-radius:14px;
-  padding:12px;
-  background:var(--card-bg);
-  box-shadow:0 6px 16px rgba(0, 0, 0, 0.12);
-  border:0;
-}
-
+/* PRODUCT TAG */
 .product-tag {
-  display:inline-block;
-  padding:2px 8px;
-  border-radius:999px;
-  font-size:0.7rem;
-  background:#ffe4f0;
-  color:#ad1457;
+  background: var(--primary);
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-size: 0.7rem;
+  color: #fff;
 }
 
-/* ———————————————
-   LOGIN OVERLAY
-——————————————— */
-#loginOverlay {
-  position:fixed;
-  inset:0;
-  background:radial-gradient(circle at top, rgba(255,75,154,0.4), rgba(0,0,0,0.95));
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:9999;
+/* TABLES */
+.table-dark {
+  background: #111;
 }
 
-#loginCard {
-  background:#111111;
-  border-radius:18px;
-  padding:24px 22px;
-  width:100%;
-  max-width:380px;
-  box-shadow:0 20px 45px rgba(0, 0, 0, 0.75);
-  color:#ffffff;
+.table-dark th {
+  background: #222;
 }
 
-#loginCard h4 {
-  font-weight:700;
+.low-stock {
+  color: #ff4444;
+  font-weight: bold;
 }
 
-.login-badge {
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  padding:4px 10px;
-  border-radius:999px;
-  background:rgba(255,75,154,0.18);
-  color:#ff80ab;
-  font-size:0.75rem;
+/* BOTTOM NAV (OPTION A — ORIGINAL STYLE) */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #000;
+  border-top: 1px solid #333;
+  z-index: 999;
 }
 
-#loginCard .form-label {
-  color:#f5f5f5;
+.bottom-nav .nav-link {
+  color: #ccc;
+  font-size: 0.75rem;
+  padding: 6px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-#loginCard .form-control {
-  background:#1e1e1e;
-  border-color:#333;
-  color:#ffffff;
+.bottom-nav .nav-link i {
+  font-size: 1.2rem;
+  margin-bottom: 2px;
 }
 
-#loginCard .form-control::placeholder {
-  color:#777;
+.bottom-nav .nav-link.active {
+  color: var(--primary);
+  font-weight: bold;
+}
+
+/* SETTINGS DRAWER */
+#settingsOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+}
+
+#settingsOverlay.active {
+  display: block;
+}
+
+#settingsSheet {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 260px;
+  height: 100%;
+  background: #111;
+  border-right: 1px solid #333;
+  transform: translateX(-100%);
+  transition: 0.3s;
+  padding: 15px;
+}
+
+#settingsSheet.active {
+  transform: translateX(0);
+}
+
+.settings-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 15px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- ———————————————
-     LOGIN OVERLAY
-——————————————— -->
-<div id="loginOverlay">
-  <div id="loginCard">
-    <div class="text-center mb-3">
-      <div class="login-badge mb-2">
-        <i class="bi bi-gem"></i>
-        <span>Cosmetics, Jewelry & Undergarments</span>
-      </div>
-      <h4>Al Syed Sales Point</h4>
-      <p class="text-muted mb-0" style="font-size:0.85rem;color:#cccccc !important;">Admin / Staff Login</p>
-    </div>
-
-    <div class="mb-3">
-      <label class="form-label">User</label>
-      <input id="loginEmail" type="text" class="form-control" placeholder="admin or staff">
-    </div>
-
-    <div class="mb-1">
-      <label class="form-label">Password</label>
-      <input id="loginPassword" type="password" class="form-control" placeholder="admin or staff">
-    </div>
-
-    <div class="mb-3 text-end">
-      <small style="font-size:0.75rem;color:#888;">Forgot? <span style="color:#ff80ab;">Use demo: admin/admin</span></small>
-    </div>
-
-    <button class="btn w-100 mb-2"
-      style="background:linear-gradient(135deg,#ff4b9a,#ffffff);border:0;color:#000;font-weight:600;"
-      onclick="fakeLogin()">
-      Sign In
-    </button>
-
-    <small class="d-block text-center" style="font-size:0.8rem;color:#bbbbbb;">
-      Demo: <b>admin/admin</b> (Admin), <b>staff/staff</b> (Staff)
-    </small>
-  </div>
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-title">Al Syed Sales Point</div>
+  <button class="btn btn-sm btn-outline-light" onclick="openSettings()">
+    <i class="bi bi-gear"></i>
+  </button>
 </div>
 
-<!-- ———————————————
-     NAVBAR
-——————————————— -->
-<nav class="navbar navbar-gradient px-3">
-  <span class="navbar-brand brand text-white d-flex align-items-center gap-2">
-    <i class="bi bi-bag-heart-fill"></i>
-    <span>Al Syed Sales Point</span>
-  </span>
+<!-- LOGIN OVERLAY -->
+<div id="loginOverlay" style="position:fixed; inset:0; background:#000; z-index:9999; padding:20px;">
+  <h3 class="text-center mb-3">Login</h3>
+  <input id="loginEmail" class="form-control mb-2" placeholder="Email (admin/staff)">
+  <input id="loginPassword" class="form-control mb-3" placeholder="Password">
+  <button class="btn btn-primary w-100" onclick="fakeLogin()">Login</button>
+</div>
 
-  <span class="text-white d-flex align-items-center gap-2">
-    <span class="role-badge">
-      <i class="bi bi-person-circle"></i>
-      <span id="userRoleLabel">Role</span>
-    </span>
-    <span id="userName">User</span>
+<!-- MAIN SECTIONS -->
+<div id="section-dashboard" class="section">
+  <h4 class="mb-3">Dashboard</h4>
 
-    <button class="btn btn-sm btn-outline-light ms-1" onclick="openSettings()" title="Settings">
-      <i class="bi bi-gear-fill"></i>
-    </button>
-  </span>
-</nav>
-<!-- ———————————————
-     MAIN CONTAINER
-——————————————— -->
-<div class="container my-3">
-
-  <!-- ———————————————
-       DASHBOARD
-  ——————————————— -->
-  <div id="section-dashboard">
-    <div class="row g-3">
-      <div class="col-6 col-md-3">
-        <div class="metric-card">
-          <div class="d-flex justify-content-between align-items-center mb-1">
-            <span class="metric-title">Total Products</span>
-            <span class="metric-pill"><i class="bi bi-box"></i> Live</span>
-          </div>
-          <div class="metric-value" id="metricTotalProducts">0</div>
-        </div>
-      </div>
-
-      <div class="col-6 col-md-3">
-        <div class="metric-card">
-          <div class="d-flex justify-content-between align-items-center mb-1">
-            <span class="metric-title">Total Orders</span>
-            <span class="metric-pill"><i class="bi bi-receipt"></i> All</span>
-          </div>
-          <div class="metric-value" id="metricTotalOrders">0</div>
-        </div>
-      </div>
-
-      <div class="col-6 col-md-3">
-        <div class="metric-card">
-          <div class="d-flex justify-content-between align-items-center mb-1">
-            <span class="metric-title">Total Sales</span>
-            <span class="metric-pill"><i class="bi bi-cash-stack"></i> PKR</span>
-          </div>
-          <div class="metric-value" id="metricTotalSales">0 PKR</div>
-        </div>
-      </div>
-
-      <div class="col-6 col-md-3">
-        <div class="metric-card">
-          <div class="d-flex justify-content-between align-items-center mb-1">
-            <span class="metric-title">Low Stock</span>
-            <span class="metric-pill"><i class="bi bi-bell"></i> Alerts</span>
-          </div>
-          <div class="metric-value low-stock" id="metricLowStock">0</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Daily / Monthly -->
-    <div class="row g-3 mt-3">
-      <div class="col-md-3 col-6">
-        <div class="metric-card">
-          <div class="metric-title mb-1">Daily Sales</div>
-          <div class="metric-value" id="metricDailySales">0 PKR</div>
-        </div>
-      </div>
-
-      <div class="col-md-3 col-6">
-        <div class="metric-card">
-          <div class="metric-title mb-1">Daily Profit</div>
-          <div class="metric-value" id="metricDailyProfit">0 PKR</div>
-        </div>
-      </div>
-
-      <div class="col-md-3 col-6">
-        <div class="metric-card">
-          <div class="metric-title mb-1">Monthly Sales</div>
-          <div class="metric-value" id="metricMonthlySales">0 PKR</div>
-        </div>
-      </div>
-
-      <div class="col-md-3 col-6">
-        <div class="metric-card">
-          <div class="metric-title mb-1">Monthly Profit</div>
-          <div class="metric-value" id="metricMonthlyProfit">0 PKR</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Expenses -->
-    <div class="row g-3 mt-3">
-      <div class="col-md-4 col-12">
-        <div class="metric-card">
-          <div class="metric-title mb-1">Today Expenses</div>
-          <div class="metric-value" id="metricDailyExpense">0 PKR</div>
-        </div>
-      </div>
-
-      <div class="col-md-4 col-12">
-        <div class="metric-card">
-          <div class="metric-title mb-1">Monthly Expenses</div>
-          <div class="metric-value" id="metricMonthlyExpense">0 PKR</div>
-        </div>
-      </div>
-
-      <div class="col-md-4 col-12">
-        <div class="metric-card">
-          <div class="metric-title mb-1">Net Monthly Profit</div>
-          <div class="metric-value" id="metricNetMonthlyProfit">0 PKR</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Best Selling -->
-    <div class="row g-3 mt-3">
-      <div class="col-md-4 col-12">
-        <div class="metric-card">
-          <div class="metric-title mb-1">Pending Payments</div>
-          <div class="metric-value" id="metricPendingPayments">0</div>
-        </div>
-      </div>
-
-      <div class="col-md-8 col-12">
-        <div class="metric-card">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <span class="section-title">Best Selling Items</span>
-            <span class="chip"><i class="bi bi-fire"></i> Hot Products</span>
-          </div>
-          <div class="row g-3" id="bestSellingContainer"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Low Stock -->
-    <div class="mt-4">
-      <div class="d-flex justify-content-between align-items-center mb-2">
-        <div class="section-title">Low Stock Items</div>
-        <span class="chip"><i class="bi bi-exclamation-triangle"></i> Check Now</span>
-      </div>
-      <ul class="list-group" id="dashboardLowStockList"></ul>
-    </div>
+  <div class="metric-card">
+    <div class="metric-label">TOTAL SALES</div>
+    <div id="metricTotalSales" class="metric-value">0 PKR</div>
   </div>
 
-  <!-- ———————————————
-       PRODUCTS SECTION
-  ——————————————— -->
-  <div id="section-products" class="hidden">
-    <div class="section-title mb-2 d-flex justify-content-between align-items-center">
-      <span>Products</span>
-      <span class="chip"><i class="bi bi-box-seam"></i> Manage Inventory</span>
-    </div>
-
-    <!-- Admin Product Form -->
-    <div id="adminProductFormWrapper" class="card mb-3 shadow-sm border-0">
-      <div class="card-header bg-dark text-white fw-bold">
-        Add / Edit Product (Admin)
-      </div>
-
-      <div class="card-body">
-        <form class="row g-2" onsubmit="saveProduct(event)">
-          <input type="hidden" id="prodId">
-
-          <div class="col-md-3">
-            <label class="form-label">Name</label>
-            <input id="prodName" type="text" class="form-control" required>
-          </div>
-
-          <div class="col-md-2">
-            <label class="form-label">Category</label>
-            <select id="prodCategory" class="form-select">
-              <option value="Jewelry">Jewelry</option>
-              <option value="Cosmetics">Cosmetics</option>
-              <option value="Undergarments">Undergarments</option>
-            </select>
-          </div>
-
-          <div class="col-md-2">
-            <label class="form-label">Product Code</label>
-            <input id="prodCode" type="text" class="form-control" placeholder="e.g. 1001">
-          </div>
-
-          <div class="col-md-2">
-            <label class="form-label">Purchase</label>
-            <input id="prodPurchase" type="number" class="form-control" required>
-          </div>
-
-          <div class="col-md-2">
-            <label class="form-label">Sale</label>
-            <input id="prodSale" type="number" class="form-control" required>
-          </div>
-
-          <div class="col-md-1">
-            <label class="form-label">Stock</label>
-            <input id="prodStock" type="number" class="form-control" required>
-          </div>
-
-          <div class="col-md-2 mt-2">
-            <label class="form-label">Discount</label>
-            <input id="prodDiscount" type="number" class="form-control" placeholder="0">
-          </div>
-
-          <div class="col-12 mt-2">
-            <button class="btn btn-success">
-              <i class="bi bi-save me-1"></i>Save Product
-            </button>
-
-            <button type="button" class="btn btn-outline-secondary btn-sm ms-2" onclick="resetProductForm()">
-              Clear
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <!-- Staff Stock Adjust -->
-    <div id="staffStockAdjustWrapper" class="card mb-3 shadow-sm border-0 hidden">
-      <div class="card-header bg-dark text-white fw-bold">
-        Inventory In / Out (Staff)
-      </div>
-
-      <div class="card-body">
-        <form class="row g-2" onsubmit="adjustStock(event)">
-          <div class="col-md-6">
-            <label class="form-label">Product</label>
-            <select id="adjustProduct" class="form-select" required></select>
-          </div>
-
-          <div class="col-md-3">
-            <label class="form-label">Quantity (+ add / - minus)</label>
-            <input id="adjustQuantity" type="number" class="form-control" required>
-          </div>
-
-          <div class="col-md-3 d-flex align-items-end">
-            <button class="btn btn-primary w-100"
-              style="background:linear-gradient(135deg,#ff4b9a,#ffffff);border:0;color:#000;">
-              <i class="bi bi-arrow-left-right me-1"></i>Update Stock
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <!-- Product Table -->
-    <div class="card shadow-sm border-0">
-      <div class="card-header bg-dark text-white fw-bold d-flex justify-content-between align-items-center">
-        <span>All Products</span>
-        <span class="text-light" style="font-size:0.8rem;">Code / Purchase / Sale / Stock / Sold</span>
-      </div>
-
-      <div class="card-body table-responsive">
-        <table class="table table-bordered table-sm align-middle">
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>Category</th>
-              <th>Code</th>
-              <th>Purchase</th>
-              <th>Sale</th>
-              <th>Discount</th>
-              <th>Stock</th>
-              <th>Sold</th>
-              <th style="width:130px;">Actions</th>
-            </tr>
-          </thead>
-          <tbody id="productsTableBody"></tbody>
-        </table>
-      </div>
-    </div>
+  <div class="metric-card">
+    <div class="metric-label">LOW STOCK</div>
+    <div id="metricLowStock" class="metric-value">0</div>
   </div>
-  <!-- ———————————————
-       SALES + CART SECTION
-  ——————————————— -->
-  <div id="section-sales" class="hidden">
-    <div class="section-title mb-2 d-flex justify-content-between align-items-center">
-      <span>Sales & Cart</span>
-      <span class="chip"><i class="bi bi-cart-check"></i> POS Style</span>
-    </div>
 
-    <!-- Add to Cart -->
-    <div class="card mb-3 shadow-sm border-0">
-      <div class="card-header bg-dark text-white fw-bold d-flex justify-content-between align-items-center">
-        <span>Add to Cart (Admin + Staff)</span>
-        <input id="cartSearch" type="text" class="form-control form-control-sm search-input"
-          placeholder="Search by name or code" onkeyup="filterCartProducts()">
+  <div class="metric-card">
+    <div class="metric-label">DAILY SALES</div>
+    <div id="metricDailySales" class="metric-value">0 PKR</div>
+  </div>
+
+  <div class="metric-card">
+    <div class="metric-label">DAILY PROFIT</div>
+    <div id="metricDailyProfit" class="metric-value">0 PKR</div>
+  </div>
+
+  <div class="metric-card">
+    <div class="metric-label">MONTHLY SALES</div>
+    <div id="metricMonthlySales" class="metric-value">0 PKR</div>
+  </div>
+
+  <div class="metric-card">
+    <div class="metric-label">MONTHLY PROFIT</div>
+    <div id="metricMonthlyProfit" class="metric-value">0 PKR</div>
+  </div>
+</div>
+<!-- PRODUCTS SECTION -->
+<div id="section-products" class="section hidden">
+  <h4 class="mb-3">Products</h4>
+
+  <form onsubmit="saveProduct(event)" class="mb-3">
+    <input type="hidden" id="prodId">
+
+    <input id="prodName" class="form-control mb-2" placeholder="Product Name">
+    <select id="prodCategory" class="form-control mb-2">
+      <option>Jewelry</option>
+      <option>Cosmetics</option>
+      <option>Undergarments</option>
+    </select>
+
+    <input id="prodCode" class="form-control mb-2" placeholder="Product Code">
+    <input id="prodPurchase" class="form-control mb-2" placeholder="Purchase Price" type="number">
+    <input id="prodSale" class="form-control mb-2" placeholder="Sale Price" type="number">
+    <input id="prodDiscount" class="form-control mb-2" placeholder="Discount Price" type="number">
+    <input id="prodStock" class="form-control mb-2" placeholder="Stock" type="number">
+
+    <button class="btn btn-primary w-100">Save Product</button>
+  </form>
+
+  <table class="table table-dark table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Cat</th>
+        <th>Code</th>
+        <th>Buy</th>
+        <th>Sale</th>
+        <th>Disc</th>
+        <th>Stock</th>
+        <th>Sold</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="productsTableBody"></tbody>
+  </table>
+</div>
+
+<!-- SALES / CART SECTION -->
+<div id="section-sales" class="section hidden">
+  <h4 class="mb-3">Cart / POS</h4>
+
+  <form onsubmit="addToCart(event)" class="mb-3">
+    <select id="cartProduct" class="form-control mb-2"></select>
+    <input id="cartQuantity" class="form-control mb-2" placeholder="Quantity" type="number">
+    <button class="btn btn-primary w-100">Add to Cart</button>
+  </form>
+
+  <table class="table table-dark table-striped">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Qty</th>
+        <th>Price</th>
+        <th>Total</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="cartTableBody"></tbody>
+  </table>
+
+  <div class="text-end fw-bold mb-2" id="cartTotalLabel">Total: 0 PKR</div>
+
+  <input id="orderCustomerName" class="form-control mb-2" placeholder="Customer Name">
+  <input id="orderCustomerPhone" class="form-control mb-2" placeholder="Phone">
+
+  <select id="orderPaymentStatus" class="form-control mb-3">
+    <option>Paid</option>
+    <option>Pending</option>
+  </select>
+
+  <button class="btn btn-success w-100 mb-2" onclick="checkoutCart()">Checkout</button>
+  <button class="btn btn-outline-danger w-100" onclick="clearCart()">Clear Cart</button>
+</div>
+<!-- ORDERS SECTION -->
+<div id="section-orders" class="section hidden">
+  <h4 class="mb-3">Orders</h4>
+
+  <table class="table table-dark table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Customer</th>
+        <th>Phone</th>
+        <th>Total</th>
+        <th>Status</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody id="ordersTableBody"></tbody>
+  </table>
+</div>
+
+<!-- EXPENSES SECTION -->
+<div id="section-expenses" class="section hidden">
+  <h4 class="mb-3">Expenses</h4>
+
+  <form onsubmit="addExpense(event)" class="mb-3">
+    <input id="expenseTitle" class="form-control mb-2" placeholder="Expense Title">
+    <input id="expenseAmount" class="form-control mb-2" placeholder="Amount" type="number">
+
+    <select id="expenseCategory" class="form-control mb-2">
+      <option>Stock</option>
+      <option>Rent</option>
+      <option>Electricity</option>
+      <option>Misc</option>
+    </select>
+
+    <button class="btn btn-primary w-100">Add Expense</button>
+  </form>
+
+  <table class="table table-dark table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Amount</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody id="expensesTableBody"></tbody>
+  </table>
+</div>
+
+<!-- ALERTS SECTION -->
+<div id="section-alerts" class="section hidden">
+  <h4 class="mb-3">Low Stock Alerts</h4>
+
+  <ul class="list-group mb-4" id="alertsList"></ul>
+
+  <h4 class="mb-3">Staff Activity Log</h4>
+
+  <table class="table table-dark table-striped">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Action</th>
+        <th>Details</th>
+        <th>Date/Time</th>
+      </tr>
+    </thead>
+    <tbody id="staffLogTableBody"></tbody>
+  </table>
+</div>
+
+<!-- INVOICE MODAL -->
+<div class="modal fade" id="invoiceModal">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header">
+        <h5 class="modal-title">Invoice</h5>
+        <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
 
-      <div class="card-body">
-        <form class="row g-2" onsubmit="addToCart(event)">
-          <div class="col-md-5">
-            <label class="form-label">Product</label>
-            <select id="cartProduct" class="form-select" required>
-              <option value="none" selected>Select product</option>
-            </select>
-          </div>
+      <div class="modal-body">
+        <div class="mb-2">Invoice #: <span id="invoiceNumber"></span></div>
+        <div class="mb-2">Date: <span id="invoiceDate"></span></div>
 
-          <div class="col-md-3">
-            <label class="form-label">Quantity</label>
-            <input id="cartQuantity" type="number" class="form-control" min="1" required>
-          </div>
-
-          <div class="col-md-2 d-flex align-items-end">
-            <button class="btn btn-primary w-100"
-              style="background:linear-gradient(135deg,#ff4b9a,#ffffff);border:0;color:#000;">
-              <i class="bi bi-cart-plus me-1"></i>Add to Cart
-            </button>
-          </div>
-
-          <div class="col-md-2 d-flex align-items-end">
-            <button type="button" class="btn btn-outline-secondary w-100" onclick="clearCart()">
-              Clear Cart
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <!-- Cart Table -->
-    <div class="card mb-3 shadow-sm border-0">
-      <div class="card-header bg-dark text-white fw-bold d-flex justify-content-between align-items-center">
-        <span>Cart</span>
-        <span id="cartTotalLabel">Total: 0 PKR</span>
-      </div>
-
-      <div class="card-body table-responsive">
-        <table class="table table-bordered table-sm align-middle cart-table">
+        <table class="table table-dark table-striped">
           <thead>
             <tr>
               <th>Product</th>
               <th>Qty</th>
               <th>Price</th>
               <th>Total</th>
-              <th style="width:80px;">Action</th>
             </tr>
           </thead>
-          <tbody id="cartTableBody"></tbody>
+          <tbody id="invoiceTableBody"></tbody>
         </table>
 
-        <div class="row g-2 mt-2">
-          <div class="col-md-3">
-            <label class="form-label">Customer Name (optional)</label>
-            <input id="orderCustomerName" type="text" class="form-control">
-          </div>
+        <h5 class="text-end mt-3">Total: <span id="invoiceTotal"></span> PKR</h5>
 
-          <div class="col-md-3">
-            <label class="form-label">Mobile (optional)</label>
-            <input id="orderCustomerPhone" type="text" class="form-control">
-          </div>
-
-          <div class="col-md-3">
-            <label class="form-label">Payment Status</label>
-            <select id="orderPaymentStatus" class="form-select">
-              <option value="Paid">Paid</option>
-              <option value="Pending">Pending</option>
-            </select>
-          </div>
-
-          <div class="col-md-3 d-flex align-items-end justify-content-end">
-            <button class="btn btn-success" onclick="checkoutCart()" id="checkoutBtn">
-              <i class="bi bi-cash-stack me-1"></i>Checkout & Invoice
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Recent Sales -->
-    <div class="card shadow-sm border-0">
-      <div class="card-header bg-dark text-white fw-bold">
-        Recent Sales
-      </div>
-      <div class="card-body">
-        <ul class="list-group" id="salesList"></ul>
-      </div>
-    </div>
-  </div>
-  <!-- ———————————————
-       ORDERS SECTION
-  ——————————————— -->
-  <div id="section-orders" class="hidden">
-    <div class="section-title mb-2 d-flex justify-content-between align-items-center">
-      <span>Customer Orders</span>
-      <span class="chip"><i class="bi bi-receipt"></i> Paid / Pending</span>
-    </div>
-
-    <div class="card shadow-sm border-0">
-      <div class="card-body table-responsive">
-        <table class="table table-bordered table-sm align-middle">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Customer</th>
-              <th>Phone</th>
-              <th>Total</th>
-              <th>Status</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody id="ordersTableBody"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- ———————————————
-       EXPENSES SECTION
-  ——————————————— -->
-  <div id="section-expenses" class="hidden">
-    <div class="section-title mb-2 d-flex justify-content-between align-items-center">
-      <span>Expenses & Profit</span>
-      <span class="chip"><i class="bi bi-wallet2"></i> Daily / Monthly</span>
-    </div>
-
-    <!-- Add Expense -->
-    <div class="card mb-3 shadow-sm border-0">
-      <div class="card-header bg-dark text-white fw-bold">Add Expense</div>
-
-      <div class="card-body">
-        <form class="row g-2" onsubmit="addExpense(event)">
-          <div class="col-md-4">
-            <label class="form-label">Title</label>
-            <input id="expenseTitle" type="text" class="form-control" required>
-          </div>
-
-          <div class="col-md-3">
-            <label class="form-label">Amount</label>
-            <input id="expenseAmount" type="number" class="form-control" required>
-          </div>
-
-          <div class="col-md-3">
-            <label class="form-label">Category</label>
-            <select id="expenseCategory" class="form-select">
-              <option value="Rent">Rent</option>
-              <option value="Bills">Bills</option>
-              <option value="Salary">Salary</option>
-              <option value="Misc">Misc</option>
-            </select>
-          </div>
-
-          <div class="col-md-2 d-flex align-items-end">
-            <button class="btn btn-primary w-100"
-              style="background:linear-gradient(135deg,#ff4b9a,#ffffff);border:0;color:#000;">
-              <i class="bi bi-plus-circle me-1"></i>Add
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <!-- Expense History -->
-    <div class="card mt-3 shadow-sm border-0">
-      <div class="card-header bg-dark text-white fw-bold">Expense History</div>
-
-      <div class="card-body table-responsive">
-        <table class="table table-bordered table-sm align-middle">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Category</th>
-              <th>Amount</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody id="expensesTableBody"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- ———————————————
-       ALERTS + STAFF LOG
-  ——————————————— -->
-  <div id="section-alerts" class="hidden">
-    <div class="section-title mb-2 d-flex justify-content-between align-items-center">
-      <span>Low Stock & Staff Activity</span>
-      <span class="chip"><i class="bi bi-bell"></i> Alerts & Log</span>
-    </div>
-
-    <!-- Low Stock Alerts -->
-    <div class="card mb-3 shadow-sm border-0">
-      <div class="card-header bg-dark text-white fw-bold">Low Stock Alerts</div>
-      <div class="card-body">
-        <ul class="list-group" id="alertsList"></ul>
-      </div>
-    </div>
-
-    <!-- Staff Log -->
-    <div class="card shadow-sm border-0">
-      <div class="card-header bg-dark text-white fw-bold">Staff Activity Log</div>
-      <div class="card-body table-responsive">
-        <table class="table table-bordered table-sm align-middle">
-          <thead>
-            <tr>
-              <th>User</th>
-              <th>Action</th>
-              <th>Details</th>
-              <th>Date/Time</th>
-            </tr>
-          </thead>
-          <tbody id="staffLogTableBody"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-</div> <!-- END MAIN CONTAINER -->
-
-<!-- ———————————————
-     INVOICE MODAL
-——————————————— -->
-<div class="modal fade" id="invoiceModal" tabindex="-1">
-  <div class="modal-dialog modal-lg modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header" style="background:#000;color:#fff;">
-        <h5 class="modal-title"><i class="bi bi-receipt-cutoff me-1"></i>Invoice</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
-
-      <div class="modal-body">
-        <div class="invoice-header d-flex justify-content-between">
-          <div>
-            <h5>Al Syed Sales Point</h5>
-            <small>Cosmetics, Jewelry & Undergarments</small>
-          </div>
-
-          <div class="text-end">
-            <div><b>Invoice #</b> <span id="invoiceNumber"></span></div>
-            <div><b>Date:</b> <span id="invoiceDate"></span></div>
-          </div>
-        </div>
-
-        <div class="mb-2">
-          <span class="invoice-ai-line" id="invoiceAiLine"></span>
-        </div>
-
-        <div class="table-responsive mb-2">
-          <table class="table table-bordered table-sm">
-            <thead class="table-dark">
-              <tr>
-                <th>Product</th>
-                <th>Qty</th>
-                <th>Price</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody id="invoiceTableBody"></tbody>
-          </table>
-        </div>
-
-        <div class="text-end">
-          <h5>Total: <span id="invoiceTotal"></span> PKR</h5>
+        <div class="mt-3 text-center">
+          <i><span id="invoiceAiLine"></span></i>
         </div>
       </div>
 
       <div class="modal-footer">
-        <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-        <button class="btn btn-primary" onclick="window.print()">
-          <i class="bi bi-printer me-1"></i>Print
-        </button>
+        <button class="btn btn-primary" data-bs-dismiss="modal">Done</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ———————————————
-     BOTTOM NAV (MOBILE)
-——————————————— -->
+<!-- SETTINGS DRAWER -->
+<div id="settingsOverlay" onclick="closeSettings()"></div>
+
+<div id="settingsSheet">
+  <div class="settings-title">Settings</div>
+
+  <button class="btn btn-outline-light w-100 mb-2" onclick="resetSales()">Reset Sales</button>
+  <button class="btn btn-outline-light w-100 mb-2" onclick="resetOrders()">Reset Orders</button>
+  <button class="btn btn-outline-light w-100 mb-2" onclick="resetExpenses()">Reset Expenses</button>
+  <button class="btn btn-outline-light w-100 mb-2" onclick="resetStaffLog()">Reset Staff Log</button>
+  <button class="btn btn-outline-light w-100 mb-2" onclick="resetProductSold()">Reset Product Sold</button>
+  <button class="btn btn-danger w-100" onclick="resetFullSystem()">Full Reset (Safe)</button>
+</div>
+
+<!-- BOTTOM NAVIGATION (OPTION A) -->
 <nav class="bottom-nav d-md-none">
   <ul class="nav nav-justified">
     <li class="nav-item">
       <button class="nav-link active" id="bottom-dashboard" onclick="bottomNavClick('dashboard')">
-        <i class="bi bi-speedometer2 d-block"></i>
+        <i class="bi bi-speedometer2"></i>
         <span>Home</span>
       </button>
     </li>
 
     <li class="nav-item">
       <button class="nav-link" id="bottom-products" onclick="bottomNavClick('products')">
-        <i class="bi bi-box-seam d-block"></i>
+        <i class="bi bi-box-seam"></i>
         <span>Products</span>
       </button>
     </li>
 
     <li class="nav-item">
       <button class="nav-link" id="bottom-sales" onclick="bottomNavClick('sales')">
-        <i class="bi bi-cart-check d-block"></i>
+        <i class="bi bi-cart-check"></i>
         <span>Cart</span>
       </button>
     </li>
 
     <li class="nav-item">
       <button class="nav-link" id="bottom-orders" onclick="bottomNavClick('orders')">
-        <i class="bi bi-receipt d-block"></i>
+        <i class="bi bi-receipt"></i>
         <span>Orders</span>
       </button>
     </li>
 
     <li class="nav-item">
       <button class="nav-link" id="bottom-alerts" onclick="bottomNavClick('alerts')">
-        <i class="bi bi-bell d-block"></i>
+        <i class="bi bi-bell"></i>
         <span>Alerts</span>
       </button>
     </li>
   </ul>
 </nav>
-
-<!-- ———————————————
-     SETTINGS DRAWER (LEFT)
-——————————————— -->
-<div id="settingsOverlay" onclick="closeSettings()"></div>
-
-<div id="settingsSheet">
-  <div id="settingsSheetHeader">
-    <div>
-      <div style="font-weight:600;font-size:0.95rem;">Settings</div>
-      <div style="font-size:0.75rem;color:#bbbbbb;">Reset data safely (products stay safe)</div>
-    </div>
-
-    <button class="btn btn-sm btn-outline-light" onclick="closeSettings()">
-      <i class="bi bi-x-lg"></i>
-    </button>
-  </div>
-
-  <div class="settings-row">
-    <div class="settings-row-label">
-      <span class="settings-row-title">Reset Sales</span>
-      <span class="settings-row-sub">Clear all sales history</span>
-    </div>
-    <button class="btn btn-outline-light btn-sm" onclick="resetSales()">Reset</button>
-  </div>
-
-  <div class="settings-row">
-    <div class="settings-row-label">
-      <span class="settings-row-title">Reset Orders</span>
-      <span class="settings-row-sub">Clear all customer orders</span>
-    </div>
-    <button class="btn btn-outline-light btn-sm" onclick="resetOrders()">Reset</button>
-  </div>
-
-  <div class="settings-row">
-    <div class="settings-row-label">
-      <span class="settings-row-title">Reset Expenses</span>
-      <span class="settings-row-sub">Clear all expense records</span>
-    </div>
-    <button class="btn btn-outline-light btn-sm" onclick="resetExpenses()">Reset</button>
-  </div>
-
-  <div class="settings-row">
-    <div class="settings-row-label">
-      <span class="settings-row-title">Reset Staff Log</span>
-      <span class="settings-row-sub">Clear staff activity history</span>
-    </div>
-    <button class="btn btn-outline-light btn-sm" onclick="resetStaffLog()">Reset</button>
-  </div>
-
-  <div class="settings-row">
-    <div class="settings-row-label">
-      <span class="settings-row-title">Reset Products Sold Count</span>
-      <span class="settings-row-sub">Set all sold = 0 (stock safe)</span>
-    </div>
-    <button class="btn btn-outline-light btn-sm" onclick="resetProductSold()">Reset</button>
-  </div>
-
-  <div class="settings-row">
-    <div class="settings-row-label">
-      <span class="settings-row-title settings-danger">Full System Reset</span>
-      <span class="settings-row-sub">Sales, orders, expenses, staff log, sold count — all clear. Products SAFE.</span>
-    </div>
-    <button class="btn btn-outline-danger btn-sm settings-danger-btn" onclick="resetFullSystem()">Reset All</button>
-  </div>
-</div>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- ———————————————
-     JAVASCRIPT STARTS
-——————————————— -->
+<!-- JAVASCRIPT START -->
 <script>
-  /********************************************
- * STORAGE & DEFAULT DATA
+/********************************************
+ * GLOBAL DATA
  ********************************************/
-const STORAGE_KEY = 'alSyed-pos-v3';
-
-let products = [
-  {id:1, code:"1001", name:"Ruby Necklace", category:"Jewelry", purchase:15000, sale:20000, discount:18000, stock:300, sold:0},
-  {id:2, code:"1002", name:"Matte Lipstick", category:"Cosmetics", purchase:300, sale:600, discount:450, stock:80, sold:0},
-  {id:3, code:"1003", name:"Jewelry Set", category:"Jewelry", purchase:1200, sale:2400, discount:2000, stock:3, sold:0},
-  {id:4, code:"1004", name:"Premium Bra Set", category:"Undergarments", purchase:800, sale:1500, discount:1300, stock:5, sold:0},
-  {id:5, code:"1005", name:"Cotton Panty Pack", category:"Undergarments", purchase:200, sale:400, discount:350, stock:2, sold:0},
-  {id:6, code:"1006", name:"Men Undershirt", category:"Undergarments", purchase:500, sale:900, discount:0, stock:10, sold:0}
-];
-
+let products = [];
 let sales = [];
 let orders = [];
 let expenses = [];
 let staffLog = [];
+
 let cart = [];
 
-let nextProductId = 7;
+let nextProductId = 1;
 let nextSaleId = 1;
 let nextOrderId = 1;
 let nextExpenseId = 1;
-let invoiceCounter = 1001;
 
-let currentRole = "admin";
+let invoiceCounter = 1;
+
 let currentUserName = "Admin";
 
 const aiLines = [
-  "AI note: Aaj ki sale strong hai — pace maintain rakho.",
-  "AI note: Best sellers ko front rack par rakho.",
-  "AI note: Low stock items ko jaldi refill karo.",
-  "AI note: Repeat customers = long term business.",
-  "AI note: Cosmetics + Jewelry combo ticket size strong banata hai."
+  "Thank you for shopping with us!",
+  "Visit again — we appreciate your business.",
+  "Al Syed Sales Point — Quality you trust.",
+  "Your satisfaction is our priority."
 ];
 
 /********************************************
- * LOAD / SAVE
+ * SAVE & LOAD
  ********************************************/
-function loadDataFromStorage() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return;
-
-    const data = JSON.parse(raw);
-
-    if (Array.isArray(data.products)) products = data.products;
-    if (Array.isArray(data.sales)) sales = data.sales;
-    if (Array.isArray(data.orders)) orders = data.orders;
-    if (Array.isArray(data.expenses)) expenses = data.expenses;
-    if (Array.isArray(data.staffLog)) staffLog = data.staffLog;
-
-    sales = sales.map(s => ({...s, date:new Date(s.date)}));
-    orders = orders.map(o => ({...o, date:new Date(o.date)}));
-    expenses = expenses.map(e => ({...e, date:new Date(e.date)}));
-    staffLog = staffLog.map(l => ({...l, date:new Date(l.date)}));
-
-    nextProductId = data.nextProductId || nextProductId;
-    nextSaleId = data.nextSaleId || nextSaleId;
-    nextOrderId = data.nextOrderId || nextOrderId;
-    nextExpenseId = data.nextExpenseId || nextExpenseId;
-    invoiceCounter = data.invoiceCounter || invoiceCounter;
-
-  } catch (e) {
-    console.error("Load error:", e);
-  }
+function saveDataToStorage() {
+  localStorage.setItem("products", JSON.stringify(products));
+  localStorage.setItem("sales", JSON.stringify(sales));
+  localStorage.setItem("orders", JSON.stringify(orders));
+  localStorage.setItem("expenses", JSON.stringify(expenses));
+  localStorage.setItem("staffLog", JSON.stringify(staffLog));
 }
 
-function saveDataToStorage() {
-  try {
-    const data = {
-      products, sales, orders, expenses, staffLog,
-      nextProductId, nextSaleId, nextOrderId, nextExpenseId, invoiceCounter
-    };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  } catch (e) {
-    console.error("Save error:", e);
-  }
+function loadDataFromStorage() {
+  products = JSON.parse(localStorage.getItem("products") || "[]");
+  sales = JSON.parse(localStorage.getItem("sales") || "[]");
+  orders = JSON.parse(localStorage.getItem("orders") || "[]");
+  expenses = JSON.parse(localStorage.getItem("expenses") || "[]");
+  staffLog = JSON.parse(localStorage.getItem("staffLog") || "[]");
+
+  nextProductId = products.length + 1;
+  nextSaleId = sales.length + 1;
+  nextOrderId = orders.length + 1;
+  nextExpenseId = expenses.length + 1;
 }
 
 /********************************************
  * LOGIN
  ********************************************/
 function fakeLogin() {
-  const email = document.getElementById("loginEmail").value.trim().toLowerCase();
-  const pass = document.getElementById("loginPassword").value.trim().toLowerCase();
-
-  if (email === "admin" && pass === "admin") {
-    currentRole = "admin";
-    currentUserName = "Admin";
-  } else if (email === "staff" && pass === "staff") {
-    currentRole = "staff";
-    currentUserName = "Staff";
-  } else {
-    alert("Wrong login. Use admin/admin or staff/staff");
-    return;
-  }
-
-  document.getElementById("userName").innerText = currentUserName;
-  document.getElementById("userRoleLabel").innerText = currentRole;
-
   document.getElementById("loginOverlay").style.display = "none";
-
-  renderAll();
 }
 
 /********************************************
  * NAVIGATION
  ********************************************/
-function showSection(ev, name) {
-  const sections = ["dashboard","products","sales","orders","expenses","alerts"];
-  sections.forEach(s => {
-    document.getElementById("section-" + s).classList.add("hidden");
-  });
-  document.getElementById("section-" + name).classList.remove("hidden");
-
-  document.querySelectorAll(".app-nav .nav-link").forEach(btn => btn.classList.remove("active"));
-  if (ev && ev.target) ev.target.classList.add("active");
-}
-
 function bottomNavClick(section) {
-  showSection(null, section);
-  document.querySelectorAll(".bottom-nav .nav-link").forEach(btn => btn.classList.remove("active"));
+  document.querySelectorAll(".section").forEach(s => s.classList.add("hidden"));
+  document.getElementById("section-" + section).classList.remove("hidden");
+
+  document.querySelectorAll(".bottom-nav .nav-link")
+    .forEach(btn => btn.classList.remove("active"));
+
   document.getElementById("bottom-" + section).classList.add("active");
+
+  renderAll();
 }
 
 /********************************************
  * RENDER ALL
  ********************************************/
 function renderAll() {
-  renderMetrics();
-  renderBestSelling();
   renderProductsTable();
   renderCartProductOptions();
-  renderAdjustProductOptions();
-  renderSalesList();
-  renderAlerts();
-  renderDashboardLowStock();
   renderCartTable();
   renderOrdersTable();
   renderExpensesTable();
+  renderAlerts();
   renderStaffLogTable();
-  saveDataToStorage();
+  renderDashboard();
 }
-  /********************************************
- * DASHBOARD METRICS
- ********************************************/
-function renderMetrics() {
-  document.getElementById("metricTotalProducts").innerText = products.length;
-  document.getElementById("metricTotalOrders").innerText = orders.length;
 
-  const totalSales = sales.reduce((sum,s) => sum + s.total, 0);
-  document.getElementById("metricTotalSales").innerText = totalSales + " PKR";
+/********************************************
+ * DASHBOARD
+ ********************************************/
+function renderDashboard() {
+  const totalSales = sales.reduce((sum, s) => sum + s.total, 0);
+  const totalProfit = sales.reduce((sum, s) => sum + s.profit, 0);
+
+  const today = new Date().toDateString();
+  const dailySales = sales.filter(s => new Date(s.date).toDateString() === today)
+                          .reduce((sum, s) => sum + s.total, 0);
+
+  const dailyProfit = sales.filter(s => new Date(s.date).toDateString() === today)
+                           .reduce((sum, s) => sum + s.profit, 0);
+
+  const month = new Date().getMonth();
+  const monthlySales = sales.filter(s => new Date(s.date).getMonth() === month)
+                            .reduce((sum, s) => sum + s.total, 0);
+
+  const monthlyProfit = sales.filter(s => new Date(s.date).getMonth() === month)
+                             .reduce((sum, s) => sum + s.profit, 0);
 
   const lowStock = products.filter(p => p.stock <= 5).length;
-  document.getElementById("metricLowStock").innerText = lowStock;
 
-  const now = new Date();
-  const oneDay = 24*60*60*1000;
-
-  let dailySales = 0, monthlySales = 0;
-  let dailyProfit = 0, monthlyProfit = 0;
-
-  sales.forEach(s => {
-    const diff = (now - s.date) / oneDay;
-    if (diff <= 1) {
-      dailySales += s.total;
-      dailyProfit += s.profit || 0;
-    }
-    if (diff <= 30) {
-      monthlySales += s.total;
-      monthlyProfit += s.profit || 0;
-    }
-  });
-
-  let dailyExpense = 0, monthlyExpense = 0;
-  expenses.forEach(e => {
-    const diff = (now - e.date) / oneDay;
-    if (diff <= 1) dailyExpense += e.amount;
-    if (diff <= 30) monthlyExpense += e.amount;
-  });
-
+  document.getElementById("metricTotalSales").innerText = totalSales + " PKR";
   document.getElementById("metricDailySales").innerText = dailySales + " PKR";
   document.getElementById("metricMonthlySales").innerText = monthlySales + " PKR";
-  document.getElementById("metricDailyProfit").innerText = (dailyProfit - dailyExpense) + " PKR";
-  document.getElementById("metricMonthlyProfit").innerText = (monthlyProfit - monthlyExpense) + " PKR";
 
-  document.getElementById("metricDailyExpense").innerText = dailyExpense + " PKR";
-  document.getElementById("metricMonthlyExpense").innerText = monthlyExpense + " PKR";
-  document.getElementById("metricNetMonthlyProfit").innerText = (monthlySales - monthlyExpense) + " PKR";
+  document.getElementById("metricDailyProfit").innerText = dailyProfit + " PKR";
+  document.getElementById("metricMonthlyProfit").innerText = monthlyProfit + " PKR";
 
-  const pending = orders.filter(o => o.paymentStatus === "Pending").length;
-  document.getElementById("metricPendingPayments").innerText = pending;
+  document.getElementById("metricLowStock").innerText = lowStock;
 }
 
 /********************************************
- * BEST SELLING
+ * PRODUCTS
  ********************************************/
-function renderBestSelling() {
-  const container = document.getElementById("bestSellingContainer");
-  container.innerHTML = "";
+function saveProduct(e) {
+  e.preventDefault();
 
-  const sorted = [...products].sort((a,b) => b.sold - a.sold).slice(0,4);
+  const id = document.getElementById("prodId").value;
+  const name = document.getElementById("prodName").value.trim();
+  const category = document.getElementById("prodCategory").value;
+  const code = document.getElementById("prodCode").value.trim();
+  const purchase = Number(document.getElementById("prodPurchase").value);
+  const sale = Number(document.getElementById("prodSale").value);
+  const discount = Number(document.getElementById("prodDiscount").value);
+  const stock = Number(document.getElementById("prodStock").value);
 
-  sorted.forEach(p => {
-    const div = document.createElement("div");
-    div.className = "col-6 col-md-3";
-    div.innerHTML = `
-      <div class="product-card text-center">
-        <div class="mb-1"><span class="product-tag">${p.category}</span></div>
-        <strong>${p.name}</strong>
-      </div>`;
-    container.appendChild(div);
-  });
+  if (!name || !code || !purchase || !sale || !stock) return;
+
+  if (id) {
+    const p = products.find(x => x.id == id);
+    p.name = name;
+    p.category = category;
+    p.code = code;
+    p.purchase = purchase;
+    p.sale = sale;
+    p.discount = discount;
+    p.stock = stock;
+  } else {
+    products.push({
+      id: nextProductId++,
+      name,
+      category,
+      code,
+      purchase,
+      sale,
+      discount,
+      stock,
+      sold: 0
+    });
+  }
+
+  document.getElementById("prodId").value = "";
+  document.getElementById("prodName").value = "";
+  document.getElementById("prodCode").value = "";
+  document.getElementById("prodPurchase").value = "";
+  document.getElementById("prodSale").value = "";
+  document.getElementById("prodDiscount").value = "";
+  document.getElementById("prodStock").value = "";
+
+  renderAll();
+  saveDataToStorage();
 }
 
-/********************************************
- * PRODUCTS TABLE
- ********************************************/
 function renderProductsTable() {
   const tbody = document.getElementById("productsTableBody");
   tbody.innerHTML = "";
 
   products.forEach(p => {
     const tr = document.createElement("tr");
-
-    let actions = "";
-    if (currentRole === "admin") {
-      actions = `
-        <button class="btn btn-sm btn-outline-primary me-1" onclick="editProduct(${p.id})">
-          <i class="bi bi-pencil"></i>
-        </button>
-        <button class="btn btn-sm btn-outline-danger" onclick="deleteProduct(${p.id})">
-          <i class="bi bi-trash"></i>
-        </button>`;
-    } else {
-      actions = `<span class="text-muted" style="font-size:0.8rem;">View only</span>`;
-    }
-
     tr.innerHTML = `
       <td>${p.name}</td>
       <td>${p.category}</td>
       <td>${p.code}</td>
       <td>${p.purchase}</td>
       <td>${p.sale}</td>
-      <td>${p.discount || "-"}</td>
-      <td class="${p.stock <= 5 ? 'low-stock' : ''}">${p.stock}</td>
+      <td>${p.discount}</td>
+      <td>${p.stock}</td>
       <td>${p.sold}</td>
-      <td>${actions}</td>
+      <td>
+        <button class="btn btn-sm btn-outline-light" onclick="editProduct(${p.id})">Edit</button>
+      </td>
     `;
-
     tbody.appendChild(tr);
   });
 }
 
-/********************************************
- * PRODUCT FORM
- ********************************************/
-function saveProduct(e) {
-  e.preventDefault();
-  if (currentRole !== "admin") return;
-
-  const id = document.getElementById("prodId").value;
-  const name = document.getElementById("prodName").value.trim();
-  const category = document.getElementById("prodCategory").value.trim();
-  const code = document.getElementById("prodCode").value.trim();
-  const purchase = Number(document.getElementById("prodPurchase").value);
-  const sale = Number(document.getElementById("prodSale").value);
-  const discount = Number(document.getElementById("prodDiscount").value || 0);
-  const stock = Number(document.getElementById("prodStock").value);
-
-  if (!name) return;
-
-  if (id) {
-    const p = products.find(x => x.id == id);
-    if (p) {
-      p.name = name;
-      p.category = category;
-      p.code = code;
-      p.purchase = purchase;
-      p.sale = sale;
-      p.discount = discount;
-      p.stock = stock;
-    }
-    staffLog.push({user:currentUserName, action:"Edit Product", details:name, date:new Date()});
-  } else {
-    products.push({id:nextProductId++, code, name, category, purchase, sale, discount, stock, sold:0});
-    staffLog.push({user:currentUserName, action:"Add Product", details:name, date:new Date()});
-  }
-
-  resetProductForm();
-  renderAll();
-}
-
-function resetProductForm() {
-  document.getElementById("prodId").value = "";
-  document.getElementById("prodName").value = "";
-  document.getElementById("prodCategory").value = "Jewelry";
-  document.getElementById("prodCode").value = "";
-  document.getElementById("prodPurchase").value = "";
-  document.getElementById("prodSale").value = "";
-  document.getElementById("prodDiscount").value = "";
-  document.getElementById("prodStock").value = "";
-}
-
 function editProduct(id) {
-  if (currentRole !== "admin") return;
-
   const p = products.find(x => x.id === id);
-  if (!p) return;
-
   document.getElementById("prodId").value = p.id;
   document.getElementById("prodName").value = p.name;
   document.getElementById("prodCategory").value = p.category;
@@ -1210,67 +658,13 @@ function editProduct(id) {
   document.getElementById("prodSale").value = p.sale;
   document.getElementById("prodDiscount").value = p.discount;
   document.getElementById("prodStock").value = p.stock;
-
-  showSection(null, "products");
-}
-
-function deleteProduct(id) {
-  if (currentRole !== "admin") return;
-  if (!confirm("Delete product?")) return;
-
-  const p = products.find(x => x.id === id);
-  products = products.filter(x => x.id !== id);
-
-  staffLog.push({user:currentUserName, action:"Delete Product", details:p.name, date:new Date()});
-
-  renderAll();
 }
 
 /********************************************
- * STOCK ADJUST
- ********************************************/
-function adjustStock(e) {
-  e.preventDefault();
-
-  const prodId = Number(document.getElementById("adjustProduct").value);
-  const qty = Number(document.getElementById("adjustQuantity").value);
-
-  if (!prodId || !qty) return;
-
-  const p = products.find(x => x.id === prodId);
-  if (!p) return;
-
-  p.stock += qty;
-
-  staffLog.push({
-    user:currentUserName,
-    action:"Stock Adjust",
-    details:`${p.name} (${qty > 0 ? "+" : ""}${qty})`,
-    date:new Date()
-  });
-
-  document.getElementById("adjustQuantity").value = "";
-  document.getElementById("adjustProduct").value = "";
-
-  renderAll();
-}
-  /********************************************
  * CART OPTIONS
  ********************************************/
 function renderCartProductOptions() {
   const select = document.getElementById("cartProduct");
-  select.innerHTML = `<option value="none">Select product</option>`;
-
-  products.forEach(p => {
-    const opt = document.createElement("option");
-    opt.value = p.id;
-    opt.textContent = `${p.name} (${p.code}) - Stock: ${p.stock}`;
-    select.appendChild(opt);
-  });
-}
-
-function renderAdjustProductOptions() {
-  const select = document.getElementById("adjustProduct");
   select.innerHTML = `<option value="">Select product</option>`;
 
   products.forEach(p => {
@@ -1308,11 +702,11 @@ function addToCart(e) {
     }
     existing.quantity += qty;
   } else {
-    cart.push({productId:prodId, quantity:qty});
+    cart.push({productId: prodId, quantity: qty});
   }
 
   document.getElementById("cartQuantity").value = "";
-  document.getElementById("cartProduct").value = "none";
+  document.getElementById("cartProduct").value = "";
 
   renderCartTable();
 }
@@ -1326,7 +720,7 @@ function renderCartTable() {
 
   let total = 0;
 
-  cart.forEach((c,idx) => {
+  cart.forEach((c, idx) => {
     const p = products.find(x => x.id === c.productId);
     if (!p) return;
 
@@ -1342,7 +736,7 @@ function renderCartTable() {
       <td>${lineTotal}</td>
       <td>
         <button class="btn btn-sm btn-outline-danger" onclick="removeCartItem(${idx})">
-          <i class="bi bi-x"></i>
+          X
         </button>
       </td>
     `;
@@ -1353,7 +747,7 @@ function renderCartTable() {
 }
 
 function removeCartItem(i) {
-  cart.splice(i,1);
+  cart.splice(i, 1);
   renderCartTable();
 }
 
@@ -1388,7 +782,7 @@ function checkoutCart() {
     p.stock -= c.quantity;
     p.sold += c.quantity;
 
-    items.push({name:p.name, qty:c.quantity, price, total:lineTotal});
+    items.push({name: p.name, qty: c.quantity, price, total: lineTotal});
   });
 
   const customer = document.getElementById("orderCustomerName").value.trim() || "Walk-in";
@@ -1427,6 +821,7 @@ function checkoutCart() {
 
   cart = [];
   renderAll();
+  saveDataToStorage();
 }
 
 /********************************************
@@ -1450,28 +845,11 @@ function showInvoice(items, total) {
   document.getElementById("invoiceTotal").innerText = total;
   document.getElementById("invoiceNumber").innerText = invoiceCounter++;
   document.getElementById("invoiceDate").innerText = new Date().toLocaleString();
-  document.getElementById("invoiceAiLine").innerText = aiLines[Math.floor(Math.random()*aiLines.length)];
+  document.getElementById("invoiceAiLine").innerText =
+    aiLines[Math.floor(Math.random() * aiLines.length)];
 
   const modal = new bootstrap.Modal(document.getElementById("invoiceModal"));
   modal.show();
-}
-
-/********************************************
- * SALES LIST
- ********************************************/
-function renderSalesList() {
-  const list = document.getElementById("salesList");
-  list.innerHTML = "";
-
-  sales.slice().reverse().forEach(s => {
-    const li = document.createElement("li");
-    li.className = "list-group-item";
-    li.innerHTML = `
-      <b>Sale #${s.id}</b> — ${s.total} PKR
-      <br><small>${s.date.toLocaleString()}</small>
-    `;
-    list.appendChild(li);
-  });
 }
 
 /********************************************
@@ -1489,7 +867,7 @@ function renderOrdersTable() {
       <td>${o.phone}</td>
       <td>${o.total}</td>
       <td>${o.paymentStatus}</td>
-      <td>${o.date.toLocaleString()}</td>
+      <td>${new Date(o.date).toLocaleString()}</td>
     `;
     tbody.appendChild(tr);
   });
@@ -1508,7 +886,7 @@ function renderExpensesTable() {
       <td>${e.title}</td>
       <td>${e.category}</td>
       <td>${e.amount}</td>
-      <td>${e.date.toLocaleString()}</td>
+      <td>${new Date(e.date).toLocaleString()}</td>
     `;
     tbody.appendChild(tr);
   });
@@ -1545,6 +923,7 @@ function addExpense(e) {
   document.getElementById("expenseAmount").value = "";
 
   renderAll();
+  saveDataToStorage();
 }
 
 /********************************************
@@ -1563,21 +942,6 @@ function renderAlerts() {
 }
 
 /********************************************
- * DASHBOARD LOW STOCK LIST
- ********************************************/
-function renderDashboardLowStock() {
-  const list = document.getElementById("dashboardLowStockList");
-  list.innerHTML = "";
-
-  products.filter(p => p.stock <= 5).forEach(p => {
-    const li = document.createElement("li");
-    li.className = "list-group-item";
-    li.innerHTML = `${p.name} — <b>${p.stock}</b>`;
-    list.appendChild(li);
-  });
-}
-
-/********************************************
  * STAFF LOG
  ********************************************/
 function renderStaffLogTable() {
@@ -1590,55 +954,61 @@ function renderStaffLogTable() {
       <td>${l.user}</td>
       <td>${l.action}</td>
       <td>${l.details}</td>
-      <td>${l.date.toLocaleString()}</td>
+      <td>${new Date(l.date).toLocaleString()}</td>
     `;
     tbody.appendChild(tr);
   });
 }
-  /********************************************
- * RESET FUNCTIONS (SAFE — PRODUCTS SAFE)
+
+/********************************************
+ * RESET FUNCTIONS
  ********************************************/
 function resetSales() {
   if (!confirm("Clear all sales?")) return;
   sales = [];
   renderAll();
+  saveDataToStorage();
 }
 
 function resetOrders() {
   if (!confirm("Clear all orders?")) return;
   orders = [];
   renderAll();
+  saveDataToStorage();
 }
 
 function resetExpenses() {
   if (!confirm("Clear all expenses?")) return;
   expenses = [];
   renderAll();
+  saveDataToStorage();
 }
 
 function resetStaffLog() {
   if (!confirm("Clear staff log?")) return;
   staffLog = [];
   renderAll();
+  saveDataToStorage();
 }
 
 function resetProductSold() {
   if (!confirm("Set all sold = 0? Stock safe.")) return;
   products.forEach(p => p.sold = 0);
   renderAll();
+  saveDataToStorage();
 }
 
 function resetFullSystem() {
-  if (!confirm("Full reset? Sales, orders, expenses, staff log — all clear. Products SAFE.")) return;
+  if (!confirm("Full reset? Products safe.")) return;
 
   sales = [];
   orders = [];
   expenses = [];
   staffLog = [];
-
   products.forEach(p => p.sold = 0);
 
   renderAll();
+  saveDataToStorage();
 }
 
 /********************************************
@@ -1659,7 +1029,10 @@ function closeSettings() {
  ********************************************/
 loadDataFromStorage();
 renderAll();
-
 </script>
+
+<!-- BOOTSTRAP JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

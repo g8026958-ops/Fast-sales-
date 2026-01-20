@@ -1544,9 +1544,22 @@ ul.appendChild(li);
 }
 
 function renderStaffLogTable(){
+  const tbody = document.getElementById("staf`;
+ul.appendChild(li);
+  });
+}
+
+function renderStaffLogTable(){
   const tbody = document.getElementById("staffLogTableBody");
-  
-</script>
-</body>
-</html>                  
-                                      
+  tbody.innerHTML = "";
+  staffLog.slice().reverse().forEach(log => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${log.user}</td>
+      <td>${log.action}</td>
+      <td>${log.details}</td>
+      <td>${log.date.toLocaleString()}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}

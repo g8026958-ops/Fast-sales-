@@ -1,283 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Al Syed Sales Point - Full System</title>
-
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <!-- Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
-
-  <style>
-    :root {
-      --primary:#ff4b9a;
-      --primary-dark:#c2185b;
-      --accent:#ffcc00;
-      --bg:#f7f7fb;
-      --black:#111111;
-      --card-bg:#ffffff;
-    }
-    body {
-      background:var(--bg);
-      font-family:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color:var(--black);
-      padding-bottom:70px;
-    }
-
-    .navbar-gradient {
-      background:linear-gradient(135deg, #000000, #ff4b9a);
-    }
-    .brand {
-      font-weight:700;
-      font-size:1.4rem;
-      letter-spacing:0.5px;
-    }
-
-    .metric-card {
-      border-radius:16px;
-      background:var(--card-bg);
-      padding:18px;
-      box-shadow:0 10px 25px rgba(0, 0, 0, 0.12);
-      transition:0.2s;
-      border:0;
-    }
-    .metric-card:hover {
-      transform:translateY(-4px);
-      box-shadow:0 16px 35px rgba(0, 0, 0, 0.18);
-    }
-    .metric-title {
-      font-size:0.8rem;
-      color:#6c757d;
-      text-transform:uppercase;
-      letter-spacing:0.06em;
-    }
-    .metric-value {
-      font-size:1.5rem;
-      font-weight:700;
-      color:var(--black);
-    }
-    .metric-pill {
-      display:inline-flex;
-      align-items:center;
-      gap:4px;
-      padding:2px 8px;
-      border-radius:999px;
-      font-size:0.7rem;
-      background:rgba(255,75,154,0.12);
-      color:var(--primary-dark);
-    }
-    .low-stock {
-      color:#ff1744;
-      font-weight:600;
-    }
-
-    .app-nav {
-      background:#000000;
-      border-bottom:1px solid #222;
-      position:sticky;
-      top:0;
-      z-index:50;
-    }
-    .app-nav .nav-link {
-      border-radius:999px;
-      padding:6px 14px;
-      font-size:0.9rem;
-      color:#f5f5f5;
-      border:0;
-    }
-    .app-nav .nav-link.active {
-      background:linear-gradient(135deg, #ff4b9a, #ffffff);
-      color:#000000 !important;
-      box-shadow:0 8px 18px rgba(255,75,154,0.45);
-    }
-
-    .product-card {
-      border-radius:14px;
-      padding:12px;
-      background:var(--card-bg);
-      box-shadow:0 6px 16px rgba(0, 0, 0, 0.12);
-      border:0;
-    }
-    .product-tag {
-      display:inline-block;
-      padding:2px 8px;
-      border-radius:999px;
-      font-size:0.7rem;
-      background:#ffe4f0;
-      color:#ad1457;
-    }
-
-    .section-title {
-      font-weight:600;
-      font-size:1.05rem;
-      color:#111827;
-    }
-
-    .hidden { display:none !important; }
-
-    #loginOverlay {
-      position:fixed;
-      inset:0;
-      background:radial-gradient(circle at top, rgba(255,75,154,0.4), rgba(0,0,0,0.95));
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      z-index:9999;
-    }
-    #loginCard {
-      background:#111111;
-      border-radius:18px;
-      padding:24px 22px;
-      width:100%;
-      max-width:380px;
-      box-shadow:0 20px 45px rgba(0, 0, 0, 0.75);
-      color:#ffffff;
-    }
-    #loginCard h4 { font-weight:700; }
-    .login-badge {
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      padding:4px 10px;
-      border-radius:999px;
-      background:rgba(255,75,154,0.18);
-      color:#ff80ab;
-      font-size:0.75rem;
-    }
-    #loginCard .form-label { color:#f5f5f5; }
-    #loginCard .form-control {
-      background:#1e1e1e;
-      border-color:#333;
-      color:#ffffff;
-    }
-    #loginCard .form-control::placeholder {
-      color:#777;
-    }
-
-    .table thead {
-      font-size:0.8rem;
-      text-transform:uppercase;
-      letter-spacing:0.05em;
-      background:#111;
-      color:#fff;
-    }
-    .table td {
-      vertical-align:middle;
-      font-size:0.9rem;
-      background:#ffffff;
-    }
-
-    .chip {
-      display:inline-flex;
-      align-items:center;
-      gap:4px;
-      padding:2px 8px;
-      border-radius:999px;
-      font-size:0.75rem;
-      background:#ffe4f0;
-      color:#ad1457;
-    }
-
-    .role-badge {
-      display:inline-flex;
-      align-items:center;
-      gap:4px;
-      padding:2px 8px;
-      border-radius:999px;
-      font-size:0.75rem;
-      background:#ffe4f0;
-      color:#ad1457;
-    }
-
-    #bestSellingContainer {
-      display:flex;
-      flex-wrap:wrap;
-    }
-
-    .cart-table thead {
-      background:#111;
-      color:#fff;
-    }
-
-    .invoice-header {
-      border-bottom:1px solid #eee;
-      padding-bottom:8px;
-      margin-bottom:8px;
-    }
-    .invoice-ai-line {
-      font-style:italic;
-      color:#c2185b;
-      font-size:0.85rem;
-    }
-
-    .bottom-nav {
-      position:fixed;
-      bottom:0;
-      left:0;
-      right:0;
-      background:#000;
-      border-top:1px solid #222;
-      z-index:60;
-    }
-    .bottom-nav .nav-link {
-      color:#f5f5f5;
-      font-size:0.8rem;
-      padding:6px 0;
-      border-radius:0;
-    }
-    .bottom-nav .nav-link.active {
-      color:#000;
-      background:linear-gradient(135deg,#ff4b9a,#ffffff);
-    }
-
-    .fab {
-      position:fixed;
-      bottom:80px;
-      right:16px;
-      width:56px;
-      height:56px;
-      border-radius:50%;
-      background:linear-gradient(135deg,#ff4b9a,#ffffff);
-      box-shadow:0 10px 25px rgba(0,0,0,0.4);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      z-index:70;
-      border:0;
-      color:#000;
-    }
-    .fab-menu {
-      position:fixed;
-      bottom:140px;
-      right:16px;
-      z-index:69;
-    }
-    .fab-menu button {
-      display:block;
-      margin-bottom:6px;
-      border-radius:999px;
-      border:0;
-      padding:4px 10px;
-      font-size:0.8rem;
-      background:#111;
-      color:#fff;
-      box-shadow:0 6px 16px rgba(0,0,0,0.4);
-    }
-    .fab-menu.hidden { display:none; }
-
-    .badge-pending {
-      background:#ff1744;
-    }
-    .badge-paid {
-      background:#2e7d32;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Al Syed Sales Point - Full System</title>
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+<style>
+:root {
+  --primary:#ff4b9a;
+  --primary-dark:#c2185b;
+  --accent:#ffcc00;
+  --bg:#f7f7fb;
+  --black:#111111;
+  --card-bg:#ffffff;
+}
+body {
+  background:var(--bg);
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color:var(--black);
+  padding-bottom:70px;
+}
+.navbar-gradient {
+  background:linear-gradient(135deg, #000000, #ff4b9a);
+}
+.brand {
+  font-weight:700;
+  font-size:1.4rem;
+  letter-spacing:0.5px;
+}
+.metric-card {
+  border-radius:16px;
+  background:var(--card-bg);
+  padding:18px;
+  box-shadow:0 10px 25px rgba(0, 0, 0, 0.12);
+  transition:0.2s;
+  border:0;
+}
+.metric-card:hover {
+  transform:translateY(-4px);
+  box-shadow:0 16px 35px rgba(0, 0, 0, 0.18);
+}
+.metric-title {
+  font-size:0.8rem;
+  color:#6c757d;
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+}
+.metric-value {
+  font-size:1.5rem;
+  font-weight:700;
+  color:var(--black);
+}
+.metric-pill {
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  padding:2px 8px;
+  border-radius:999px;
+  font-size:0.7rem;
+  background:rgba(255,75,154,0.12);
+  color:var(--primary-dark);
+}
+.low-stock {
+  color:#ff1744;
+  font-weight:600;
+}
+.app-nav {
+  background:#000000;
+  border-bottom:1px solid #222;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+.app-nav .nav-link {
+  border-radius:999px;
+  padding:6px 14px;
+  font-size:0.9rem;
+  color:#f5f5f5;
+  border:0;
+}
+.app-nav .nav-link.active {
+  background:linear-gradient(135deg, #ff4b9a, #ffffff);
+  color:#000000 !important;
+  box-shadow:0 8px 18px rgba(255,75,154,0.45);
+}
+.product-card {
+  border-radius:14px;
+  padding:12px;
+  background:var(--card-bg);
+  box-shadow:0 6px 16px rgba(0, 0, 0, 0.12);
+  border:0;
+}
+.product-tag {
+  display:inline-block;
+  padding:2px 8px;
+  border-radius:999px;
+  font-size:0.7rem;
+  background:#ffe4f0;
+  color:#ad1457;
+}
+.section-title {
+  font-weight:600;
+  font-size:1.05rem;
+  color:#111827;
+}
+.hidden {
+  display:none !important;
+}
+#loginOverlay {
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at top, rgba(255,75,154,0.4), rgba(0,0,0,0.95));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+#loginCard {
+  background:#111111;
+  border-radius:18px;
+  padding:24px 22px;
+  width:100%;
+  max-width:380px;
+  box-shadow:0 20px 45px rgba(0, 0, 0, 0.75);
+  color:#ffffff;
+}
+#loginCard h4 {
+  font-weight:700;
+}
+.login-badge {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:4px 10px;
+  border-radius:999px;
+  background:rgba(255,75,154,0.18);
+  color:#ff80ab;
+  font-size:0.75rem;
+}
+#loginCard .form-label {
+  color:#f5f5f5;
+}
+#loginCard .form-control {
+  background:#1e1e1e;
+  border-color:#333;
+  color:#ffffff;
+}
+#loginCard .form-control::placeholder {
+  color:#777;
+}
+.table thead {
+  font-size:0.8rem;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  background:#111;
+  color:#fff;
+}
+.table td {
+  vertical-align:middle;
+  font-size:0.9rem;
+  background:#ffffff;
+}
+.chip {
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  padding:2px 8px;
+  border-radius:999px;
+  font-size:0.75rem;
+  background:#ffe4f0;
+  color:#ad1457;
+}
+.role-badge {
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  padding:2px 8px;
+  border-radius:999px;
+  font-size:0.75rem;
+  background:#ffe4f0;
+  color:#ad1457;
+}
+#bestSellingContainer {
+  display:flex;
+  flex-wrap:wrap;
+}
+.cart-table thead {
+  background:#111;
+  color:#fff;
+}
+.invoice-header {
+  border-bottom:1px solid #eee;
+  padding-bottom:8px;
+  margin-bottom:8px;
+}
+.invoice-ai-line {
+  font-style:italic;
+  color:#c2185b;
+  font-size:0.85rem;
+}
+.bottom-nav {
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#000;
+  border-top:1px solid #222;
+  z-index:60;
+}
+.bottom-nav .nav-link {
+  color:#f5f5f5;
+  font-size:0.8rem;
+  padding:6px 0;
+  border-radius:0;
+}
+.bottom-nav .nav-link.active {
+  color:#000;
+  background:linear-gradient(135deg,#ff4b9a,#ffffff);
+}
+.fab {
+  position:fixed;
+  bottom:80px;
+  right:16px;
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#ff4b9a,#ffffff);
+  box-shadow:0 10px 25px rgba(0,0,0,0.4);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:70;
+  border:0;
+  color:#000;
+}
+.fab-menu {
+  position:fixed;
+  bottom:140px;
+  right:16px;
+  z-index:69;
+}
+.fab-menu button {
+  display:block;
+  margin-bottom:6px;
+  border-radius:999px;
+  border:0;
+  padding:4px 10px;
+  font-size:0.8rem;
+  background:#111;
+  color:#fff;
+  box-shadow:0 6px 16px rgba(0,0,0,0.4);
+}
+.fab-menu.hidden {
+  display:none;
+}
+.badge-pending {
+  background:#ff1744;
+}
+.badge-paid {
+  background:#2e7d32;
+}
+</style>
 </head>
-
 <body>
-
 <!-- LOGIN OVERLAY -->
 <div id="loginOverlay">
   <div id="loginCard">
@@ -360,7 +348,6 @@
 </div>
 
 <div class="container my-3">
-
   <!-- DASHBOARD -->
   <div id="section-dashboard">
     <div class="row g-3">
@@ -373,7 +360,6 @@
           <div class="metric-value" id="metricTotalProducts">0</div>
         </div>
       </div>
-
       <div class="col-6 col-md-3">
         <div class="metric-card">
           <div class="d-flex justify-content-between align-items-center mb-1">
@@ -383,7 +369,6 @@
           <div class="metric-value" id="metricTotalOrders">0</div>
         </div>
       </div>
-
       <div class="col-6 col-md-3">
         <div class="metric-card">
           <div class="d-flex justify-content-between align-items-center mb-1">
@@ -393,7 +378,6 @@
           <div class="metric-value" id="metricTotalSales">0 PKR</div>
         </div>
       </div>
-
       <div class="col-6 col-md-3">
         <div class="metric-card">
           <div class="d-flex justify-content-between align-items-center mb-1">
@@ -765,6 +749,7 @@
       <span>Low Stock & Staff Activity</span>
       <span class="chip"><i class="bi bi-bell"></i> Alerts & Log</span>
     </div>
+
     <div class="card mb-3 shadow-sm border-0">
       <div class="card-header bg-dark text-white fw-bold">
         Low Stock Alerts
@@ -793,7 +778,6 @@
       </div>
     </div>
   </div>
-
 </div>
 
 <!-- INVOICE MODAL -->
@@ -894,653 +878,704 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  let products = [
-    {id:1, name:"Ruby Necklace", category:"Jewelry", purchase:15000, sale:20000, discount:18000, stock:300, sold:200},
-    {id:2, name:"Matte Lipstick", category:"Cosmetics", purchase:300, sale:600, discount:450, stock:80, sold:150},
-    {id:3, name:"Jewelry Set", category:"Jewelry", purchase:1200, sale:2400, discount:2000, stock:3, sold:400},
-    {id:4, name:"Premium Bra Set", category:"Undergarments", purchase:800, sale:1500, discount:1300, stock:5, sold:50},
-    {id:5, name:"Cotton Panty Pack", category:"Undergarments", purchase:200, sale:400, discount:350, stock:2, sold:80},
-    {id:6, name:"Men Undershirt", category:"Undergarments", purchase:500, sale:900, discount:0, stock:10, sold:40}
-  ];
-  let sales = [
-    {id:1, productId:1, quantity:2, total:36000, profit: (18000-15000)*2, date:new Date()},
-    {id:2, productId:2, quantity:5, total:2250, profit: (450-300)*5, date:new Date()}
-  ];
-  let orders = [];
-  let expenses = [];
-  let staffLog = [];
+// ---------- DATA + LOCAL STORAGE SETUP ----------
+const STORAGE_KEY = 'alSyed-pos-v1';
 
-  let cart = [];
-  let nextProductId = 7;
-  let nextSaleId = 3;
-  let nextOrderId = 1;
-  let nextExpenseId = 1;
-  let invoiceCounter = 1001;
+// Default demo data (sirf first time ke liye)
+let products = [
+  {id:1, name:"Ruby Necklace", category:"Jewelry", purchase:15000, sale:20000, discount:18000, stock:300, sold:200},
+  {id:2, name:"Matte Lipstick", category:"Cosmetics", purchase:300, sale:600, discount:450, stock:80, sold:150},
+  {id:3, name:"Jewelry Set", category:"Jewelry", purchase:1200, sale:2400, discount:2000, stock:3, sold:400},
+  {id:4, name:"Premium Bra Set", category:"Undergarments", purchase:800, sale:1500, discount:1300, stock:5, sold:50},
+  {id:5, name:"Cotton Panty Pack", category:"Undergarments", purchase:200, sale:400, discount:350, stock:2, sold:80},
+  {id:6, name:"Men Undershirt", category:"Undergarments", purchase:500, sale:900, discount:0, stock:10, sold:40}
+];
 
-  let currentRole = "admin";
-  let currentUserName = "Admin";
+let sales = [
+  {id:1, productId:1, quantity:2, total:36000, profit: (18000-15000)*2, date:new Date()},
+  {id:2, productId:2, quantity:5, total:2250, profit: (450-300)*5, date:new Date()}
+];
 
-  const aiLines = [
-    "AI note: Aaj ki sale strong hai — pace maintain rakho, profit line healthy lag rahi hai.",
-    "AI note: Best sellers ko front rack par rakho — jo bik raha hai, usko aur highlight karo.",
-    "AI note: Undergarments aur cosmetics ka mix ticket size ko stable rakhta hai — smart combo.",
-    "AI note: Low stock items ko jaldi refill karo — empty shelf, empty profit.",
-    "AI note: Repeat customers ke liye soft smile + fast billing = long term business."
-  ];
+let orders = [];
+let expenses = [];
+let staffLog = [];
+let cart = [];
 
-  function fakeLogin() {
-    const email = (document.getElementById('loginEmail').value || "").toLowerCase().trim();
-    const pass = (document.getElementById('loginPassword').value || "").toLowerCase().trim();
+let nextProductId = 7;
+let nextSaleId = 3;
+let nextOrderId = 1;
+let nextExpenseId = 1;
+let invoiceCounter = 1001;
 
-    if (email === "admin" && pass === "admin") {
-      currentRole = "admin";
-      currentUserName = "Admin";
-    } else if (email === "staff" && pass === "staff") {
-      currentRole = "staff";
-      currentUserName = "Staff";
-    } else {
-      alert("Wrong login. Use admin/admin or staff/staff");
-      return;
-    }
+let currentRole = "admin";
+let currentUserName = "Admin";
 
-    document.getElementById('userName').innerText = currentUserName;
-    document.getElementById('userRoleLabel').innerText = currentRole === "admin" ? "Admin" : "Staff";
+const aiLines = [
+  "AI note: Aaj ki sale strong hai — pace maintain rakho, profit line healthy lag rahi hai.",
+  "AI note: Best sellers ko front rack par rakho — jo bik raha hai, usko aur highlight karo.",
+  "AI note: Undergarments aur cosmetics ka mix ticket size ko stable rakhta hai — smart combo.",
+  "AI note: Low stock items ko jaldi refill karo — empty shelf, empty profit.",
+  "AI note: Repeat customers ke liye soft smile + fast billing = long term business."
+];
 
-    if (currentRole === "admin") {
-      document.getElementById('adminProductFormWrapper').classList.remove('hidden');
-      document.getElementById('staffStockAdjustWrapper').classList.add('hidden');
-    } else {
-      document.getElementById('adminProductFormWrapper').classList.add('hidden');
-      document.getElementById('staffStockAdjustWrapper').classList.remove('hidden');
-    }
+// LocalStorage se load
+function loadDataFromStorage() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return; // first time, demo data hi rahe
 
-    document.getElementById('loginOverlay').style.display = 'none';
-    renderAll();
+    const data = JSON.parse(raw);
+
+    if (Array.isArray(data.products)) products = data.products;
+    if (Array.isArray(data.sales)) sales = data.sales;
+    if (Array.isArray(data.orders)) orders = data.orders;
+    if (Array.isArray(data.expenses)) expenses = data.expenses;
+    if (Array.isArray(data.staffLog)) staffLog = data.staffLog;
+
+    // Dates ko wapas Date object banana
+    sales = sales.map(s => ({...s, date: new Date(s.date)}));
+    orders = orders.map(o => ({...o, date: new Date(o.date)}));
+    expenses = expenses.map(e => ({...e, date: new Date(e.date)}));
+    staffLog = staffLog.map(l => ({...l, date: new Date(l.date)}));
+
+    if (typeof data.nextProductId === 'number') nextProductId = data.nextProductId;
+    if (typeof data.nextSaleId === 'number') nextSaleId = data.nextSaleId;
+    if (typeof data.nextOrderId === 'number') nextOrderId = data.nextOrderId;
+    if (typeof data.nextExpenseId === 'number') nextExpenseId = data.nextExpenseId;
+    if (typeof data.invoiceCounter === 'number') invoiceCounter = data.invoiceCounter;
+  } catch (e) {
+    console.error('Load error:', e);
+  }
+}
+
+// LocalStorage me save
+function saveDataToStorage() {
+  try {
+    const data = {
+      products,
+      sales,
+      orders,
+      expenses,
+      staffLog,
+      nextProductId,
+      nextSaleId,
+      nextOrderId,
+      nextExpenseId,
+      invoiceCounter
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch (e) {
+    console.error('Save error:', e);
+  }
+}
+
+// ---------- LOGIN ----------
+function fakeLogin() {
+  const email = (document.getElementById('loginEmail').value || "").toLowerCase().trim();
+  const pass = (document.getElementById('loginPassword').value || "").toLowerCase().trim();
+
+  if (email === "admin" && pass === "admin") {
+    currentRole = "admin";
+    currentUserName = "Admin";
+  } else if (email === "staff" && pass === "staff") {
+    currentRole = "staff";
+    currentUserName = "Staff";
+  } else {
+    alert("Wrong login. Use admin/admin or staff/staff");
+    return;
   }
 
-  function showSection(ev, name) {
-    const sections = ["dashboard","products","sales","orders","expenses","alerts"];
-    sections.forEach(s => {
-      document.getElementById("section-"+s).classList.add("hidden");
-    });
-    document.getElementById("section-"+name).classList.remove("hidden");
+  document.getElementById('userName').innerText = currentUserName;
+  document.getElementById('userRoleLabel').innerText = currentRole === "admin" ? "Admin" : "Staff";
 
-    document.querySelectorAll(".app-nav .nav-link").forEach(btn => btn.classList.remove("active"));
-    if (ev && ev.target && ev.target.classList.contains('nav-link')) ev.target.classList.add("active");
+  if (currentRole === "admin") {
+    document.getElementById('adminProductFormWrapper').classList.remove('hidden');
+    document.getElementById('staffStockAdjustWrapper').classList.add('hidden');
+  } else {
+    document.getElementById('adminProductFormWrapper').classList.add('hidden');
+    document.getElementById('staffStockAdjustWrapper').classList.remove('hidden');
   }
 
-  function bottomNavClick(section) {
-    showSection(null, section);
-    document.querySelectorAll(".bottom-nav .nav-link").forEach(btn => btn.classList.remove("active"));
-    document.getElementById("bottom-"+section).classList.add("active");
-  }
+  document.getElementById('loginOverlay').style.display = 'none';
+  renderAll();
+}
 
-  function toggleFabMenu() {
-    const menu = document.getElementById('fabMenu');
-    menu.classList.toggle('hidden');
-  }
+// ---------- NAV ----------
+function showSection(ev, name) {
+  const sections = ["dashboard","products","sales","orders","expenses","alerts"];
+  sections.forEach(s => {
+    document.getElementById("section-" + s).classList.add("hidden");
+  });
+  document.getElementById("section-" + name).classList.remove("hidden");
 
-  function quickAction(type) {
-    if (type === 'addProduct') {
-      bottomNavClick('products');
-      showSection(null,'products');
-      document.getElementById('prodName').focus();
-    } else if (type === 'addStock') {
-      bottomNavClick('products');
-      showSection(null,'products');
-      document.getElementById('staffStockAdjustWrapper').scrollIntoView({behavior:'smooth'});
-    } else if (type === 'addCart') {
-      bottomNavClick('sales');
-      showSection(null,'sales');
-      document.getElementById('cartProduct').focus();
-    } else if (type === 'addExpense') {
-      bottomNavClick('expenses');
-      showSection(null,'expenses');
-      document.getElementById('expenseTitle').focus();
-    }
-    toggleFabMenu();
-  }
+  document.querySelectorAll(".app-nav .nav-link").forEach(btn => btn.classList.remove("active"));
+  if (ev && ev.target && ev.target.classList.contains('nav-link')) ev.target.classList.add("active");
+}
 
-  function renderAll() {
-    renderMetrics();
-    renderBestSelling();
-    renderProductsTable();
-    renderCartProductOptions();
-    renderAdjustProductOptions();
-    renderSalesList();
-    renderAlerts();
-    renderDashboardLowStock();
-    renderCartTable();
-    renderOrdersTable();
-    renderExpensesTable();
-    renderStaffLogTable();
-  }
+function bottomNavClick(section) {
+  showSection(null, section);
+  document.querySelectorAll(".bottom-nav .nav-link").forEach(btn => btn.classList.remove("active"));
+  document.getElementById("bottom-" + section).classList.add("active");
+}
 
-  function renderMetrics() {
-    const totalProducts = products.length;
-    const totalOrders = orders.length;
-    const totalSales = sales.reduce((sum,s) => sum + s.total, 0);
-    const lowStockCount = products.filter(p => p.stock <= 5).length;
+function toggleFabMenu() {
+  const menu = document.getElementById('fabMenu');
+  menu.classList.toggle('hidden');
+}
 
-    document.getElementById('metricTotalProducts').innerText = totalProducts;
-    document.getElementById('metricTotalOrders').innerText = totalOrders;
-    document.getElementById('metricTotalSales').innerText = totalSales.toLocaleString() + " PKR";
-    document.getElementById('metricLowStock').innerText = lowStockCount;
-
-    const now = new Date();
-    const oneDay = 24*60*60*1000;
-    let dailySales = 0, weeklySales = 0, monthlySales = 0;
-    let dailyProfit = 0, monthlyProfit = 0;
-
-    sales.forEach(s => {
-      const diff = (now - s.date) / oneDay;
-      if (diff <= 1) {
-        dailySales += s.total;
-        dailyProfit += s.profit || 0;
-      }
-      if (diff <= 7) weeklySales += s.total;
-      if (diff <= 30) {
-        monthlySales += s.total;
-        monthlyProfit += s.profit || 0;
-      }
-    });
-
-    let dailyExpense = 0, monthlyExpense = 0;
-    expenses.forEach(e => {
-      const diff = (now - e.date) / oneDay;
-      if (diff <= 1) dailyExpense += e.amount;
-      if (diff <= 30) monthlyExpense += e.amount;
-    });
-
-    document.getElementById('metricDailySales').innerText = dailySales.toLocaleString() + " PKR";
-    document.getElementById('metricMonthlySales').innerText = monthlySales.toLocaleString() + " PKR";
-    document.getElementById('metricDailyProfit').innerText = (dailyProfit - dailyExpense).toLocaleString() + " PKR";
-    document.getElementById('metricMonthlyProfit').innerText = (monthlyProfit - monthlyExpense).toLocaleString() + " PKR";
-
-    document.getElementById('metricDailyExpense').innerText = dailyExpense.toLocaleString() + " PKR";
-    document.getElementById('metricMonthlyExpense').innerText = monthlyExpense.toLocaleString() + " PKR";
-    document.getElementById('metricNetMonthlyProfit').innerText = (monthlySales - monthlyExpense).toLocaleString() + " PKR";
-
-    const pendingCount = orders.filter(o => o.paymentStatus === "Pending").length;
-    document.getElementById('metricPendingPayments').innerText = pendingCount;
-  }
-
-  function renderBestSelling() {
-    const container = document.getElementById('bestSellingContainer');
-    container.innerHTML = "";
-    const sorted = [...products].sort((a,b) => b.sold - a.sold).slice(0,4);
-    sorted.forEach(p => {
-      const div = document.createElement('div');
-      div.className = "col-6 col-md-3";
-      div.innerHTML = `
-        <div class="product-card text-center">
-          <div class="mb-1"><span class="product-tag">${p.category || 'Product'}</span></div>
-          <strong>${p.name}</strong><br>
-          <small>Sold: ${p.sold}</small>
-        </div>`;
-      container.appendChild(div);
-    });
-  }
-
-  function renderProductsTable() {
-    const tbody = document.getElementById('productsTableBody');
-    tbody.innerHTML = "";
-    products.forEach(p => {
-      const tr = document.createElement('tr');
-      let actions = "";
-      if (currentRole === "admin") {
-        actions = `
-          <button class="btn btn-sm btn-outline-primary me-1" onclick='editProduct(${p.id})'>
-            <i class="bi bi-pencil"></i>
-          </button>
-          <button class="btn btn-sm btn-outline-danger" onclick='deleteProduct(${p.id})'>
-            <i class="bi bi-trash"></i>
-          </button>`;
-      } else {
-        actions = `<span class="text-muted" style="font-size:0.8rem;">View only</span>`;
-      }
-      tr.innerHTML = `
-        <td>${p.name}</td>
-        <td>${p.category || ""}</td>
-        <td>${p.purchase}</td>
-        <td>${p.sale}</td>
-        <td>${p.discount || "-"}</td>
-        <td class="${p.stock <= 5 ? 'low-stock' : ''}">${p.stock}</td>
-        <td>${p.sold}</td>
-        <td>${actions}</td>`;
-      tbody.appendChild(tr);
-    });
-  }
-
-  function renderCartProductOptions() {
-    const select = document.getElementById('cartProduct');
-    select.innerHTML = `<option value="none">Select product</option>`;
-    products.forEach(p => {
-      const opt = document.createElement('option');
-      opt.value = p.id;
-      opt.textContent = `${p.name} (${p.category}) - Stock: ${p.stock}`;
-      select.appendChild(opt);
-    });
-  }
-
-  function renderAdjustProductOptions() {
-    const select = document.getElementById('adjustProduct');
-    if (!select) return;
-    select.innerHTML = `<option value="">Select product</option>`;
-    products.forEach(p => {
-      const opt = document.createElement('option');
-      opt.value = p.id;
-      opt.textContent = `${p.name} (Stock: ${p.stock})`;
-      select.appendChild(opt);
-    });
-  }
-
-  function renderSalesList() {
-    const list = document.getElementById('salesList');
-    list.innerHTML = "";
-    sales.slice().reverse().forEach(s => {
-      const p = products.find(x => x.id === s.productId);
-      const li = document.createElement('li');
-      li.className = "list-group-item d-flex justify-content-between align-items-center";
-      const dateStr = s.date.toLocaleDateString();
-      li.innerHTML = `
-        <span>${p ? p.name : 'Product'} x ${s.quantity} <small class="text-muted">(${dateStr})</small></span>
-        <span>${s.total.toLocaleString()} PKR</span>`;
-      list.appendChild(li);
-    });
-  }
-
-  function renderAlerts() {
-    const list = document.getElementById('alertsList');
-    list.innerHTML = "";
-    const low = products.filter(p => p.stock <= 5);
-    if (low.length === 0) {
-      const li = document.createElement('li');
-      li.className = "list-group-item";
-      li.textContent = "No low stock items.";
-      list.appendChild(li);
-      return;
-    }
-    low.forEach(p => {
-      const li = document.createElement('li');
-      li.className = "list-group-item d-flex justify-content-between align-items-center";
-      li.innerHTML = `
-        <span>${p.name} (${p.category || ''})</span>
-        <span class="low-stock">Stock: ${p.stock}</span>`;
-      list.appendChild(li);
-    });
-  }
-
-  function renderDashboardLowStock() {
-    const list = document.getElementById('dashboardLowStockList');
-    list.innerHTML = "";
-    const low = products.filter(p => p.stock <= 5);
-    if (low.length === 0) {
-      const li = document.createElement('li');
-      li.className = "list-group-item";
-      li.textContent = "All good. No low stock items.";
-      list.appendChild(li);
-      return;
-    }
-    low.forEach(p => {
-      const li = document.createElement('li');
-      li.className = "list-group-item d-flex justify-content-between align-items-center";
-      li.innerHTML = `
-        <span>${p.name} (${p.category})</span>
-        <span class="low-stock">Stock: ${p.stock}</span>`;
-      list.appendChild(li);
-    });
-  }
-
-  function renderOrdersTable() {
-    const tbody = document.getElementById('ordersTableBody');
-    tbody.innerHTML = "";
-    orders.slice().reverse().forEach(o => {
-      const tr = document.createElement('tr');
-      const badgeClass = o.paymentStatus === "Pending" ? "badge-pending" : "badge-paid";
-      tr.innerHTML = `
-        <td>${o.id}</td>
-        <td>${o.customerName || '-'}</td>
-        <td>${o.customerPhone || '-'}</td>
-        <td>${o.total.toLocaleString()} PKR</td>
-        <td><span class="badge ${badgeClass}">${o.paymentStatus}</span></td>
-        <td>${o.date.toLocaleString()}</td>`;
-      tbody.appendChild(tr);
-    });
-  }
-
-  function renderExpensesTable() {
-    const tbody = document.getElementById('expensesTableBody');
-    tbody.innerHTML = "";
-    expenses.slice().reverse().forEach(e => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${e.title}</td>
-        <td>${e.category}</td>
-        <td>${e.amount.toLocaleString()} PKR</td>
-        <td>${e.date.toLocaleString()}</td>`;
-      tbody.appendChild(tr);
-    });
-  }
-
-  function renderStaffLogTable() {
-    const tbody = document.getElementById('staffLogTableBody');
-    tbody.innerHTML = "";
-    staffLog.slice().reverse().forEach(l => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${l.user}</td>
-        <td>${l.action}</td>
-        <td>${l.details}</td>
-        <td>${l.date.toLocaleString()}</td>`;
-      tbody.appendChild(tr);
-    });
-  }
-
-  function saveProduct(e) {
-    e.preventDefault();
-    if (currentRole !== "admin") return;
-
-    const id = document.getElementById('prodId').value;
-    const name = document.getElementById('prodName').value.trim();
-    const category = document.getElementById('prodCategory').value.trim();
-    const purchase = Number(document.getElementById('prodPurchase').value);
-    const sale = Number(document.getElementById('prodSale').value);
-    const discount = Number(document.getElementById('prodDiscount').value || 0);
-    const stock = Number(document.getElementById('prodStock').value);
-
-    if (!name) return;
-
-    if (id) {
-      const p = products.find(x => x.id == id);
-      if (p) {
-        p.name = name;
-        p.category = category;
-        p.purchase = purchase;
-        p.sale = sale;
-        p.discount = discount;
-        p.stock = stock;
-      }
-      staffLog.push({
-        user: currentUserName,
-        action: "Edit Product",
-        details: name,
-        date: new Date()
-      });
-    } else {
-      products.push({
-        id: nextProductId++,
-        name, category, purchase, sale, discount, stock, sold:0
-      });
-      staffLog.push({
-        user: currentUserName,
-        action: "Add Product",
-        details: name,
-        date: new Date()
-      });
-    }
-    resetProductForm();
-    renderAll();
-  }
-
-  function resetProductForm() {
-    document.getElementById('prodId').value = "";
-    document.getElementById('prodName').value = "";
-    document.getElementById('prodCategory').value = "Jewelry";
-    document.getElementById('prodPurchase').value = "";
-    document.getElementById('prodSale').value = "";
-    document.getElementById('prodDiscount').value = "";
-    document.getElementById('prodStock').value = "";
-  }
-
-  function editProduct(id) {
-    if (currentRole !== "admin") return;
-    const p = products.find(x => x.id === id);
-    if (!p) return;
-    document.getElementById('prodId').value = p.id;
-    document.getElementById('prodName').value = p.name;
-    document.getElementById('prodCategory').value = p.category;
-    document.getElementById('prodPurchase').value = p.purchase;
-    document.getElementById('prodSale').value = p.sale;
-    document.getElementById('prodDiscount').value = p.discount;
-    document.getElementById('prodStock').value = p.stock;
+function quickAction(type) {
+  if (type === 'addProduct') {
+    bottomNavClick('products');
     showSection(null,'products');
-    document.querySelectorAll(".bottom-nav .nav-link").forEach(btn => btn.classList.remove("active"));
-    document.getElementById("bottom-products").classList.add("active");
+    document.getElementById('prodName').focus();
+  } else if (type === 'addStock') {
+    bottomNavClick('products');
+    showSection(null,'products');
+    document.getElementById('staffStockAdjustWrapper').scrollIntoView({behavior:'smooth'});
+  } else if (type === 'addCart') {
+    bottomNavClick('sales');
+    showSection(null,'sales');
+    document.getElementById('cartProduct').focus();
+  } else if (type === 'addExpense') {
+    bottomNavClick('expenses');
+    showSection(null,'expenses');
+    document.getElementById('expenseTitle').focus();
+  }
+  toggleFabMenu();
+}
+
+// ---------- RENDER ----------
+function renderAll() {
+  renderMetrics();
+  renderBestSelling();
+  renderProductsTable();
+  renderCartProductOptions();
+  renderAdjustProductOptions();
+  renderSalesList();
+  renderAlerts();
+  renderDashboardLowStock();
+  renderCartTable();
+  renderOrdersTable();
+  renderExpensesTable();
+  renderStaffLogTable();
+  saveDataToStorage(); // har render ke baad save
+}
+
+function renderMetrics() {
+  const totalProducts = products.length;
+  const totalOrders = orders.length;
+  const totalSales = sales.reduce((sum,s) => sum + s.total, 0);
+  const lowStockCount = products.filter(p => p.stock <= 5).length;
+
+  document.getElementById('metricTotalProducts').innerText = totalProducts;
+  document.getElementById('metricTotalOrders').innerText = totalOrders;
+  document.getElementById('metricTotalSales').innerText = totalSales.toLocaleString() + " PKR";
+  document.getElementById('metricLowStock').innerText = lowStockCount;
+
+  const now = new Date();
+  const oneDay = 24*60*60*1000;
+  let dailySales = 0, monthlySales = 0;
+  let dailyProfit = 0, monthlyProfit = 0;
+
+  sales.forEach(s => {
+    const diff = (now - s.date) / oneDay;
+    if (diff <= 1) {
+      dailySales += s.total;
+      dailyProfit += s.profit || 0;
+    }
+    if (diff <= 30) {
+      monthlySales += s.total;
+      monthlyProfit += s.profit || 0;
+    }
+  });
+
+  let dailyExpense = 0, monthlyExpense = 0;
+  expenses.forEach(e => {
+    const diff = (now - e.date) / oneDay;
+    if (diff <= 1) dailyExpense += e.amount;
+    if (diff <= 30) monthlyExpense += e.amount;
+  });
+
+  document.getElementById('metricDailySales').innerText = dailySales.toLocaleString() + " PKR";
+  document.getElementById('metricMonthlySales').innerText = monthlySales.toLocaleString() + " PKR";
+  document.getElementById('metricDailyProfit').innerText = (dailyProfit - dailyExpense).toLocaleString() + " PKR";
+  document.getElementById('metricMonthlyProfit').innerText = (monthlyProfit - monthlyExpense).toLocaleString() + " PKR";
+  document.getElementById('metricDailyExpense').innerText = dailyExpense.toLocaleString() + " PKR";
+  document.getElementById('metricMonthlyExpense').innerText = monthlyExpense.toLocaleString() + " PKR";
+  document.getElementById('metricNetMonthlyProfit').innerText = (monthlySales - monthlyExpense).toLocaleString() + " PKR";
+
+  const pendingCount = orders.filter(o => o.paymentStatus === "Pending").length;
+  document.getElementById('metricPendingPayments').innerText = pendingCount;
+}
+
+function renderBestSelling() {
+  const container = document.getElementById('bestSellingContainer');
+  container.innerHTML = "";
+  const sorted = [...products].sort((a,b) => b.sold - a.sold).slice(0,4);
+  sorted.forEach(p => {
+    const div = document.createElement('div');
+    div.className = "col-6 col-md-3";
+    div.innerHTML = `
+      <div class="product-card text-center">
+        <div class="mb-1"><span class="product-tag">${p.category || 'Product'}</span></div>
+        <strong>${p.name}</strong><br>
+        <small>Sold: ${p.sold}</small>
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+function renderProductsTable() {
+  const tbody = document.getElementById('productsTableBody');
+  tbody.innerHTML = "";
+  products.forEach(p => {
+    const tr = document.createElement('tr');
+    let actions = "";
+    if (currentRole === "admin") {
+      actions = `
+        <button class="btn btn-sm btn-outline-primary me-1" onclick='editProduct(${p.id})'>
+          <i class="bi bi-pencil"></i>
+        </button>
+        <button class="btn btn-sm btn-outline-danger" onclick='deleteProduct(${p.id})'>
+          <i class="bi bi-trash"></i>
+        </button>`;
+    } else {
+      actions = `<span class="text-muted" style="font-size:0.8rem;">View only</span>`;
+    }
+    tr.innerHTML = `
+      <td>${p.name}</td>
+      <td>${p.category || ""}</td>
+      <td>${p.purchase}</td>
+      <td>${p.sale}</td>
+      <td>${p.discount || "-"}</td>
+      <td class="${p.stock <= 5 ? 'low-stock' : ''}">${p.stock}</td>
+      <td>${p.sold}</td>
+      <td>${actions}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function renderCartProductOptions() {
+  const select = document.getElementById('cartProduct');
+  select.innerHTML = `<option value="none">Select product</option>`;
+  products.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p.id;
+    opt.textContent = `${p.name} (${p.category}) - Stock: ${p.stock}`;
+    select.appendChild(opt);
+  });
+}
+
+function renderAdjustProductOptions() {
+  const select = document.getElementById('adjustProduct');
+  if (!select) return;
+  select.innerHTML = `<option value="">Select product</option>`;
+  products.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p.id;
+    opt.textContent = `${p.name} (Stock: ${p.stock})`;
+    select.appendChild(opt);
+  });
+}
+
+function renderSalesList() {
+  const list = document.getElementById('salesList');
+  list.innerHTML = "";
+  sales.slice().reverse().forEach(s => {
+    const p = products.find(x => x.id === s.productId);
+    const li = document.createElement('li');
+    li.className = "list-group-item d-flex justify-content-between align-items-center";
+    const dateStr = s.date.toLocaleDateString();
+    li.innerHTML = `
+      <span>${p ? p.name : 'Product'} x ${s.quantity} <small class="text-muted">(${dateStr})</small></span>
+      <span>${s.total.toLocaleString()} PKR</span>`;
+    list.appendChild(li);
+  });
+}
+
+function renderAlerts() {
+  const list = document.getElementById('alertsList');
+  list.innerHTML = "";
+  const low = products.filter(p => p.stock <= 5);
+  if (low.length === 0) {
+    const li = document.createElement('li');
+    li.className = "list-group-item";
+    li.textContent = "No low stock items.";
+    list.appendChild(li);
+    return;
+  }
+  low.forEach(p => {
+    const li = document.createElement('li');
+    li.className = "list-group-item d-flex justify-content-between align-items-center";
+    li.innerHTML = `
+      <span>${p.name} (${p.category || ''})</span>
+      <span class="low-stock">Stock: ${p.stock}</span>`;
+    list.appendChild(li);
+  });
+}
+
+function renderDashboardLowStock() {
+  const list = document.getElementById('dashboardLowStockList');
+  list.innerHTML = "";
+  const low = products.filter(p => p.stock <= 5);
+  if (low.length === 0) {
+    const li = document.createElement('li');
+    li.className = "list-group-item";
+    li.textContent = "All good. No low stock items.";
+    list.appendChild(li);
+    return;
+  }
+  low.forEach(p => {
+    const li = document.createElement('li');
+    li.className = "list-group-item d-flex justify-content-between align-items-center";
+    li.innerHTML = `
+      <span>${p.name} (${p.category})</span>
+      <span class="low-stock">Stock: ${p.stock}</span>`;
+    list.appendChild(li);
+  });
+}
+
+function renderOrdersTable() {
+  const tbody = document.getElementById('ordersTableBody');
+  tbody.innerHTML = "";
+  orders.slice().reverse().forEach(o => {
+    const tr = document.createElement('tr');
+    const badgeClass = o.paymentStatus === "Pending" ? "badge-pending" : "badge-paid";
+    tr.innerHTML = `
+      <td>${o.id}</td>
+      <td>${o.customerName || '-'}</td>
+      <td>${o.customerPhone || '-'}</td>
+      <td>${o.total.toLocaleString()} PKR</td>
+      <td><span class="badge ${badgeClass}">${o.paymentStatus}</span></td>
+      <td>${o.date.toLocaleString()}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function renderExpensesTable() {
+  const tbody = document.getElementById('expensesTableBody');
+  tbody.innerHTML = "";
+  expenses.slice().reverse().forEach(e => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${e.title}</td>
+      <td>${e.category}</td>
+      <td>${e.amount.toLocaleString()} PKR</td>
+      <td>${e.date.toLocaleString()}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function renderStaffLogTable() {
+  const tbody = document.getElementById('staffLogTableBody');
+  tbody.innerHTML = "";
+  staffLog.slice().reverse().forEach(l => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${l.user}</td>
+      <td>${l.action}</td>
+      <td>${l.details}</td>
+      <td>${l.date.toLocaleString()}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// ---------- PRODUCTS CRUD ----------
+function saveProduct(e) {
+  e.preventDefault();
+  if (currentRole !== "admin") return;
+
+  const id = document.getElementById('prodId').value;
+  const name = document.getElementById('prodName').value.trim();
+  const category = document.getElementById('prodCategory').value.trim();
+  const purchase = Number(document.getElementById('prodPurchase').value);
+  const sale = Number(document.getElementById('prodSale').value);
+  const discount = Number(document.getElementById('prodDiscount').value || 0);
+  const stock = Number(document.getElementById('prodStock').value);
+
+  if (!name) return;
+
+  if (id) {
+    const p = products.find(x => x.id == id);
+    if (p) {
+      p.name = name;
+      p.category = category;
+      p.purchase = purchase;
+      p.sale = sale;
+      p.discount = discount;
+      p.stock = stock;
+    }
+    staffLog.push({ user: currentUserName, action: "Edit Product", details: name, date: new Date() });
+  } else {
+    products.push({ id: nextProductId++, name, category, purchase, sale, discount, stock, sold:0 });
+    staffLog.push({ user: currentUserName, action: "Add Product", details: name, date: new Date() });
   }
 
-  function deleteProduct(id) {
-    if (currentRole !== "admin") return;
-    if (!confirm("Delete this product?")) return;
-    const p = products.find(x => x.id === id);
-    products = products.filter(p => p.id !== id);
-    staffLog.push({
-      user: currentUserName,
-      action: "Delete Product",
-      details: p ? p.name : ("ID " + id),
-      date: new Date()
-    });
-    renderAll();
+  resetProductForm();
+  renderAll();
+}
+
+function resetProductForm() {
+  document.getElementById('prodId').value = "";
+  document.getElementById('prodName').value = "";
+  document.getElementById('prodCategory').value = "Jewelry";
+  document.getElementById('prodPurchase').value = "";
+  document.getElementById('prodSale').value = "";
+  document.getElementById('prodDiscount').value = "";
+  document.getElementById('prodStock').value = "";
+}
+
+function editProduct(id) {
+  if (currentRole !== "admin") return;
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+
+  document.getElementById('prodId').value = p.id;
+  document.getElementById('prodName').value = p.name;
+  document.getElementById('prodCategory').value = p.category;
+  document.getElementById('prodPurchase').value = p.purchase;
+  document.getElementById('prodSale').value = p.sale;
+  document.getElementById('prodDiscount').value = p.discount;
+  document.getElementById('prodStock').value = p.stock;
+
+  showSection(null,'products');
+  document.querySelectorAll(".bottom-nav .nav-link").forEach(btn => btn.classList.remove("active"));
+  document.getElementById("bottom-products").classList.add("active");
+}
+
+function deleteProduct(id) {
+  if (currentRole !== "admin") return;
+  if (!confirm("Delete this product?")) return;
+  const p = products.find(x => x.id === id);
+  products = products.filter(p => p.id !== id);
+  staffLog.push({ user: currentUserName, action: "Delete Product", details: p ? p.name : ("ID " + id), date: new Date() });
+  renderAll();
+}
+
+// ---------- CART ----------
+function addToCart(e) {
+  e.preventDefault();
+  const prodId = Number(document.getElementById('cartProduct').value);
+  const qty = Number(document.getElementById('cartQuantity').value);
+  if (!prodId || qty <= 0 || isNaN(qty)) return;
+
+  const p = products.find(x => x.id === prodId);
+  if (!p) return;
+  if (p.stock < qty) {
+    alert("Not enough stock!");
+    return;
   }
 
-  function addToCart(e) {
-    e.preventDefault();
-    const prodId = Number(document.getElementById('cartProduct').value);
-    const qty = Number(document.getElementById('cartQuantity').value);
-    if (!prodId || qty <= 0 || isNaN(qty)) return;
-
-    const p = products.find(x => x.id === prodId);
-    if (!p) return;
-    if (p.stock < qty) {
-      alert("Not enough stock!");
+  const existing = cart.find(c => c.productId === prodId);
+  if (existing) {
+    if (p.stock < existing.quantity + qty) {
+      alert("Not enough stock for this quantity!");
       return;
     }
-
-    const existing = cart.find(c => c.productId === prodId);
-    if (existing) {
-      if (p.stock < existing.quantity + qty) {
-        alert("Not enough stock for this quantity!");
-        return;
-      }
-      existing.quantity += qty;
-    } else {
-      cart.push({productId: prodId, quantity: qty});
-    }
-
-    document.getElementById('cartQuantity').value = "";
-    document.getElementById('cartProduct').value = "none";
-    renderCartTable();
+    existing.quantity += qty;
+  } else {
+    cart.push({productId: prodId, quantity: qty});
   }
 
-  function renderCartTable() {
-    const tbody = document.getElementById('cartTableBody');
-    tbody.innerHTML = "";
-    let total = 0;
-    cart.forEach((item, index) => {
-      const p = products.find(x => x.id === item.productId);
-      if (!p) return;
-      const price = p.discount > 0 ? p.discount : p.sale;
-      const lineTotal = price * item.quantity;
-      total += lineTotal;
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${p.name}</td>
-        <td>
-          <input type="number" min="1" value="${item.quantity}" class="form-control form-control-sm" 
-            onchange="updateCartQty(${index}, this.value)">
-        </td>
-        <td>${price}</td>
-        <td>${lineTotal}</td>
-        <td>
-          <button class="btn btn-sm btn-outline-danger" onclick="removeCartItem(${index})">
-            <i class="bi bi-x"></i>
-          </button>
-        </td>`;
-      tbody.appendChild(tr);
-    });
-    document.getElementById('cartTotalLabel').innerText = "Total: " + total.toLocaleString() + " PKR";
-    document.getElementById('checkoutBtn').disabled = cart.length === 0;
-  }
+  document.getElementById('cartQuantity').value = "";
+  document.getElementById('cartProduct').value = "none";
+  renderCartTable();
+  saveDataToStorage();
+}
 
-  function updateCartQty(index, value) {
-    const qty = Number(value);
-    if (qty <= 0 || isNaN(qty)) return;
-    const item = cart[index];
+function renderCartTable() {
+  const tbody = document.getElementById('cartTableBody');
+  tbody.innerHTML = "";
+  let total = 0;
+
+  cart.forEach((item, index) => {
     const p = products.find(x => x.id === item.productId);
     if (!p) return;
-    if (p.stock < qty) {
-      alert("Not enough stock!");
-      renderCartTable();
-      return;
-    }
-    item.quantity = qty;
+    const price = p.discount > 0 ? p.discount : p.sale;
+    const lineTotal = price * item.quantity;
+    total += lineTotal;
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${p.name}</td>
+      <td>
+        <input type="number" min="1" value="${item.quantity}" class="form-control form-control-sm"
+               onchange="updateCartQty(${index}, this.value)">
+      </td>
+      <td>${price}</td>
+      <td>${lineTotal}</td>
+      <td>
+        <button class="btn btn-sm btn-outline-danger" onclick="removeCartItem(${index})">
+          <i class="bi bi-x"></i>
+        </button>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById('cartTotalLabel').innerText = "Total: " + total.toLocaleString() + " PKR";
+  document.getElementById('checkoutBtn').disabled = cart.length === 0;
+}
+
+function updateCartQty(index, value) {
+  const qty = Number(value);
+  if (qty <= 0 || isNaN(qty)) return;
+  const item = cart[index];
+  const p = products.find(x => x.id === item.productId);
+  if (!p) return;
+  if (p.stock < qty) {
+    alert("Not enough stock!");
     renderCartTable();
+    return;
   }
+  item.quantity = qty;
+  renderCartTable();
+  saveDataToStorage();
+}
 
-  function removeCartItem(index) {
-    cart.splice(index,1);
-    renderCartTable();
-  }
+function removeCartItem(index) {
+  cart.splice(index,1);
+  renderCartTable();
+  saveDataToStorage();
+}
 
-  function clearCart() {
-    cart = [];
-    renderCartTable();
-  }
+function clearCart() {
+  cart = [];
+  renderCartTable();
+  saveDataToStorage();
+}
 
-  function checkoutCart() {
-    if (cart.length === 0) return;
+// ---------- CHECKOUT ----------
+function checkoutCart() {
+  if (cart.length === 0) return;
 
-    const customerName = document.getElementById('orderCustomerName').value.trim();
-    const customerPhone = document.getElementById('orderCustomerPhone').value.trim();
-    const paymentStatus = document.getElementById('orderPaymentStatus').value;
+  const customerName = document.getElementById('orderCustomerName').value.trim();
+  const customerPhone = document.getElementById('orderCustomerPhone').value.trim();
+  const paymentStatus = document.getElementById('orderPaymentStatus').value;
 
-    let total = 0;
-    let totalProfit = 0;
-    const invoiceBody = document.getElementById('invoiceTableBody');
-    invoiceBody.innerHTML = "";
+  let total = 0;
+  let totalProfit = 0;
+  const invoiceBody = document.getElementById('invoiceTableBody');
+  invoiceBody.innerHTML = "";
+  const orderItems = [];
 
-    const orderItems = [];
-
-    cart.forEach(item => {
-      const p = products.find(x => x.id === item.productId);
-      if (!p) return;
-      if (p.stock < item.quantity) return;
-      const price = p.discount > 0 ? p.discount : p.sale;
-      const lineTotal = price * item.quantity;
-      const profitPerUnit = price - p.purchase;
-      const lineProfit = profitPerUnit * item.quantity;
-
-      total += lineTotal;
-      totalProfit += lineProfit;
-
-      p.stock -= item.quantity;
-      p.sold += item.quantity;
-
-      sales.push({
-        id: nextSaleId++,
-        productId: p.id,
-        quantity: item.quantity,
-        total: lineTotal,
-        profit: lineProfit,
-        date: new Date()
-      });
-
-      orderItems.push({
-        productId: p.id,
-        name: p.name,
-        qty: item.quantity,
-        price: price,
-        total: lineTotal
-      });
-
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${p.name}</td>
-        <td>${item.quantity}</td>
-        <td>${price}</td>
-        <td>${lineTotal}</td>`;
-      invoiceBody.appendChild(tr);
-    });
-
-    const order = {
-      id: nextOrderId++,
-      customerName: customerName || "",
-      customerPhone: customerPhone || "",
-      paymentStatus,
-      total,
-      items: orderItems,
-      date: new Date()
-    };
-    orders.push(order);
-
-    staffLog.push({
-      user: currentUserName,
-      action: "Sale",
-      details: `Order #${order.id} - ${total.toLocaleString()} PKR (${paymentStatus})`,
-      date: new Date()
-    });
-
-    const aiLine = aiLines[Math.floor(Math.random()*aiLines.length)];
-    document.getElementById('invoiceAiLine').innerText = aiLine;
-    document.getElementById('invoiceTotal').innerText = total.toLocaleString();
-    document.getElementById('invoiceNumber').innerText = invoiceCounter++;
-    document.getElementById('invoiceDate').innerText = new Date().toLocaleString();
-
-    cart = [];
-    document.getElementById('orderCustomerName').value = "";
-    document.getElementById('orderCustomerPhone').value = "";
-    document.getElementById('orderPaymentStatus').value = "Paid";
-
-    renderAll();
-
-    const modal = new bootstrap.Modal(document.getElementById('invoiceModal'));
-    modal.show();
-  }
-
-  function adjustStock(e) {
-    e.preventDefault();
-    if (currentRole !== "staff" && currentRole !== "admin") return;
-    const prodId = Number(document.getElementById('adjustProduct').value);
-    const qty = Number(document.getElementById('adjustQuantity').value);
-    if (!prodId || !qty || isNaN(qty)) return;
-    const p = products.find(x => x.id === prodId);
+  cart.forEach(item => {
+    const p = products.find(x => x.id === item.productId);
     if (!p) return;
-    p.stock += qty;
-    staffLog.push({
-      user: currentUserName,
-      action: "Stock Adjust",
-      details: `${p.name} (${qty > 0 ? "+" : ""}${qty})`,
-      date: new Date()
-    });
-    document.getElementById('adjustQuantity').value = "";
-    document.getElementById('adjustProduct').value = "";
-    renderAll();
-  }
+    if (p.stock < item.quantity) return;
 
-  function addExpense(e) {
-    e.preventDefault();
-    const title = document.getElementById('expenseTitle').value.trim();
-    const amount = Number(document.getElementById('expenseAmount').value);
-    const category = document.getElementById('expenseCategory').value;
-    if (!title || !amount || isNaN(amount)) return;
-    expenses.push({
-      id: nextExpenseId++,
-      title,
-      amount,
-      category,
-      date: new Date()
-    });
-    staffLog.push({
-      user: currentUserName,
-      action: "Expense",
-      details: `${title} - ${amount.toLocaleString()} PKR`,
-      date: new Date()
-    });
-    document.getElementById('expenseTitle').value = "";
-    document.getElementById('expenseAmount').value = "";
-    document.getElementById('expenseCategory').value = "Rent";
-    renderAll();
-  }
+    const price = p.discount > 0 ? p.discount : p.sale;
+    const lineTotal = price * item.quantity;
+    const profitPerUnit = price - p.purchase;
+    const lineProfit = profitPerUnit * item.quantity;
+
+    total += lineTotal;
+    totalProfit += lineProfit;
+
+    p.stock -= item.quantity;
+    p.sold += item.quantity;
+
+    sales.push({ id: nextSaleId++, productId: p.id, quantity: item.quantity, total: lineTotal, profit: lineProfit, date: new Date() });
+
+    orderItems.push({ productId: p.id, name: p.name, qty: item.quantity, price: price, total: lineTotal });
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${p.name}</td>
+      <td>${item.quantity}</td>
+      <td>${price}</td>
+      <td>${lineTotal}</td>`;
+    invoiceBody.appendChild(tr);
+  });
+
+  const order = {
+    id: nextOrderId++,
+    customerName: customerName || "",
+    customerPhone: customerPhone || "",
+    paymentStatus,
+    total,
+    items: orderItems,
+    date: new Date()
+  };
+  orders.push(order);
+
+  staffLog.push({
+    user: currentUserName,
+    action: "Sale",
+    details: `Order #${order.id} - ${total.toLocaleString()} PKR (${paymentStatus})`,
+    date: new Date()
+  });
+
+  const aiLine = aiLines[Math.floor(Math.random()*aiLines.length)];
+  document.getElementById('invoiceAiLine').innerText = aiLine;
+  document.getElementById('invoiceTotal').innerText = total.toLocaleString();
+  document.getElementById('invoiceNumber').innerText = invoiceCounter++;
+  document.getElementById('invoiceDate').innerText = new Date().toLocaleString();
+
+  cart = [];
+  document.getElementById('orderCustomerName').value = "";
+  document.getElementById('orderCustomerPhone').value = "";
+  document.getElementById('orderPaymentStatus').value = "Paid";
+
+  renderAll();
+  saveDataToStorage();
+
+  const modal = new bootstrap.Modal(document.getElementById('invoiceModal'));
+  modal.show();
+}
+
+// ---------- STOCK ADJUST ----------
+function adjustStock(e) {
+  e.preventDefault();
+  if (currentRole !== "staff" && currentRole !== "admin") return;
+
+  const prodId = Number(document.getElementById('adjustProduct').value);
+  const qty = Number(document.getElementById('adjustQuantity').value);
+  if (!prodId || !qty || isNaN(qty)) return;
+
+  const p = products.find(x => x.id === prodId);
+  if (!p) return;
+
+  p.stock += qty;
+  staffLog.push({
+    user: currentUserName,
+    action: "Stock Adjust",
+    details: `${p.name} (${qty > 0 ? "+" : ""}${qty})`,
+    date: new Date()
+  });
+
+  document.getElementById('adjustQuantity').value = "";
+  document.getElementById('adjustProduct').value = "";
+  renderAll();
+  saveDataToStorage();
+}
+
+// ---------- EXPENSES ----------
+function addExpense(e) {
+  e.preventDefault();
+  const title = document.getElementById('expenseTitle').value.trim();
+  const amount = Number(document.getElementById('expenseAmount').value);
+  const category = document.getElementById('expenseCategory').value;
+  if (!title || !amount || isNaN(amount)) return;
+
+  expenses.push({ id: nextExpenseId++, title, amount, category, date: new Date() });
+  staffLog.push({
+    user: currentUserName,
+    action: "Expense",
+    details: `${title} - ${amount.toLocaleString()} PKR`,
+    date: new Date()
+  });
+
+  document.getElementById('expenseTitle').value = "";
+  document.getElementById('expenseAmount').value = "";
+  document.getElementById('expenseCategory').value = "Rent";
+
+  renderAll();
+  saveDataToStorage();
+}
+
+// ---------- INIT ----------
+loadDataFromStorage();
+window.addEventListener('beforeunload', saveDataToStorage);
 </script>
 </body>
 </html>

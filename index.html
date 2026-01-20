@@ -133,7 +133,7 @@ body {
   </button>
 </div>
 
-<!-- LOGIN OVERLAY (same as original, but fake login removed) -->
+<!-- LOGIN OVERLAY (same look, direct enter) -->
 <div id="loginOverlay" style="position:fixed; inset:0; background:#000; z-index:9999; padding:20px;">
   <h3 class="text-center mb-3">Login</h3>
   <button class="btn btn-primary w-100" onclick="fakeLogin()">Enter</button>
@@ -810,8 +810,6 @@ function addExpense(e) {
 
 /* ALERTS */
 function renderAlerts() {
-  /* ALERTS */
-function renderAlerts() {
   const list = document.getElementById("alertsList");
   list.innerHTML = "";
 
@@ -894,7 +892,7 @@ function closeSettings() {
   document.getElementById("settingsSheet").classList.remove("active");
 }
 
-/* INITIAL LOAD (ZERO START) */
+/* INITIAL LOAD */
 renderAll();
 </script>
 

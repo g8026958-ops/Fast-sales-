@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Al Syed Sales Point - Admin Panel</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <!-- Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+
+  <style>
+    body { background:#f2f4f7; }
+    .brand { font-weight:700; font-size:1.4rem; }
+    .metric-card {
+      border-radius:14px;
+      background:white;
+      padding:18px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.08);
+      transition:0.2s;
+    }
+    .metric-card:hover { transform:translateY(-3px); }
+    .metric-title { font-size:0.85rem; color:#6c757d; }
+    .metric-value { font-size:1.4rem; font-weight:700; }
+    .section-title { font-weight:600; font-size:1.1rem; }
+    .product-card {
+      border-radius:12px;
+      padding:12px;
+      background:white;
+      box-shadow:0 2px 6px rgba(0,0,0,0.06);
+    }
+    .low-stock { color:#d9534f; font-weight:600; }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark bg-dark px-3">
+  <span class="navbar-brand brand">Al Syed Sales Point</span>
+  <span class="text-white"><i class="bi bi-person-circle"></i> Admin</span>
+</nav>
+
+<div class="container my-4">
+
+  <!-- DASHBOARD METRICS -->
+  <div class="row g-3">
+    <div class="col-6 col-md-3">
+      <div class="metric-card">
+        <div class="metric-title">Total Products</div>
+        <div class="metric-value">320</div>
+      </div>
+    </div>
+
+    <div class="col-6 col-md-3">
+      <div class="metric-card">
+        <div class="metric-title">Total Orders</div>
+        <div class="metric-value">1,245</div>
+      </div>
+    </div>
+
+    <div class="col-6 col-md-3">
+      <div class="metric-card">
+        <div class="metric-title">Total Sales</div>
+        <div class="metric-value">5,80,500 PKR</div>
+      </div>
+    </div>
+
+    <div class="col-6 col-md-3">
+      <div class="metric-card">
+        <div class="metric-title">Low Stock</div>
+        <div class="metric-value low-stock">8</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEST SELLING -->
+  <div class="mt-4">
+    <div class="section-title mb-2">Best Selling Items</div>
+    <div class="row g-3">
+
+      <div class="col-6 col-md-3">
+        <div class="product-card text-center">
+          <strong>Gold Necklace</strong><br>
+          <small>Earnings: 3,00,000 PKR</small>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <div class="product-card text-center">
+          <strong>Lipstick Set</strong><br>
+          <small>Earnings: 180,000 PKR</small>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <div class="product-card text-center">
+          <strong>Diamond Ring</strong><br>
+          <small>Earnings: 150,000 PKR</small>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <div class="product-card text-center">
+          <strong>Eyeshadow Palette</strong><br>
+          <small>Earnings: 120,000 PKR</small>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PRODUCT TABLE -->
+  <div class="card mt-4 shadow-sm">
+    <div class="card-header bg-white fw-bold">
+      All Products
+    </div>
+    <div class="card-body table-responsive">
+      <table class="table table-bordered table-sm">
+        <thead class="table-light">
+          <tr>
+            <th>Product</th>
+            <th>Purchase</th>
+            <th>Sale</th>
+            <th>Discount</th>
+            <th>Stock</th>
+            <th>Sold</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ruby Necklace</td>
+            <td>15,000</td>
+            <td>20,000</td>
+            <td>18,000</td>
+            <td>300</td>
+            <td>200</td>
+          </tr>
+          <tr>
+            <td>Matte Lipstick</td>
+            <td>300</td>
+            <td>600</td>
+            <td>450</td>
+            <td>80</td>
+            <td>150</td>
+          </tr>
+          <tr>
+            <td>Jewelry Set</td>
+            <td>1,200</td>
+            <td>2,400</td>
+            <td>2,000</td>
+            <td class="low-stock">0</td>
+            <td>400</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TODAY SALES -->
+  <div class="card mt-4 shadow-sm">
+    <div class="card-header bg-white fw-bold">
+      Today's Sales
+    </div>
+    <div class="card-body">
+      <h5>48,500 PKR</h5>
+      <p class="low-stock">Items Out of Stock: 3</p>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

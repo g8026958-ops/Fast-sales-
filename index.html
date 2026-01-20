@@ -3,10 +3,15 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Al Syed Sales Point - Full System</title>
+<title>Al Syed Sales Point</title>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+
 <style>
+/* ———————————————
+   GLOBAL THEME
+——————————————— */
 :root {
   --primary:#ff4b9a;
   --primary-dark:#c2185b;
@@ -15,20 +20,30 @@
   --black:#111111;
   --card-bg:#ffffff;
 }
+
 body {
   background:var(--bg);
   font-family:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color:var(--black);
   padding-bottom:70px;
 }
+
+/* ———————————————
+   NAVBAR
+——————————————— */
 .navbar-gradient {
   background:linear-gradient(135deg, #000000, #ff4b9a);
 }
+
 .brand {
   font-weight:700;
   font-size:1.4rem;
   letter-spacing:0.5px;
 }
+
+/* ———————————————
+   METRIC CARDS
+——————————————— */
 .metric-card {
   border-radius:16px;
   background:var(--card-bg);
@@ -37,21 +52,25 @@ body {
   transition:0.2s;
   border:0;
 }
+
 .metric-card:hover {
   transform:translateY(-4px);
   box-shadow:0 16px 35px rgba(0, 0, 0, 0.18);
 }
+
 .metric-title {
   font-size:0.8rem;
   color:#6c757d;
   text-transform:uppercase;
   letter-spacing:0.06em;
 }
+
 .metric-value {
   font-size:1.5rem;
   font-weight:700;
   color:var(--black);
 }
+
 .metric-pill {
   display:inline-flex;
   align-items:center;
@@ -62,29 +81,10 @@ body {
   background:rgba(255,75,154,0.12);
   color:var(--primary-dark);
 }
-.low-stock {
-  color:#ff1744;
-  font-weight:600;
-}
-.app-nav {
-  background:#000000;
-  border-bottom:1px solid #222;
-  position:sticky;
-  top:0;
-  z-index:50;
-}
-.app-nav .nav-link {
-  border-radius:999px;
-  padding:6px 14px;
-  font-size:0.9rem;
-  color:#f5f5f5;
-  border:0;
-}
-.app-nav .nav-link.active {
-  background:linear-gradient(135deg, #ff4b9a, #ffffff);
-  color:#000000 !important;
-  box-shadow:0 8px 18px rgba(255,75,154,0.45);
-}
+
+/* ———————————————
+   PRODUCT CARDS
+——————————————— */
 .product-card {
   border-radius:14px;
   padding:12px;
@@ -92,6 +92,7 @@ body {
   box-shadow:0 6px 16px rgba(0, 0, 0, 0.12);
   border:0;
 }
+
 .product-tag {
   display:inline-block;
   padding:2px 8px;
@@ -100,14 +101,10 @@ body {
   background:#ffe4f0;
   color:#ad1457;
 }
-.section-title {
-  font-weight:600;
-  font-size:1.05rem;
-  color:#111827;
-}
-.hidden {
-  display:none !important;
-}
+
+/* ———————————————
+   LOGIN OVERLAY
+——————————————— */
 #loginOverlay {
   position:fixed;
   inset:0;
@@ -117,6 +114,7 @@ body {
   justify-content:center;
   z-index:9999;
 }
+
 #loginCard {
   background:#111111;
   border-radius:18px;
@@ -126,9 +124,11 @@ body {
   box-shadow:0 20px 45px rgba(0, 0, 0, 0.75);
   color:#ffffff;
 }
+
 #loginCard h4 {
   font-weight:700;
 }
+
 .login-badge {
   display:inline-flex;
   align-items:center;
@@ -139,199 +139,28 @@ body {
   color:#ff80ab;
   font-size:0.75rem;
 }
+
 #loginCard .form-label {
   color:#f5f5f5;
 }
+
 #loginCard .form-control {
   background:#1e1e1e;
   border-color:#333;
   color:#ffffff;
 }
+
 #loginCard .form-control::placeholder {
   color:#777;
 }
-.table thead {
-  font-size:0.8rem;
-  text-transform:uppercase;
-  letter-spacing:0.05em;
-  background:#111;
-  color:#fff;
-}
-.table td {
-  vertical-align:middle;
-  font-size:0.75rem; /* 12px */
-  background:#ffffff;
-}
-.chip {
-  display:inline-flex;
-  align-items:center;
-  gap:4px;
-  padding:2px 8px;
-  border-radius:999px;
-  font-size:0.75rem;
-  background:#ffe4f0;
-  color:#ad1457;
-}
-.role-badge {
-  display:inline-flex;
-  align-items:center;
-  gap:4px;
-  padding:2px 8px;
-  border-radius:999px;
-  font-size:0.75rem;
-  background:#ffe4f0;
-  color:#ad1457;
-}
-#bestSellingContainer {
-  display:flex;
-  flex-wrap:wrap;
-}
-.cart-table thead {
-  background:#111;
-  color:#fff;
-}
-.invoice-header {
-  border-bottom:1px solid #eee;
-  padding-bottom:8px;
-  margin-bottom:8px;
-}
-.invoice-ai-line {
-  font-style:italic;
-  color:#c2185b;
-  font-size:0.85rem;
-}
-.bottom-nav {
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  background:#000;
-  border-top:1px solid #222;
-  z-index:60;
-}
-.bottom-nav .nav-link {
-  color:#f5f5f5;
-  font-size:0.8rem;
-  padding:6px 0;
-  border-radius:0;
-}
-.bottom-nav .nav-link.active {
-  color:#000;
-  background:linear-gradient(135deg,#ff4b9a,#ffffff);
-}
-.fab {
-  position:fixed;
-  bottom:80px;
-  right:16px;
-  width:56px;
-  height:56px;
-  border-radius:50%;
-  background:linear-gradient(135deg,#ff4b9a,#ffffff);
-  box-shadow:0 10px 25px rgba(0,0,0,0.4);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:70;
-  border:0;
-  color:#000;
-}
-.fab-menu {
-  position:fixed;
-  bottom:140px;
-  right:16px;
-  z-index:69;
-}
-.fab-menu button {
-  display:block;
-  margin-bottom:6px;
-  border-radius:999px;
-  border:0;
-  padding:4px 10px;
-  font-size:0.8rem;
-  background:#111;
-  color:#fff;
-  box-shadow:0 6px 16px rgba(0,0,0,0.4);
-}
-.fab-menu.hidden {
-  display:none;
-}
-.badge-pending {
-  background:#ff1744;
-}
-.badge-paid {
-  background:#2e7d32;
-}
-.search-input {
-  max-width:260px;
-}
-
-/* LEFT SETTINGS DRAWER (HALF HEIGHT, 320px WIDTH) */
-#settingsOverlay {
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.5);
-  z-index:1050;
-  display:none;
-}
-#settingsSheet {
-  position:fixed;
-  left:-320px;
-  top:0;
-  width:320px;
-  height:50vh;
-  background:#111;
-  color:#fff;
-  border-radius:0 18px 18px 0;
-  padding:12px 16px 20px;
-  box-shadow:4px 0 25px rgba(0,0,0,0.7);
-  transition:left 0.25s ease-out;
-  overflow-y:auto;
-}
-#settingsSheetHeader {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:8px;
-}
-.settings-row {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:10px 0;
-  border-bottom:1px solid #333;
-}
-.settings-row-label {
-  display:flex;
-  flex-direction:column;
-}
-.settings-row-title {
-  font-size:0.9rem;
-  font-weight:600;
-}
-.settings-row-sub {
-  font-size:0.75rem;
-  color:#bbbbbb;
-}
-.settings-row button {
-  font-size:0.75rem;
-  border-radius:999px;
-  padding:4px 10px;
-}
-.settings-danger {
-  color:#ff8a80;
-}
-.settings-danger-btn {
-  border-color:#ff8a80;
-  color:#ff8a80;
-}
-.settings-danger-btn:hover {
-  background:#ff8a80;
-  color:#000;
-}
 </style>
 </head>
+
 <body>
-<!-- LOGIN OVERLAY -->
+
+<!-- ———————————————
+     LOGIN OVERLAY
+——————————————— -->
 <div id="loginOverlay">
   <div id="loginCard">
     <div class="text-center mb-3">
@@ -342,83 +171,62 @@ body {
       <h4>Al Syed Sales Point</h4>
       <p class="text-muted mb-0" style="font-size:0.85rem;color:#cccccc !important;">Admin / Staff Login</p>
     </div>
+
     <div class="mb-3">
       <label class="form-label">User</label>
       <input id="loginEmail" type="text" class="form-control" placeholder="admin or staff">
     </div>
+
     <div class="mb-1">
       <label class="form-label">Password</label>
       <input id="loginPassword" type="password" class="form-control" placeholder="admin or staff">
     </div>
+
     <div class="mb-3 text-end">
       <small style="font-size:0.75rem;color:#888;">Forgot? <span style="color:#ff80ab;">Use demo: admin/admin</span></small>
     </div>
-    <button class="btn w-100 mb-2" style="background:linear-gradient(135deg,#ff4b9a,#ffffff);border:0;color:#000;font-weight:600;" onclick="fakeLogin()">
+
+    <button class="btn w-100 mb-2"
+      style="background:linear-gradient(135deg,#ff4b9a,#ffffff);border:0;color:#000;font-weight:600;"
+      onclick="fakeLogin()">
       Sign In
     </button>
+
     <small class="d-block text-center" style="font-size:0.8rem;color:#bbbbbb;">
       Demo: <b>admin/admin</b> (Admin), <b>staff/staff</b> (Staff)
     </small>
   </div>
 </div>
 
-<!-- NAVBAR -->
+<!-- ———————————————
+     NAVBAR
+——————————————— -->
 <nav class="navbar navbar-gradient px-3">
   <span class="navbar-brand brand text-white d-flex align-items-center gap-2">
     <i class="bi bi-bag-heart-fill"></i>
     <span>Al Syed Sales Point</span>
   </span>
+
   <span class="text-white d-flex align-items-center gap-2">
     <span class="role-badge">
       <i class="bi bi-person-circle"></i>
       <span id="userRoleLabel">Role</span>
     </span>
     <span id="userName">User</span>
+
     <button class="btn btn-sm btn-outline-light ms-1" onclick="openSettings()" title="Settings">
       <i class="bi bi-gear-fill"></i>
     </button>
   </span>
 </nav>
+<!-- ———————————————
+     MAIN CONTAINER
+——————————————— -->
+<div class="container my-3">
 
-<!-- TOP NAV (desktop) -->
-<div class="app-nav d-none d-md-block">
-  <div class="container">
-    <ul class="nav nav-pills py-2 gap-2">
-      <li class="nav-item">
-        <button class="nav-link active" data-section="dashboard" onclick="showSection(event,'dashboard')">
-          <i class="bi bi-speedometer2 me-1"></i>Dashboard
-        </button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link" data-section="products" onclick="showSection(event,'products')">
-          <i class="bi bi-box-seam me-1"></i>Products
-        </button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link" data-section="sales" onclick="showSection(event,'sales')">
-          <i class="bi bi-cart-check me-1"></i>Sales & Cart
-        </button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link" data-section="orders" onclick="showSection(event,'orders')">
-          <i class="bi bi-receipt me-1"></i>Orders
-        </button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link" data-section="expenses" onclick="showSection(event,'expenses')">
-          <i class="bi bi-wallet2 me-1"></i>Expenses
-        </button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link" data-section="alerts" onclick="showSection(event,'alerts')">
-          <i class="bi bi-exclamation-triangle me-1"></i>Alerts
-        </button>
-      </li>
-    </ul>
-  </div>
-</div>
-  <div class="container my-3">
-  <!-- DASHBOARD -->
+  <!-- ———————————————
+       DASHBOARD
+  ——————————————— -->
   <div id="section-dashboard">
     <div class="row g-3">
       <div class="col-6 col-md-3">
@@ -430,6 +238,7 @@ body {
           <div class="metric-value" id="metricTotalProducts">0</div>
         </div>
       </div>
+
       <div class="col-6 col-md-3">
         <div class="metric-card">
           <div class="d-flex justify-content-between align-items-center mb-1">
@@ -439,6 +248,7 @@ body {
           <div class="metric-value" id="metricTotalOrders">0</div>
         </div>
       </div>
+
       <div class="col-6 col-md-3">
         <div class="metric-card">
           <div class="d-flex justify-content-between align-items-center mb-1">
@@ -448,6 +258,7 @@ body {
           <div class="metric-value" id="metricTotalSales">0 PKR</div>
         </div>
       </div>
+
       <div class="col-6 col-md-3">
         <div class="metric-card">
           <div class="d-flex justify-content-between align-items-center mb-1">
@@ -459,6 +270,7 @@ body {
       </div>
     </div>
 
+    <!-- Daily / Monthly -->
     <div class="row g-3 mt-3">
       <div class="col-md-3 col-6">
         <div class="metric-card">
@@ -466,18 +278,21 @@ body {
           <div class="metric-value" id="metricDailySales">0 PKR</div>
         </div>
       </div>
+
       <div class="col-md-3 col-6">
         <div class="metric-card">
           <div class="metric-title mb-1">Daily Profit</div>
           <div class="metric-value" id="metricDailyProfit">0 PKR</div>
         </div>
       </div>
+
       <div class="col-md-3 col-6">
         <div class="metric-card">
           <div class="metric-title mb-1">Monthly Sales</div>
           <div class="metric-value" id="metricMonthlySales">0 PKR</div>
         </div>
       </div>
+
       <div class="col-md-3 col-6">
         <div class="metric-card">
           <div class="metric-title mb-1">Monthly Profit</div>
@@ -486,6 +301,7 @@ body {
       </div>
     </div>
 
+    <!-- Expenses -->
     <div class="row g-3 mt-3">
       <div class="col-md-4 col-12">
         <div class="metric-card">
@@ -493,12 +309,14 @@ body {
           <div class="metric-value" id="metricDailyExpense">0 PKR</div>
         </div>
       </div>
+
       <div class="col-md-4 col-12">
         <div class="metric-card">
           <div class="metric-title mb-1">Monthly Expenses</div>
           <div class="metric-value" id="metricMonthlyExpense">0 PKR</div>
         </div>
       </div>
+
       <div class="col-md-4 col-12">
         <div class="metric-card">
           <div class="metric-title mb-1">Net Monthly Profit</div>
@@ -507,6 +325,7 @@ body {
       </div>
     </div>
 
+    <!-- Best Selling -->
     <div class="row g-3 mt-3">
       <div class="col-md-4 col-12">
         <div class="metric-card">
@@ -514,6 +333,7 @@ body {
           <div class="metric-value" id="metricPendingPayments">0</div>
         </div>
       </div>
+
       <div class="col-md-8 col-12">
         <div class="metric-card">
           <div class="d-flex justify-content-between align-items-center mb-2">
@@ -525,6 +345,7 @@ body {
       </div>
     </div>
 
+    <!-- Low Stock -->
     <div class="mt-4">
       <div class="d-flex justify-content-between align-items-center mb-2">
         <div class="section-title">Low Stock Items</div>
@@ -534,24 +355,30 @@ body {
     </div>
   </div>
 
-  <!-- PRODUCTS -->
+  <!-- ———————————————
+       PRODUCTS SECTION
+  ——————————————— -->
   <div id="section-products" class="hidden">
     <div class="section-title mb-2 d-flex justify-content-between align-items-center">
       <span>Products</span>
       <span class="chip"><i class="bi bi-box-seam"></i> Manage Inventory</span>
     </div>
 
+    <!-- Admin Product Form -->
     <div id="adminProductFormWrapper" class="card mb-3 shadow-sm border-0">
       <div class="card-header bg-dark text-white fw-bold">
         Add / Edit Product (Admin)
       </div>
+
       <div class="card-body">
         <form class="row g-2" onsubmit="saveProduct(event)">
           <input type="hidden" id="prodId">
+
           <div class="col-md-3">
             <label class="form-label">Name</label>
             <input id="prodName" type="text" class="form-control" required>
           </div>
+
           <div class="col-md-2">
             <label class="form-label">Category</label>
             <select id="prodCategory" class="form-select">
@@ -560,30 +387,37 @@ body {
               <option value="Undergarments">Undergarments</option>
             </select>
           </div>
+
           <div class="col-md-2">
             <label class="form-label">Product Code</label>
             <input id="prodCode" type="text" class="form-control" placeholder="e.g. 1001">
           </div>
+
           <div class="col-md-2">
             <label class="form-label">Purchase</label>
             <input id="prodPurchase" type="number" class="form-control" required>
           </div>
+
           <div class="col-md-2">
             <label class="form-label">Sale</label>
             <input id="prodSale" type="number" class="form-control" required>
           </div>
+
           <div class="col-md-1">
             <label class="form-label">Stock</label>
             <input id="prodStock" type="number" class="form-control" required>
           </div>
+
           <div class="col-md-2 mt-2">
             <label class="form-label">Discount</label>
             <input id="prodDiscount" type="number" class="form-control" placeholder="0">
           </div>
+
           <div class="col-12 mt-2">
             <button class="btn btn-success">
               <i class="bi bi-save me-1"></i>Save Product
             </button>
+
             <button type="button" class="btn btn-outline-secondary btn-sm ms-2" onclick="resetProductForm()">
               Clear
             </button>
@@ -592,22 +426,27 @@ body {
       </div>
     </div>
 
+    <!-- Staff Stock Adjust -->
     <div id="staffStockAdjustWrapper" class="card mb-3 shadow-sm border-0 hidden">
       <div class="card-header bg-dark text-white fw-bold">
         Inventory In / Out (Staff)
       </div>
+
       <div class="card-body">
         <form class="row g-2" onsubmit="adjustStock(event)">
           <div class="col-md-6">
             <label class="form-label">Product</label>
             <select id="adjustProduct" class="form-select" required></select>
           </div>
+
           <div class="col-md-3">
             <label class="form-label">Quantity (+ add / - minus)</label>
             <input id="adjustQuantity" type="number" class="form-control" required>
           </div>
+
           <div class="col-md-3 d-flex align-items-end">
-            <button class="btn btn-primary w-100" style="background:linear-gradient(135deg,#ff4b9a,#ffffff);border:0;color:#000;">
+            <button class="btn btn-primary w-100"
+              style="background:linear-gradient(135deg,#ff4b9a,#ffffff);border:0;color:#000;">
               <i class="bi bi-arrow-left-right me-1"></i>Update Stock
             </button>
           </div>
@@ -615,11 +454,13 @@ body {
       </div>
     </div>
 
+    <!-- Product Table -->
     <div class="card shadow-sm border-0">
       <div class="card-header bg-dark text-white fw-bold d-flex justify-content-between align-items-center">
         <span>All Products</span>
         <span class="text-light" style="font-size:0.8rem;">Code / Purchase / Sale / Stock / Sold</span>
       </div>
+
       <div class="card-body table-responsive">
         <table class="table table-bordered table-sm align-middle">
           <thead>
@@ -640,19 +481,23 @@ body {
       </div>
     </div>
   </div>
-
-  <!-- SALES + CART -->
+  <!-- ———————————————
+       SALES + CART SECTION
+  ——————————————— -->
   <div id="section-sales" class="hidden">
     <div class="section-title mb-2 d-flex justify-content-between align-items-center">
       <span>Sales & Cart</span>
       <span class="chip"><i class="bi bi-cart-check"></i> POS Style</span>
     </div>
 
+    <!-- Add to Cart -->
     <div class="card mb-3 shadow-sm border-0">
       <div class="card-header bg-dark text-white fw-bold d-flex justify-content-between align-items-center">
         <span>Add to Cart (Admin + Staff)</span>
-        <input id="cartSearch" type="text" class="form-control form-control-sm search-input" placeholder="Search by name or code" onkeyup="filterCartProducts()">
+        <input id="cartSearch" type="text" class="form-control form-control-sm search-input"
+          placeholder="Search by name or code" onkeyup="filterCartProducts()">
       </div>
+
       <div class="card-body">
         <form class="row g-2" onsubmit="addToCart(event)">
           <div class="col-md-5">
@@ -661,15 +506,19 @@ body {
               <option value="none" selected>Select product</option>
             </select>
           </div>
+
           <div class="col-md-3">
             <label class="form-label">Quantity</label>
             <input id="cartQuantity" type="number" class="form-control" min="1" required>
           </div>
+
           <div class="col-md-2 d-flex align-items-end">
-            <button class="btn btn-primary w-100" style="background:linear-gradient(135deg,#ff4b9a,#ffffff);border:0;color:#000;">
+            <button class="btn btn-primary w-100"
+              style="background:linear-gradient(135deg,#ff4b9a,#ffffff);border:0;color:#000;">
               <i class="bi bi-cart-plus me-1"></i>Add to Cart
             </button>
           </div>
+
           <div class="col-md-2 d-flex align-items-end">
             <button type="button" class="btn btn-outline-secondary w-100" onclick="clearCart()">
               Clear Cart
@@ -679,11 +528,13 @@ body {
       </div>
     </div>
 
+    <!-- Cart Table -->
     <div class="card mb-3 shadow-sm border-0">
       <div class="card-header bg-dark text-white fw-bold d-flex justify-content-between align-items-center">
         <span>Cart</span>
         <span id="cartTotalLabel">Total: 0 PKR</span>
       </div>
+
       <div class="card-body table-responsive">
         <table class="table table-bordered table-sm align-middle cart-table">
           <thead>
@@ -697,15 +548,18 @@ body {
           </thead>
           <tbody id="cartTableBody"></tbody>
         </table>
+
         <div class="row g-2 mt-2">
           <div class="col-md-3">
             <label class="form-label">Customer Name (optional)</label>
             <input id="orderCustomerName" type="text" class="form-control">
           </div>
+
           <div class="col-md-3">
             <label class="form-label">Mobile (optional)</label>
             <input id="orderCustomerPhone" type="text" class="form-control">
           </div>
+
           <div class="col-md-3">
             <label class="form-label">Payment Status</label>
             <select id="orderPaymentStatus" class="form-select">
@@ -713,6 +567,7 @@ body {
               <option value="Pending">Pending</option>
             </select>
           </div>
+
           <div class="col-md-3 d-flex align-items-end justify-content-end">
             <button class="btn btn-success" onclick="checkoutCart()" id="checkoutBtn">
               <i class="bi bi-cash-stack me-1"></i>Checkout & Invoice
@@ -722,6 +577,7 @@ body {
       </div>
     </div>
 
+    <!-- Recent Sales -->
     <div class="card shadow-sm border-0">
       <div class="card-header bg-dark text-white fw-bold">
         Recent Sales
@@ -731,12 +587,15 @@ body {
       </div>
     </div>
   </div>
-    <!-- ORDERS -->
+  <!-- ———————————————
+       ORDERS SECTION
+  ——————————————— -->
   <div id="section-orders" class="hidden">
     <div class="section-title mb-2 d-flex justify-content-between align-items-center">
       <span>Customer Orders</span>
       <span class="chip"><i class="bi bi-receipt"></i> Paid / Pending</span>
     </div>
+
     <div class="card shadow-sm border-0">
       <div class="card-body table-responsive">
         <table class="table table-bordered table-sm align-middle">
@@ -756,27 +615,31 @@ body {
     </div>
   </div>
 
-  <!-- EXPENSES + PROFIT -->
+  <!-- ———————————————
+       EXPENSES SECTION
+  ——————————————— -->
   <div id="section-expenses" class="hidden">
     <div class="section-title mb-2 d-flex justify-content-between align-items-center">
       <span>Expenses & Profit</span>
       <span class="chip"><i class="bi bi-wallet2"></i> Daily / Monthly</span>
     </div>
 
+    <!-- Add Expense -->
     <div class="card mb-3 shadow-sm border-0">
-      <div class="card-header bg-dark text-white fw-bold">
-        Add Expense
-      </div>
+      <div class="card-header bg-dark text-white fw-bold">Add Expense</div>
+
       <div class="card-body">
         <form class="row g-2" onsubmit="addExpense(event)">
           <div class="col-md-4">
             <label class="form-label">Title</label>
             <input id="expenseTitle" type="text" class="form-control" required>
           </div>
+
           <div class="col-md-3">
             <label class="form-label">Amount</label>
             <input id="expenseAmount" type="number" class="form-control" required>
           </div>
+
           <div class="col-md-3">
             <label class="form-label">Category</label>
             <select id="expenseCategory" class="form-select">
@@ -786,8 +649,10 @@ body {
               <option value="Misc">Misc</option>
             </select>
           </div>
+
           <div class="col-md-2 d-flex align-items-end">
-            <button class="btn btn-primary w-100" style="background:linear-gradient(135deg,#ff4b9a,#ffffff);border:0;color:#000;">
+            <button class="btn btn-primary w-100"
+              style="background:linear-gradient(135deg,#ff4b9a,#ffffff);border:0;color:#000;">
               <i class="bi bi-plus-circle me-1"></i>Add
             </button>
           </div>
@@ -795,10 +660,10 @@ body {
       </div>
     </div>
 
+    <!-- Expense History -->
     <div class="card mt-3 shadow-sm border-0">
-      <div class="card-header bg-dark text-white fw-bold">
-        Expense History
-      </div>
+      <div class="card-header bg-dark text-white fw-bold">Expense History</div>
+
       <div class="card-body table-responsive">
         <table class="table table-bordered table-sm align-middle">
           <thead>
@@ -815,26 +680,26 @@ body {
     </div>
   </div>
 
-  <!-- ALERTS + STAFF LOG -->
+  <!-- ———————————————
+       ALERTS + STAFF LOG
+  ——————————————— -->
   <div id="section-alerts" class="hidden">
     <div class="section-title mb-2 d-flex justify-content-between align-items-center">
       <span>Low Stock & Staff Activity</span>
       <span class="chip"><i class="bi bi-bell"></i> Alerts & Log</span>
     </div>
 
+    <!-- Low Stock Alerts -->
     <div class="card mb-3 shadow-sm border-0">
-      <div class="card-header bg-dark text-white fw-bold">
-        Low Stock Alerts
-      </div>
+      <div class="card-header bg-dark text-white fw-bold">Low Stock Alerts</div>
       <div class="card-body">
         <ul class="list-group" id="alertsList"></ul>
       </div>
     </div>
 
+    <!-- Staff Log -->
     <div class="card shadow-sm border-0">
-      <div class="card-header bg-dark text-white fw-bold">
-        Staff Activity Log
-      </div>
+      <div class="card-header bg-dark text-white fw-bold">Staff Activity Log</div>
       <div class="card-body table-responsive">
         <table class="table table-bordered table-sm align-middle">
           <thead>
@@ -850,9 +715,12 @@ body {
       </div>
     </div>
   </div>
-</div>
 
-<!-- INVOICE MODAL -->
+</div> <!-- END MAIN CONTAINER -->
+
+<!-- ———————————————
+     INVOICE MODAL
+——————————————— -->
 <div class="modal fade" id="invoiceModal" tabindex="-1">
   <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
@@ -860,20 +728,24 @@ body {
         <h5 class="modal-title"><i class="bi bi-receipt-cutoff me-1"></i>Invoice</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
+
       <div class="modal-body">
         <div class="invoice-header d-flex justify-content-between">
           <div>
             <h5>Al Syed Sales Point</h5>
             <small>Cosmetics, Jewelry & Undergarments</small>
           </div>
+
           <div class="text-end">
             <div><b>Invoice #</b> <span id="invoiceNumber"></span></div>
             <div><b>Date:</b> <span id="invoiceDate"></span></div>
           </div>
         </div>
+
         <div class="mb-2">
           <span class="invoice-ai-line" id="invoiceAiLine"></span>
         </div>
+
         <div class="table-responsive mb-2">
           <table class="table table-bordered table-sm">
             <thead class="table-dark">
@@ -887,10 +759,12 @@ body {
             <tbody id="invoiceTableBody"></tbody>
           </table>
         </div>
+
         <div class="text-end">
           <h5>Total: <span id="invoiceTotal"></span> PKR</h5>
         </div>
       </div>
+
       <div class="modal-footer">
         <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
         <button class="btn btn-primary" onclick="window.print()">
@@ -901,7 +775,9 @@ body {
   </div>
 </div>
 
-<!-- BOTTOM NAV (MOBILE) -->
+<!-- ———————————————
+     BOTTOM NAV (MOBILE)
+——————————————— -->
 <nav class="bottom-nav d-md-none">
   <ul class="nav nav-justified">
     <li class="nav-item">
@@ -910,24 +786,28 @@ body {
         <span>Home</span>
       </button>
     </li>
+
     <li class="nav-item">
       <button class="nav-link" id="bottom-products" onclick="bottomNavClick('products')">
         <i class="bi bi-box-seam d-block"></i>
         <span>Products</span>
       </button>
     </li>
+
     <li class="nav-item">
       <button class="nav-link" id="bottom-sales" onclick="bottomNavClick('sales')">
         <i class="bi bi-cart-check d-block"></i>
         <span>Cart</span>
       </button>
     </li>
+
     <li class="nav-item">
       <button class="nav-link" id="bottom-orders" onclick="bottomNavClick('orders')">
         <i class="bi bi-receipt d-block"></i>
         <span>Orders</span>
       </button>
     </li>
+
     <li class="nav-item">
       <button class="nav-link" id="bottom-alerts" onclick="bottomNavClick('alerts')">
         <i class="bi bi-bell d-block"></i>
@@ -937,24 +817,18 @@ body {
   </ul>
 </nav>
 
-<button class="fab d-md-none" onclick="toggleFabMenu()">
-  <i class="bi bi-plus-lg"></i>
-</button>
-<div class="fab-menu hidden d-md-none" id="fabMenu">
-  <button onclick="quickAction('addProduct')"><i class="bi bi-box-seam me-1"></i>Add Product</button>
-  <button onclick="quickAction('addStock')"><i class="bi bi-arrow-up-right-square me-1"></i>Stock In/Out</button>
-  <button onclick="quickAction('addCart')"><i class="bi bi-cart-plus me-1"></i>Add to Cart</button>
-  <button onclick="quickAction('addExpense')"><i class="bi bi-wallet2 me-1"></i>Add Expense</button>
-</div>
-
-<!-- LEFT SETTINGS DRAWER -->
+<!-- ———————————————
+     SETTINGS DRAWER (LEFT)
+——————————————— -->
 <div id="settingsOverlay" onclick="closeSettings()"></div>
+
 <div id="settingsSheet">
   <div id="settingsSheetHeader">
     <div>
       <div style="font-weight:600;font-size:0.95rem;">Settings</div>
       <div style="font-size:0.75rem;color:#bbbbbb;">Reset data safely (products stay safe)</div>
     </div>
+
     <button class="btn btn-sm btn-outline-light" onclick="closeSettings()">
       <i class="bi bi-x-lg"></i>
     </button>
@@ -1009,9 +883,17 @@ body {
   </div>
 </div>
 
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- ———————————————
+     JAVASCRIPT STARTS
+——————————————— -->
 <script>
-  const STORAGE_KEY = 'alSyed-pos-v3';
+  /********************************************
+ * STORAGE & DEFAULT DATA
+ ********************************************/
+const STORAGE_KEY = 'alSyed-pos-v3';
 
 let products = [
   {id:1, code:"1001", name:"Ruby Necklace", category:"Jewelry", purchase:15000, sale:20000, discount:18000, stock:300, sold:0},
@@ -1045,111 +927,100 @@ const aiLines = [
   "AI note: Cosmetics + Jewelry combo ticket size strong banata hai."
 ];
 
+/********************************************
+ * LOAD / SAVE
+ ********************************************/
 function loadDataFromStorage() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return;
+
     const data = JSON.parse(raw);
+
     if (Array.isArray(data.products)) products = data.products;
     if (Array.isArray(data.sales)) sales = data.sales;
     if (Array.isArray(data.orders)) orders = data.orders;
     if (Array.isArray(data.expenses)) expenses = data.expenses;
     if (Array.isArray(data.staffLog)) staffLog = data.staffLog;
+
     sales = sales.map(s => ({...s, date:new Date(s.date)}));
     orders = orders.map(o => ({...o, date:new Date(o.date)}));
     expenses = expenses.map(e => ({...e, date:new Date(e.date)}));
     staffLog = staffLog.map(l => ({...l, date:new Date(l.date)}));
+
     nextProductId = data.nextProductId || nextProductId;
     nextSaleId = data.nextSaleId || nextSaleId;
     nextOrderId = data.nextOrderId || nextOrderId;
     nextExpenseId = data.nextExpenseId || nextExpenseId;
     invoiceCounter = data.invoiceCounter || invoiceCounter;
-  } catch(e){console.error(e);}
+
+  } catch (e) {
+    console.error("Load error:", e);
+  }
 }
 
 function saveDataToStorage() {
   try {
     const data = {
-      products,sales,orders,expenses,staffLog,
-      nextProductId,nextSaleId,nextOrderId,nextExpenseId,invoiceCounter
+      products, sales, orders, expenses, staffLog,
+      nextProductId, nextSaleId, nextOrderId, nextExpenseId, invoiceCounter
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  } catch(e){console.error(e);}
+  } catch (e) {
+    console.error("Save error:", e);
+  }
 }
 
-function openSettings(){
-  document.getElementById("settingsOverlay").style.display="block";
-  setTimeout(()=>{document.getElementById("settingsSheet").style.left="0";},10);
-}
-function closeSettings(){
-  document.getElementById("settingsSheet").style.left="-320px";
-  setTimeout(()=>{document.getElementById("settingsOverlay").style.display="none";},250);
-}
+/********************************************
+ * LOGIN
+ ********************************************/
+function fakeLogin() {
+  const email = document.getElementById("loginEmail").value.trim().toLowerCase();
+  const pass = document.getElementById("loginPassword").value.trim().toLowerCase();
 
-function resetSales(){
-  if(!confirm("Reset all sales?"))return;
-  sales=[]; nextSaleId=1;
-  staffLog.push({user:currentUserName,action:"Reset Sales",details:"All sales cleared",date:new Date()});
-  renderAll();
-}
-function resetOrders(){
-  if(!confirm("Reset all orders?"))return;
-  orders=[]; nextOrderId=1;
-  staffLog.push({user:currentUserName,action:"Reset Orders",details:"All orders cleared",date:new Date()});
-  renderAll();
-}
-function resetExpenses(){
-  if(!confirm("Reset all expenses?"))return;
-  expenses=[]; nextExpenseId=1;
-  staffLog.push({user:currentUserName,action:"Reset Expenses",details:"All expenses cleared",date:new Date()});
-  renderAll();
-}
-function resetStaffLog(){
-  if(!confirm("Reset staff log?"))return;
-  staffLog=[]; renderAll();
-}
-function resetProductSold(){
-  if(!confirm("Reset sold count?"))return;
-  products.forEach(p=>p.sold=0);
-  staffLog.push({user:currentUserName,action:"Reset Sold Count",details:"All sold=0",date:new Date()});
-  renderAll();
-}
-function resetFullSystem(){
-  if(!confirm("Full reset? Products SAFE."))return;
-  sales=[];orders=[];expenses=[];staffLog=[];
-  nextSaleId=1;nextOrderId=1;nextExpenseId=1;
-  products.forEach(p=>p.sold=0);
-  staffLog.push({user:currentUserName,action:"Full Reset",details:"System reset (products safe)",date:new Date()});
+  if (email === "admin" && pass === "admin") {
+    currentRole = "admin";
+    currentUserName = "Admin";
+  } else if (email === "staff" && pass === "staff") {
+    currentRole = "staff";
+    currentUserName = "Staff";
+  } else {
+    alert("Wrong login. Use admin/admin or staff/staff");
+    return;
+  }
+
+  document.getElementById("userName").innerText = currentUserName;
+  document.getElementById("userRoleLabel").innerText = currentRole;
+
+  document.getElementById("loginOverlay").style.display = "none";
+
   renderAll();
 }
 
-function fakeLogin(){
-  const email=document.getElementById("loginEmail").value.trim().toLowerCase();
-  const pass=document.getElementById("loginPassword").value.trim().toLowerCase();
-  if(email==="admin"&&pass==="admin"){currentRole="admin";currentUserName="Admin";}
-  else if(email==="staff"&&pass==="staff"){currentRole="staff";currentUserName="Staff";}
-  else{alert("Wrong login. Use admin/admin or staff/staff");return;}
-  document.getElementById("userName").innerText=currentUserName;
-  document.getElementById("userRoleLabel").innerText=currentRole;
-  document.getElementById("loginOverlay").style.display="none";
-  renderAll();
-}
-
-function showSection(ev,name){
-  ["dashboard","products","sales","orders","expenses","alerts"].forEach(s=>{
-    document.getElementById("section-"+s).classList.add("hidden");
+/********************************************
+ * NAVIGATION
+ ********************************************/
+function showSection(ev, name) {
+  const sections = ["dashboard","products","sales","orders","expenses","alerts"];
+  sections.forEach(s => {
+    document.getElementById("section-" + s).classList.add("hidden");
   });
-  document.getElementById("section-"+name).classList.remove("hidden");
-  document.querySelectorAll(".app-nav .nav-link").forEach(b=>b.classList.remove("active"));
-  if(ev&&ev.target)ev.target.classList.add("active");
-}
-function bottomNavClick(section){
-  showSection(null,section);
-  document.querySelectorAll(".bottom-nav .nav-link").forEach(b=>b.classList.remove("active"));
-  document.getElementById("bottom-"+section).classList.add("active");
+  document.getElementById("section-" + name).classList.remove("hidden");
+
+  document.querySelectorAll(".app-nav .nav-link").forEach(btn => btn.classList.remove("active"));
+  if (ev && ev.target) ev.target.classList.add("active");
 }
 
-function renderAll(){
+function bottomNavClick(section) {
+  showSection(null, section);
+  document.querySelectorAll(".bottom-nav .nav-link").forEach(btn => btn.classList.remove("active"));
+  document.getElementById("bottom-" + section).classList.add("active");
+}
+
+/********************************************
+ * RENDER ALL
+ ********************************************/
+function renderAll() {
   renderMetrics();
   renderBestSelling();
   renderProductsTable();
@@ -1164,402 +1035,631 @@ function renderAll(){
   renderStaffLogTable();
   saveDataToStorage();
 }
+  /********************************************
+ * DASHBOARD METRICS
+ ********************************************/
+function renderMetrics() {
+  document.getElementById("metricTotalProducts").innerText = products.length;
+  document.getElementById("metricTotalOrders").innerText = orders.length;
 
-function renderMetrics(){
-  document.getElementById("metricTotalProducts").innerText=products.length;
-  document.getElementById("metricTotalOrders").innerText=orders.length;
-  const totalSales=sales.reduce((s,x)=>s+x.total,0);
-  document.getElementById("metricTotalSales").innerText=totalSales+" PKR";
-  const lowStock=products.filter(p=>p.stock<=5).length;
-  document.getElementById("metricLowStock").innerText=lowStock;
+  const totalSales = sales.reduce((sum,s) => sum + s.total, 0);
+  document.getElementById("metricTotalSales").innerText = totalSales + " PKR";
 
-  const now=new Date();const oneDay=24*60*60*1000;
-  let dailySales=0,monthlySales=0,dailyProfit=0,monthlyProfit=0;
-  sales.forEach(s=>{
-    const diff=(now-s.date)/oneDay;
-    if(diff<=1){dailySales+=s.total;dailyProfit+=s.profit||0;}
-    if(diff<=30){monthlySales+=s.total;monthlyProfit+=s.profit||0;}
+  const lowStock = products.filter(p => p.stock <= 5).length;
+  document.getElementById("metricLowStock").innerText = lowStock;
+
+  const now = new Date();
+  const oneDay = 24*60*60*1000;
+
+  let dailySales = 0, monthlySales = 0;
+  let dailyProfit = 0, monthlyProfit = 0;
+
+  sales.forEach(s => {
+    const diff = (now - s.date) / oneDay;
+    if (diff <= 1) {
+      dailySales += s.total;
+      dailyProfit += s.profit || 0;
+    }
+    if (diff <= 30) {
+      monthlySales += s.total;
+      monthlyProfit += s.profit || 0;
+    }
   });
-  let dailyExpense=0,monthlyExpense=0;
-  expenses.forEach(e=>{
-    const diff=(now-e.date)/oneDay;
-    if(diff<=1)dailyExpense+=e.amount;
-    if(diff<=30)monthlyExpense+=e.amount;
+
+  let dailyExpense = 0, monthlyExpense = 0;
+  expenses.forEach(e => {
+    const diff = (now - e.date) / oneDay;
+    if (diff <= 1) dailyExpense += e.amount;
+    if (diff <= 30) monthlyExpense += e.amount;
   });
-  document.getElementById("metricDailySales").innerText=dailySales+" PKR";
-  document.getElementById("metricMonthlySales").innerText=monthlySales+" PKR";
-  document.getElementById("metricDailyProfit").innerText=(dailyProfit-dailyExpense)+" PKR";
-  document.getElementById("metricMonthlyProfit").innerText=(monthlyProfit-monthlyExpense)+" PKR";
-  document.getElementById("metricDailyExpense").innerText=dailyExpense+" PKR";
-  document.getElementById("metricMonthlyExpense").innerText=monthlyExpense+" PKR";
-  document.getElementById("metricNetMonthlyProfit").innerText=(monthlySales-monthlyExpense)+" PKR";
-  const pending=orders.filter(o=>o.paymentStatus==="Pending").length;
-  document.getElementById("metricPendingPayments").innerText=pending;
+
+  document.getElementById("metricDailySales").innerText = dailySales + " PKR";
+  document.getElementById("metricMonthlySales").innerText = monthlySales + " PKR";
+  document.getElementById("metricDailyProfit").innerText = (dailyProfit - dailyExpense) + " PKR";
+  document.getElementById("metricMonthlyProfit").innerText = (monthlyProfit - monthlyExpense) + " PKR";
+
+  document.getElementById("metricDailyExpense").innerText = dailyExpense + " PKR";
+  document.getElementById("metricMonthlyExpense").innerText = monthlyExpense + " PKR";
+  document.getElementById("metricNetMonthlyProfit").innerText = (monthlySales - monthlyExpense) + " PKR";
+
+  const pending = orders.filter(o => o.paymentStatus === "Pending").length;
+  document.getElementById("metricPendingPayments").innerText = pending;
 }
 
-function renderBestSelling(){
-  const c=document.getElementById("bestSellingContainer");
-  c.innerHTML="";
-  [...products].sort((a,b)=>b.sold-a.sold).slice(0,4).forEach(p=>{
-    const div=document.createElement("div");
-    div.className="col-6 col-md-3";
-    div.innerHTML=`
+/********************************************
+ * BEST SELLING
+ ********************************************/
+function renderBestSelling() {
+  const container = document.getElementById("bestSellingContainer");
+  container.innerHTML = "";
+
+  const sorted = [...products].sort((a,b) => b.sold - a.sold).slice(0,4);
+
+  sorted.forEach(p => {
+    const div = document.createElement("div");
+    div.className = "col-6 col-md-3";
+    div.innerHTML = `
       <div class="product-card text-center">
         <div class="mb-1"><span class="product-tag">${p.category}</span></div>
         <strong>${p.name}</strong>
       </div>`;
-    c.appendChild(div);
+    container.appendChild(div);
   });
 }
 
-function renderProductsTable(){
-  const tbody=document.getElementById("productsTableBody");
-  tbody.innerHTML="";
-  products.forEach(p=>{
-    const tr=document.createElement("tr");
-    let actions="";
-    if(currentRole==="admin"){
-      actions=`
+/********************************************
+ * PRODUCTS TABLE
+ ********************************************/
+function renderProductsTable() {
+  const tbody = document.getElementById("productsTableBody");
+  tbody.innerHTML = "";
+
+  products.forEach(p => {
+    const tr = document.createElement("tr");
+
+    let actions = "";
+    if (currentRole === "admin") {
+      actions = `
         <button class="btn btn-sm btn-outline-primary me-1" onclick="editProduct(${p.id})">
           <i class="bi bi-pencil"></i>
         </button>
         <button class="btn btn-sm btn-outline-danger" onclick="deleteProduct(${p.id})">
           <i class="bi bi-trash"></i>
         </button>`;
-    }else{
-      actions=`<span class="text-muted" style="font-size:0.8rem;">View only</span>`;
+    } else {
+      actions = `<span class="text-muted" style="font-size:0.8rem;">View only</span>`;
     }
-    tr.innerHTML=`
+
+    tr.innerHTML = `
       <td>${p.name}</td>
       <td>${p.category}</td>
       <td>${p.code}</td>
       <td>${p.purchase}</td>
       <td>${p.sale}</td>
-      <td>${p.discount||"-"}</td>
-      <td class="${p.stock<=5?'low-stock':''}">${p.stock}</td>
+      <td>${p.discount || "-"}</td>
+      <td class="${p.stock <= 5 ? 'low-stock' : ''}">${p.stock}</td>
       <td>${p.sold}</td>
-      <td>${actions}</td>`;
+      <td>${actions}</td>
+    `;
+
     tbody.appendChild(tr);
   });
 }
 
-function saveProduct(e){
+/********************************************
+ * PRODUCT FORM
+ ********************************************/
+function saveProduct(e) {
   e.preventDefault();
-  if(currentRole!=="admin")return;
-  const id=document.getElementById("prodId").value;
-  const name=document.getElementById("prodName").value.trim();
-  const category=document.getElementById("prodCategory").value.trim();
-  const code=document.getElementById("prodCode").value.trim();
-  const purchase=Number(document.getElementById("prodPurchase").value);
-  const sale=Number(document.getElementById("prodSale").value);
-  const discount=Number(document.getElementById("prodDiscount").value||0);
-  const stock=Number(document.getElementById("prodStock").value);
-  if(!name)return;
-  if(id){
-    const p=products.find(x=>x.id==id);
-    if(p){p.name=name;p.category=category;p.code=code;p.purchase=purchase;p.sale=sale;p.discount=discount;p.stock=stock;}
-    staffLog.push({user:currentUserName,action:"Edit Product",details:name,date:new Date()});
-  }else{
-    products.push({id:nextProductId++,code,name,category,purchase,sale,discount,stock,sold:0});
-    staffLog.push({user:currentUserName,action:"Add Product",details:name,date:new Date()});
+  if (currentRole !== "admin") return;
+
+  const id = document.getElementById("prodId").value;
+  const name = document.getElementById("prodName").value.trim();
+  const category = document.getElementById("prodCategory").value.trim();
+  const code = document.getElementById("prodCode").value.trim();
+  const purchase = Number(document.getElementById("prodPurchase").value);
+  const sale = Number(document.getElementById("prodSale").value);
+  const discount = Number(document.getElementById("prodDiscount").value || 0);
+  const stock = Number(document.getElementById("prodStock").value);
+
+  if (!name) return;
+
+  if (id) {
+    const p = products.find(x => x.id == id);
+    if (p) {
+      p.name = name;
+      p.category = category;
+      p.code = code;
+      p.purchase = purchase;
+      p.sale = sale;
+      p.discount = discount;
+      p.stock = stock;
+    }
+    staffLog.push({user:currentUserName, action:"Edit Product", details:name, date:new Date()});
+  } else {
+    products.push({id:nextProductId++, code, name, category, purchase, sale, discount, stock, sold:0});
+    staffLog.push({user:currentUserName, action:"Add Product", details:name, date:new Date()});
   }
-  resetProductForm();renderAll();
-}
-function resetProductForm(){
-  document.getElementById("prodId").value="";
-  document.getElementById("prodName").value="";
-  document.getElementById("prodCategory").value="Jewelry";
-  document.getElementById("prodCode").value="";
-  document.getElementById("prodPurchase").value="";
-  document.getElementById("prodSale").value="";
-  document.getElementById("prodDiscount").value="";
-  document.getElementById("prodStock").value="";
-}
-function editProduct(id){
-  if(currentRole!=="admin")return;
-  const p=products.find(x=>x.id===id);if(!p)return;
-  document.getElementById("prodId").value=p.id;
-  document.getElementById("prodName").value=p.name;
-  document.getElementById("prodCategory").value=p.category;
-  document.getElementById("prodCode").value=p.code;
-  document.getElementById("prodPurchase").value=p.purchase;
-  document.getElementById("prodSale").value=p.sale;
-  document.getElementById("prodDiscount").value=p.discount;
-  document.getElementById("prodStock").value=p.stock;
-  showSection(null,"products");
-}
-function deleteProduct(id){
-  if(currentRole!=="admin")return;
-  if(!confirm("Delete product?"))return;
-  const p=products.find(x=>x.id===id);
-  products=products.filter(x=>x.id!==id);
-  staffLog.push({user:currentUserName,action:"Delete Product",details:p.name,date:new Date()});
+
+  resetProductForm();
   renderAll();
 }
 
-function adjustStock(e){
-  e.preventDefault();
-  const prodId=Number(document.getElementById("adjustProduct").value);
-  const qty=Number(document.getElementById("adjustQuantity").value);
-  if(!prodId||!qty)return;
-  const p=products.find(x=>x.id===prodId);if(!p)return;
-  p.stock+=qty;
-  staffLog.push({user:currentUserName,action:"Stock Adjust",details:`${p.name} (${qty>0?"+":""}${qty})`,date:new Date()});
-  document.getElementById("adjustQuantity").value="";
-  document.getElementById("adjustProduct").value="";
+function resetProductForm() {
+  document.getElementById("prodId").value = "";
+  document.getElementById("prodName").value = "";
+  document.getElementById("prodCategory").value = "Jewelry";
+  document.getElementById("prodCode").value = "";
+  document.getElementById("prodPurchase").value = "";
+  document.getElementById("prodSale").value = "";
+  document.getElementById("prodDiscount").value = "";
+  document.getElementById("prodStock").value = "";
+}
+
+function editProduct(id) {
+  if (currentRole !== "admin") return;
+
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+
+  document.getElementById("prodId").value = p.id;
+  document.getElementById("prodName").value = p.name;
+  document.getElementById("prodCategory").value = p.category;
+  document.getElementById("prodCode").value = p.code;
+  document.getElementById("prodPurchase").value = p.purchase;
+  document.getElementById("prodSale").value = p.sale;
+  document.getElementById("prodDiscount").value = p.discount;
+  document.getElementById("prodStock").value = p.stock;
+
+  showSection(null, "products");
+}
+
+function deleteProduct(id) {
+  if (currentRole !== "admin") return;
+  if (!confirm("Delete product?")) return;
+
+  const p = products.find(x => x.id === id);
+  products = products.filter(x => x.id !== id);
+
+  staffLog.push({user:currentUserName, action:"Delete Product", details:p.name, date:new Date()});
+
   renderAll();
 }
 
-function renderCartProductOptions(){
-  const select=document.getElementById("cartProduct");
-  select.innerHTML=`<option value="none">Select product</option>`;
-  products.forEach(p=>{
-    const opt=document.createElement("option");
-    opt.value=p.id;
-    opt.textContent=`${p.name} (${p.code}) - Stock: ${p.stock}`;
-    select.appendChild(opt);
+/********************************************
+ * STOCK ADJUST
+ ********************************************/
+function adjustStock(e) {
+  e.preventDefault();
+
+  const prodId = Number(document.getElementById("adjustProduct").value);
+  const qty = Number(document.getElementById("adjustQuantity").value);
+
+  if (!prodId || !qty) return;
+
+  const p = products.find(x => x.id === prodId);
+  if (!p) return;
+
+  p.stock += qty;
+
+  staffLog.push({
+    user:currentUserName,
+    action:"Stock Adjust",
+    details:`${p.name} (${qty > 0 ? "+" : ""}${qty})`,
+    date:new Date()
   });
+
+  document.getElementById("adjustQuantity").value = "";
+  document.getElementById("adjustProduct").value = "";
+
+  renderAll();
 }
-function renderAdjustProductOptions(){
-  const select=document.getElementById("adjustProduct");
-  select.innerHTML=`<option value="">Select product</option>`;
-  products.forEach(p=>{
-    const opt=document.createElement("option");
-    opt.value=p.id;
-    opt.textContent=`${p.name} (${p.code}) - Stock: ${p.stock}`;
+  /********************************************
+ * CART OPTIONS
+ ********************************************/
+function renderCartProductOptions() {
+  const select = document.getElementById("cartProduct");
+  select.innerHTML = `<option value="none">Select product</option>`;
+
+  products.forEach(p => {
+    const opt = document.createElement("option");
+    opt.value = p.id;
+    opt.textContent = `${p.name} (${p.code}) - Stock: ${p.stock}`;
     select.appendChild(opt);
   });
 }
 
-function addToCart(e){
+function renderAdjustProductOptions() {
+  const select = document.getElementById("adjustProduct");
+  select.innerHTML = `<option value="">Select product</option>`;
+
+  products.forEach(p => {
+    const opt = document.createElement("option");
+    opt.value = p.id;
+    opt.textContent = `${p.name} (${p.code}) - Stock: ${p.stock}`;
+    select.appendChild(opt);
+  });
+}
+
+/********************************************
+ * ADD TO CART
+ ********************************************/
+function addToCart(e) {
   e.preventDefault();
-  const prodId=Number(document.getElementById("cartProduct").value);
-  const qty=Number(document.getElementById("cartQuantity").value);
-  if(!prodId||qty<=0)return;
-  const p=products.find(x=>x.id===prodId);if(!p)return;
-  if(p.stock<qty){alert("Not enough stock!");return;}
-  const existing=cart.find(c=>c.productId===prodId);
-  if(existing){
-    if(p.stock<existing.quantity+qty){alert("Not enough stock!");return;}
-    existing.quantity+=qty;
-  }else{
-    cart.push({productId:prodId,quantity:qty});
+
+  const prodId = Number(document.getElementById("cartProduct").value);
+  const qty = Number(document.getElementById("cartQuantity").value);
+
+  if (!prodId || qty <= 0) return;
+
+  const p = products.find(x => x.id === prodId);
+  if (!p) return;
+
+  if (p.stock < qty) {
+    alert("Not enough stock!");
+    return;
   }
-  document.getElementById("cartQuantity").value="";
-  document.getElementById("cartProduct").value="none";
+
+  const existing = cart.find(c => c.productId === prodId);
+  if (existing) {
+    if (p.stock < existing.quantity + qty) {
+      alert("Not enough stock!");
+      return;
+    }
+    existing.quantity += qty;
+  } else {
+    cart.push({productId:prodId, quantity:qty});
+  }
+
+  document.getElementById("cartQuantity").value = "";
+  document.getElementById("cartProduct").value = "none";
+
   renderCartTable();
 }
-function renderCartTable(){
-  const tbody=document.getElementById("cartTableBody");
-  tbody.innerHTML="";
-  let total=0;
-  cart.forEach((c,idx)=>{
-    const p=products.find(x=>x.id===c.productId);if(!p)return;
-    const price=p.discount>0?p.discount:p.sale;
-    const lineTotal=price*c.quantity;
-    total+=lineTotal;
-    const tr=document.createElement("tr");
-    tr.innerHTML=`
+
+/********************************************
+ * CART TABLE
+ ********************************************/
+function renderCartTable() {
+  const tbody = document.getElementById("cartTableBody");
+  tbody.innerHTML = "";
+
+  let total = 0;
+
+  cart.forEach((c,idx) => {
+    const p = products.find(x => x.id === c.productId);
+    if (!p) return;
+
+    const price = p.discount > 0 ? p.discount : p.sale;
+    const lineTotal = price * c.quantity;
+    total += lineTotal;
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
       <td>${p.name}</td>
       <td>${c.quantity}</td>
       <td>${price}</td>
       <td>${lineTotal}</td>
-      <td><button class="btn btn-sm btn-outline-danger" onclick="removeCartItem(${idx})"><i class="bi bi-x"></i></button></td>`;
+      <td>
+        <button class="btn btn-sm btn-outline-danger" onclick="removeCartItem(${idx})">
+          <i class="bi bi-x"></i>
+        </button>
+      </td>
+    `;
     tbody.appendChild(tr);
   });
-  document.getElementById("cartTotalLabel").innerText="Total: "+total+" PKR";
-}
-function removeCartItem(i){
-  cart.splice(i,1);renderCartTable();
-}
-function clearCart(){
-  cart=[];renderCartTable();
+
+  document.getElementById("cartTotalLabel").innerText = "Total: " + total + " PKR";
 }
 
-function checkoutCart(){
-  if(cart.length===0){alert("Cart empty");return;}
-  let total=0,profit=0;
-  const items=[];
-  cart.forEach(c=>{
-    const p=products.find(x=>x.id===c.productId);if(!p)return;
-    const price=p.discount>0?p.discount:p.sale;
-    const lineTotal=price*c.quantity;
-    total+=lineTotal;
-    const lineProfit=(price-p.purchase)*c.quantity;
-    profit+=lineProfit;
-    p.stock-=c.quantity;
-    p.sold+=c.quantity;
-    items.push({name:p.name,qty:c.quantity,price,total:lineTotal});
+function removeCartItem(i) {
+  cart.splice(i,1);
+  renderCartTable();
+}
+
+function clearCart() {
+  cart = [];
+  renderCartTable();
+}
+
+/********************************************
+ * CHECKOUT
+ ********************************************/
+function checkoutCart() {
+  if (cart.length === 0) {
+    alert("Cart empty");
+    return;
+  }
+
+  let total = 0, profit = 0;
+  const items = [];
+
+  cart.forEach(c => {
+    const p = products.find(x => x.id === c.productId);
+    if (!p) return;
+
+    const price = p.discount > 0 ? p.discount : p.sale;
+    const lineTotal = price * c.quantity;
+    total += lineTotal;
+
+    const lineProfit = (price - p.purchase) * c.quantity;
+    profit += lineProfit;
+
+    p.stock -= c.quantity;
+    p.sold += c.quantity;
+
+    items.push({name:p.name, qty:c.quantity, price, total:lineTotal});
   });
 
-  const customer=document.getElementById("orderCustomerName").value.trim()||"Walk-in";
-  const phone=document.getElementById("orderCustomerPhone").value.trim()||"-";
-  const paymentStatus=document.getElementById("orderPaymentStatus").value;
+  const customer = document.getElementById("orderCustomerName").value.trim() || "Walk-in";
+  const phone = document.getElementById("orderCustomerPhone").value.trim() || "-";
+  const paymentStatus = document.getElementById("orderPaymentStatus").value;
 
-  const sale={id:nextSaleId++,items,total,profit,date:new Date()};
+  const sale = {
+    id: nextSaleId++,
+    items,
+    total,
+    profit,
+    date: new Date()
+  };
+
   sales.push(sale);
 
-  const order={id:nextOrderId++,customer,phone,total,paymentStatus,date:new Date()};
+  const order = {
+    id: nextOrderId++,
+    customer,
+    phone,
+    total,
+    paymentStatus,
+    date: new Date()
+  };
+
   orders.push(order);
 
-  staffLog.push({user:currentUserName,action:"Checkout",details:`${customer} - ${total} PKR`,date:new Date()});
+  staffLog.push({
+    user: currentUserName,
+    action: "Checkout",
+    details: `Sale: ${total} PKR`,
+    date: new Date()
+  });
 
-  showInvoiceModal(sale,order);
-  cart=[];document.getElementById("orderCustomerName").value="";
-  document.getElementById("orderCustomerPhone").value="";
-  document.getElementById("orderPaymentStatus").value="Paid";
+  showInvoice(items, total);
+
+  cart = [];
   renderAll();
 }
 
-function showInvoiceModal(sale,order){
-  document.getElementById("invoiceNumber").innerText=invoiceCounter++;
-  document.getElementById("invoiceDate").innerText=new Date().toLocaleString();
-  const tbody=document.getElementById("invoiceTableBody");
-  tbody.innerHTML="";
-  sale.items.forEach(it=>{
-    const tr=document.createElement("tr");
-    tr.innerHTML=`
-      <td>${it.name}</td>
-      <td>${it.qty}</td>
-      <td>${it.price}</td>
-      <td>${it.total}</td>`;
+/********************************************
+ * INVOICE
+ ********************************************/
+function showInvoice(items, total) {
+  const tbody = document.getElementById("invoiceTableBody");
+  tbody.innerHTML = "";
+
+  items.forEach(i => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${i.name}</td>
+      <td>${i.qty}</td>
+      <td>${i.price}</td>
+      <td>${i.total}</td>
+    `;
     tbody.appendChild(tr);
   });
-  document.getElementById("invoiceTotal").innerText=sale.total;
-  document.getElementById("invoiceAiLine").innerText=aiLines[Math.floor(Math.random()*aiLines.length)];
-  const modal=new bootstrap.Modal(document.getElementById("invoiceModal"));
+
+  document.getElementById("invoiceTotal").innerText = total;
+  document.getElementById("invoiceNumber").innerText = invoiceCounter++;
+  document.getElementById("invoiceDate").innerText = new Date().toLocaleString();
+  document.getElementById("invoiceAiLine").innerText = aiLines[Math.floor(Math.random()*aiLines.length)];
+
+  const modal = new bootstrap.Modal(document.getElementById("invoiceModal"));
   modal.show();
 }
 
-function renderSalesList(){
-  const ul=document.getElementById("salesList");
-  ul.innerHTML="";
-  sales.slice().reverse().slice(0,20).forEach(s=>{
-    const li=document.createElement("li");
-    li.className="list-group-item d-flex justify-content-between align-items-center";
-    li.innerHTML=`
-      <div>
-        <div><strong>Sale #${s.id}</strong> - ${s.total} PKR</div>
-        <small class="text-muted">${s.date.toLocaleString()}</small>
-      </div>
-      <span class="badge bg-dark">Items: ${s.items.length}</span>`;
-    ul.appendChild(li);
+/********************************************
+ * SALES LIST
+ ********************************************/
+function renderSalesList() {
+  const list = document.getElementById("salesList");
+  list.innerHTML = "";
+
+  sales.slice().reverse().forEach(s => {
+    const li = document.createElement("li");
+    li.className = "list-group-item";
+    li.innerHTML = `
+      <b>Sale #${s.id}</b> — ${s.total} PKR
+      <br><small>${s.date.toLocaleString()}</small>
+    `;
+    list.appendChild(li);
   });
 }
 
-function renderOrdersTable(){
-  const tbody=document.getElementById("ordersTableBody");
-  tbody.innerHTML="";
-  orders.slice().reverse().forEach(o=>{
-    const tr=document.createElement("tr");
-    tr.innerHTML=`
+/********************************************
+ * ORDERS TABLE
+ ********************************************/
+function renderOrdersTable() {
+  const tbody = document.getElementById("ordersTableBody");
+  tbody.innerHTML = "";
+
+  orders.slice().reverse().forEach(o => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
       <td>${o.id}</td>
       <td>${o.customer}</td>
       <td>${o.phone}</td>
       <td>${o.total}</td>
-      <td><span class="badge ${o.paymentStatus==="Paid"?"badge-paid":"badge-pending"}">${o.paymentStatus}</span></td>
-      <td>${o.date.toLocaleString()}</td>`;
-    tbody.appendChild(tr);
-  });
-}
-
-function addExpense(e){
-  e.preventDefault();
-  const title=document.getElementById("expenseTitle").value.trim();
-  const amount=Number(document.getElementById("expenseAmount").value);
-  const category=document.getElementById("expenseCategory").value;
-  if(!title||!amount)return;
-  const exp={id:nextExpenseId++,title,amount,category,date:new Date()};
-  expenses.push(exp);
-  staffLog.push({user:currentUserName,action:"Add Expense",details:`${title} - ${amount}`,date:new Date()});
-  document.getElementById("expenseTitle").value="";
-  document.getElementById("expenseAmount").value="";
-  document.getElementById("expenseCategory").value="Rent";
-  renderAll();
-}
-
-function renderExpensesTable(){
-  const tbody=document.getElementById("expensesTableBody");
-  tbody.innerHTML="";
-  expenses.slice().reverse().forEach(e=>{
-    const tr=document.createElement("tr");
-    tr.innerHTML=`
-      <td>${e.title}</td>
-      <td>${e.category}</td>
-      <td>${e.amount}</td>
-      <td>${e.date.toLocaleString()}</td>`;
-    tbody.appendChild(tr);
-  });
-}
-
-function renderAlerts(){
-  const ul=document.getElementById("alertsList");
-  ul.innerHTML="";
-  const low=products.filter(p=>p.stock<=5);
-  if(low.length===0){
-    const li=document.createElement("li");
-    li.className="list-group-item text-muted";
-    li.innerText="No low stock items.";
-    ul.appendChild(li);
-    return;
-  }
-  low.forEach(p=>{
-    const li=document.createElement("li");
-    li.className="list-group-item d-flex justify-content-between align-items-center";
-    li.innerHTML=`
-      <div>
-        <strong>${p.name}</strong> (${p.category})
-        <div class="text-muted" style="font-size:0.8rem;">Code: ${p.code}</div>
-      </div>
-      <span class="badge bg-danger">Stock: ${p.stock}</span>`;
-    ul.appendChild(li);
-  });
-}
-
-function renderDashboardLowStock(){
-  const ul=document.getElementById("dashboardLowStockList");
-  ul.innerHTML="";
-  const low=products.filter(p=>p.stock<=5);
-  if(low.length===0){
-    const li=document.createElement("li");
-    li.className="list-group-item text-muted";
-    li.innerText="All good. No low stock.";
-    ul.appendChild(li);
-    return;
-  }
-  low.forEach(p=>{
-    const li=document.createElement("li");
-    li.className="list-group-item d-flex justify-content-between align-items-center";
-    li.innerHTML=`
-      <span>${p.name} (${p.category})</span>
-      <span class="badge bg-danger">Stock: ${p.stock}</span>`;
-    ul.appendChild(li);
-  });
-}
-
-function renderStaffLogTable(){
-  const tbody=document.getElementById("staf`;
-ul.appendChild(li);
-});
-}
-
-function renderStaffLogTable(){
-  const tbody = document.getElementById("staf`;
-ul.appendChild(li);
-  });
-}
-
-function renderStaffLogTable(){
-  const tbody = document.getElementById("staffLogTableBody");
-  tbody.innerHTML = "";
-  staffLog.slice().reverse().forEach(log => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${log.user}</td>
-      <td>${log.action}</td>
-      <td>${log.details}</td>
-      <td>${log.date.toLocaleString()}</td>
+      <td>${o.paymentStatus}</td>
+      <td>${o.date.toLocaleString()}</td>
     `;
     tbody.appendChild(tr);
   });
 }
+
+/********************************************
+ * EXPENSES TABLE
+ ********************************************/
+function renderExpensesTable() {
+  const tbody = document.getElementById("expensesTableBody");
+  tbody.innerHTML = "";
+
+  expenses.slice().reverse().forEach(e => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${e.title}</td>
+      <td>${e.category}</td>
+      <td>${e.amount}</td>
+      <td>${e.date.toLocaleString()}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+/********************************************
+ * ADD EXPENSE
+ ********************************************/
+function addExpense(e) {
+  e.preventDefault();
+
+  const title = document.getElementById("expenseTitle").value.trim();
+  const amount = Number(document.getElementById("expenseAmount").value);
+  const category = document.getElementById("expenseCategory").value;
+
+  if (!title || !amount) return;
+
+  expenses.push({
+    id: nextExpenseId++,
+    title,
+    amount,
+    category,
+    date: new Date()
+  });
+
+  staffLog.push({
+    user: currentUserName,
+    action: "Add Expense",
+    details: `${title} (${amount})`,
+    date: new Date()
+  });
+
+  document.getElementById("expenseTitle").value = "";
+  document.getElementById("expenseAmount").value = "";
+
+  renderAll();
+}
+
+/********************************************
+ * ALERTS
+ ********************************************/
+function renderAlerts() {
+  const list = document.getElementById("alertsList");
+  list.innerHTML = "";
+
+  products.filter(p => p.stock <= 5).forEach(p => {
+    const li = document.createElement("li");
+    li.className = "list-group-item";
+    li.innerHTML = `<b>${p.name}</b> — Stock: ${p.stock}`;
+    list.appendChild(li);
+  });
+}
+
+/********************************************
+ * DASHBOARD LOW STOCK LIST
+ ********************************************/
+function renderDashboardLowStock() {
+  const list = document.getElementById("dashboardLowStockList");
+  list.innerHTML = "";
+
+  products.filter(p => p.stock <= 5).forEach(p => {
+    const li = document.createElement("li");
+    li.className = "list-group-item";
+    li.innerHTML = `${p.name} — <b>${p.stock}</b>`;
+    list.appendChild(li);
+  });
+}
+
+/********************************************
+ * STAFF LOG
+ ********************************************/
+function renderStaffLogTable() {
+  const tbody = document.getElementById("staffLogTableBody");
+  tbody.innerHTML = "";
+
+  staffLog.slice().reverse().forEach(l => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${l.user}</td>
+      <td>${l.action}</td>
+      <td>${l.details}</td>
+      <td>${l.date.toLocaleString()}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+  /********************************************
+ * RESET FUNCTIONS (SAFE — PRODUCTS SAFE)
+ ********************************************/
+function resetSales() {
+  if (!confirm("Clear all sales?")) return;
+  sales = [];
+  renderAll();
+}
+
+function resetOrders() {
+  if (!confirm("Clear all orders?")) return;
+  orders = [];
+  renderAll();
+}
+
+function resetExpenses() {
+  if (!confirm("Clear all expenses?")) return;
+  expenses = [];
+  renderAll();
+}
+
+function resetStaffLog() {
+  if (!confirm("Clear staff log?")) return;
+  staffLog = [];
+  renderAll();
+}
+
+function resetProductSold() {
+  if (!confirm("Set all sold = 0? Stock safe.")) return;
+  products.forEach(p => p.sold = 0);
+  renderAll();
+}
+
+function resetFullSystem() {
+  if (!confirm("Full reset? Sales, orders, expenses, staff log — all clear. Products SAFE.")) return;
+
+  sales = [];
+  orders = [];
+  expenses = [];
+  staffLog = [];
+
+  products.forEach(p => p.sold = 0);
+
+  renderAll();
+}
+
+/********************************************
+ * SETTINGS DRAWER
+ ********************************************/
+function openSettings() {
+  document.getElementById("settingsOverlay").classList.add("active");
+  document.getElementById("settingsSheet").classList.add("active");
+}
+
+function closeSettings() {
+  document.getElementById("settingsOverlay").classList.remove("active");
+  document.getElementById("settingsSheet").classList.remove("active");
+}
+
+/********************************************
+ * INITIAL LOAD
+ ********************************************/
+loadDataFromStorage();
+renderAll();
+
+</script>
+</body>
+</html>

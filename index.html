@@ -970,20 +970,24 @@ function saveDataToStorage() {
   }
 }
 
-// ---------- LOGIN ----------
 function fakeLogin() {
-  const email = (document.getElementById('loginEmail').value || "").toLowerCase().trim();
-  const pass = (document.getElementById('loginPassword').value || "").toLowerCase().trim();
+  const email = document.getElementById("loginEmail").value.trim();
+  const pass = document.getElementById("loginPassword").value.trim();
 
-  if (email === "admin" && pass === "admin") {
-    currentRole = "admin";
+  if (email === "admin" && pass === "123") {
     currentUserName = "Admin";
-  } else if (email === "staff" && pass === "staff") {
-    currentRole = "staff";
-    currentUserName = "Staff";
-  } else {
-    alert("Wrong login. Use admin/admin or staff/staff");
+    document.getElementById("loginOverlay").style.display = "none";
     return;
+  }
+
+  if (email === "staff" && pass === "123") {
+    currentUserName = "Staff";
+    document.getElementById("loginOverlay").style.display = "none";
+    return;
+  }
+
+  alert("Invalid login");
+}
   }
 
   document.getElementById('userName').innerText = currentUserName;

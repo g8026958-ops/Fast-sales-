@@ -159,7 +159,7 @@ body {
 }
 .table td {
   vertical-align:middle;
-  font-size:0.9rem;
+  font-size:0.75rem; /* 12px */
   background:#ffffff;
 }
 .chip {
@@ -265,7 +265,7 @@ body {
   max-width:260px;
 }
 
-/* SETTINGS BOTTOM SHEET */
+/* LEFT SETTINGS DRAWER (HALF HEIGHT, 320px WIDTH) */
 #settingsOverlay {
   position:fixed;
   inset:0;
@@ -275,17 +275,17 @@ body {
 }
 #settingsSheet {
   position:fixed;
-  left:0;
-  right:0;
-  bottom:-100%;
+  left:-320px;
+  top:0;
+  width:320px;
+  height:50vh;
   background:#111;
   color:#fff;
-  border-radius:18px 18px 0 0;
+  border-radius:0 18px 18px 0;
   padding:12px 16px 20px;
-  max-height:80vh;
+  box-shadow:4px 0 25px rgba(0,0,0,0.7);
+  transition:left 0.25s ease-out;
   overflow-y:auto;
-  box-shadow:0 -10px 30px rgba(0,0,0,0.7);
-  transition:bottom 0.25s ease-out;
 }
 #settingsSheetHeader {
   display:flex;
@@ -374,7 +374,6 @@ body {
       <span id="userRoleLabel">Role</span>
     </span>
     <span id="userName">User</span>
-    <!-- SETTINGS ICON -->
     <button class="btn btn-sm btn-outline-light ms-1" onclick="openSettings()" title="Settings">
       <i class="bi bi-gear-fill"></i>
     </button>
@@ -418,8 +417,7 @@ body {
     </ul>
   </div>
 </div>
-
-<div class="container my-3">
+  <div class="container my-3">
   <!-- DASHBOARD -->
   <div id="section-dashboard">
     <div class="row g-3">
@@ -484,6 +482,27 @@ body {
         <div class="metric-card">
           <div class="metric-title mb-1">Monthly Profit</div>
           <div class="metric-value" id="metricMonthlyProfit">0 PKR</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mt-3">
+      <div class="col-md-4 col-12">
+        <div class="metric-card">
+          <div class="metric-title mb-1">Today Expenses</div>
+          <div class="metric-value" id="metricDailyExpense">0 PKR</div>
+        </div>
+      </div>
+      <div class="col-md-4 col-12">
+        <div class="metric-card">
+          <div class="metric-title mb-1">Monthly Expenses</div>
+          <div class="metric-value" id="metricMonthlyExpense">0 PKR</div>
+        </div>
+      </div>
+      <div class="col-md-4 col-12">
+        <div class="metric-card">
+          <div class="metric-title mb-1">Net Monthly Profit</div>
+          <div class="metric-value" id="metricNetMonthlyProfit">0 PKR</div>
         </div>
       </div>
     </div>
@@ -712,8 +731,7 @@ body {
       </div>
     </div>
   </div>
-
-  <!-- ORDERS -->
+    <!-- ORDERS -->
   <div id="section-orders" class="hidden">
     <div class="section-title mb-2 d-flex justify-content-between align-items-center">
       <span>Customer Orders</span>
@@ -774,27 +792,6 @@ body {
             </button>
           </div>
         </form>
-      </div>
-    </div>
-
-    <div class="row g-3">
-      <div class="col-md-4 col-12">
-        <div class="metric-card">
-          <div class="metric-title mb-1">Today Expenses</div>
-          <div class="metric-value" id="metricDailyExpense">0 PKR</div>
-        </div>
-      </div>
-      <div class="col-md-4 col-12">
-        <div class="metric-card">
-          <div class="metric-title mb-1">Monthly Expenses</div>
-          <div class="metric-value" id="metricMonthlyExpense">0 PKR</div>
-        </div>
-      </div>
-      <div class="col-md-4 col-12">
-        <div class="metric-card">
-          <div class="metric-title mb-1">Net Monthly Profit</div>
-          <div class="metric-value" id="metricNetMonthlyProfit">0 PKR</div>
-        </div>
       </div>
     </div>
 
@@ -950,7 +947,7 @@ body {
   <button onclick="quickAction('addExpense')"><i class="bi bi-wallet2 me-1"></i>Add Expense</button>
 </div>
 
-<!-- SETTINGS BOTTOM SHEET -->
+<!-- LEFT SETTINGS DRAWER -->
 <div id="settingsOverlay" onclick="closeSettings()"></div>
 <div id="settingsSheet">
   <div id="settingsSheetHeader">
@@ -1014,20 +1011,17 @@ body {
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  // STORAGE KEY
-const STORAGE_KEY = 'alSyed-pos-v1';
+  const STORAGE_KEY = 'alSyed-pos-v3';
 
-// Default products (safe, permanent)
 let products = [
-  {id:1, code:"1001", name:"Ruby Necklace", category:"Jewelry", purchase:15000, sale:20000, discount:18000, stock:300, sold:200},
-  {id:2, code:"1002", name:"Matte Lipstick", category:"Cosmetics", purchase:300, sale:600, discount:450, stock:80, sold:150},
-  {id:3, code:"1003", name:"Jewelry Set", category:"Jewelry", purchase:1200, sale:2400, discount:2000, stock:3, sold:400},
-  {id:4, code:"1004", name:"Premium Bra Set", category:"Undergarments", purchase:800, sale:1500, discount:1300, stock:5, sold:50},
-  {id:5, code:"1005", name:"Cotton Panty Pack", category:"Undergarments", purchase:200, sale:400, discount:350, stock:2, sold:80},
-  {id:6, code:"1006", name:"Men Undershirt", category:"Undergarments", purchase:500, sale:900, discount:0, stock:10, sold:40}
+  {id:1, code:"1001", name:"Ruby Necklace", category:"Jewelry", purchase:15000, sale:20000, discount:18000, stock:300, sold:0},
+  {id:2, code:"1002", name:"Matte Lipstick", category:"Cosmetics", purchase:300, sale:600, discount:450, stock:80, sold:0},
+  {id:3, code:"1003", name:"Jewelry Set", category:"Jewelry", purchase:1200, sale:2400, discount:2000, stock:3, sold:0},
+  {id:4, code:"1004", name:"Premium Bra Set", category:"Undergarments", purchase:800, sale:1500, discount:1300, stock:5, sold:0},
+  {id:5, code:"1005", name:"Cotton Panty Pack", category:"Undergarments", purchase:200, sale:400, discount:350, stock:2, sold:0},
+  {id:6, code:"1006", name:"Men Undershirt", category:"Undergarments", purchase:500, sale:900, discount:0, stock:10, sold:0}
 ];
 
-// Sales empty (no demo)
 let sales = [];
 let orders = [];
 let expenses = [];
@@ -1044,209 +1038,118 @@ let currentRole = "admin";
 let currentUserName = "Admin";
 
 const aiLines = [
-  "AI note: Aaj ki sale strong hai — pace maintain rakho, profit line healthy lag rahi hai.",
-  "AI note: Best sellers ko front rack par rakho — jo bik raha hai, usko aur highlight karo.",
-  "AI note: Undergarments aur cosmetics ka mix ticket size ko stable rakhta hai — smart combo.",
-  "AI note: Low stock items ko jaldi refill karo — empty shelf, empty profit.",
-  "AI note: Repeat customers ke liye soft smile + fast billing = long term business."
+  "AI note: Aaj ki sale strong hai — pace maintain rakho.",
+  "AI note: Best sellers ko front rack par rakho.",
+  "AI note: Low stock items ko jaldi refill karo.",
+  "AI note: Repeat customers = long term business.",
+  "AI note: Cosmetics + Jewelry combo ticket size strong banata hai."
 ];
 
-// LOAD / SAVE
 function loadDataFromStorage() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return;
     const data = JSON.parse(raw);
-
     if (Array.isArray(data.products)) products = data.products;
     if (Array.isArray(data.sales)) sales = data.sales;
     if (Array.isArray(data.orders)) orders = data.orders;
     if (Array.isArray(data.expenses)) expenses = data.expenses;
     if (Array.isArray(data.staffLog)) staffLog = data.staffLog;
-
-    sales = sales.map(s => ({...s, date: new Date(s.date)}));
-    orders = orders.map(o => ({...o, date: new Date(o.date)}));
-    expenses = expenses.map(e => ({...e, date: new Date(e.date)}));
-    staffLog = staffLog.map(l => ({...l, date: new Date(l.date)}));
-
-    if (typeof data.nextProductId === 'number') nextProductId = data.nextProductId;
-    if (typeof data.nextSaleId === 'number') nextSaleId = data.nextSaleId;
-    if (typeof data.nextOrderId === 'number') nextOrderId = data.nextOrderId;
-    if (typeof data.nextExpenseId === 'number') nextExpenseId = data.nextExpenseId;
-    if (typeof data.invoiceCounter === 'number') invoiceCounter = data.invoiceCounter;
-  } catch (e) {
-    console.error('Load error:', e);
-  }
+    sales = sales.map(s => ({...s, date:new Date(s.date)}));
+    orders = orders.map(o => ({...o, date:new Date(o.date)}));
+    expenses = expenses.map(e => ({...e, date:new Date(e.date)}));
+    staffLog = staffLog.map(l => ({...l, date:new Date(l.date)}));
+    nextProductId = data.nextProductId || nextProductId;
+    nextSaleId = data.nextSaleId || nextSaleId;
+    nextOrderId = data.nextOrderId || nextOrderId;
+    nextExpenseId = data.nextExpenseId || nextExpenseId;
+    invoiceCounter = data.invoiceCounter || invoiceCounter;
+  } catch(e){console.error(e);}
 }
 
 function saveDataToStorage() {
   try {
     const data = {
-      products,
-      sales,
-      orders,
-      expenses,
-      staffLog,
-      nextProductId,
-      nextSaleId,
-      nextOrderId,
-      nextExpenseId,
-      invoiceCounter
+      products,sales,orders,expenses,staffLog,
+      nextProductId,nextSaleId,nextOrderId,nextExpenseId,invoiceCounter
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  } catch (e) {
-    console.error('Save error:', e);
-  }
+  } catch(e){console.error(e);}
 }
 
-// SETTINGS PANEL
-function openSettings() {
-  const overlay = document.getElementById('settingsOverlay');
-  const sheet = document.getElementById('settingsSheet');
-  overlay.style.display = 'block';
-  setTimeout(() => {
-    sheet.style.bottom = '0';
-  }, 10);
+function openSettings(){
+  document.getElementById("settingsOverlay").style.display="block";
+  setTimeout(()=>{document.getElementById("settingsSheet").style.left="0";},10);
+}
+function closeSettings(){
+  document.getElementById("settingsSheet").style.left="-320px";
+  setTimeout(()=>{document.getElementById("settingsOverlay").style.display="none";},250);
 }
 
-function closeSettings() {
-  const overlay = document.getElementById('settingsOverlay');
-  const sheet = document.getElementById('settingsSheet');
-  sheet.style.bottom = '-100%';
-  setTimeout(() => {
-    overlay.style.display = 'none';
-  }, 250);
+function resetSales(){
+  if(!confirm("Reset all sales?"))return;
+  sales=[]; nextSaleId=1;
+  staffLog.push({user:currentUserName,action:"Reset Sales",details:"All sales cleared",date:new Date()});
+  renderAll();
 }
-
-// RESET FUNCTIONS
-function resetSales() {
-  if (!confirm("Reset all sales history?")) return;
-  sales = [];
-  nextSaleId = 1;
-  staffLog.push({ user: currentUserName, action: "Reset Sales", details: "All sales cleared", date: new Date() });
+function resetOrders(){
+  if(!confirm("Reset all orders?"))return;
+  orders=[]; nextOrderId=1;
+  staffLog.push({user:currentUserName,action:"Reset Orders",details:"All orders cleared",date:new Date()});
+  renderAll();
+}
+function resetExpenses(){
+  if(!confirm("Reset all expenses?"))return;
+  expenses=[]; nextExpenseId=1;
+  staffLog.push({user:currentUserName,action:"Reset Expenses",details:"All expenses cleared",date:new Date()});
+  renderAll();
+}
+function resetStaffLog(){
+  if(!confirm("Reset staff log?"))return;
+  staffLog=[]; renderAll();
+}
+function resetProductSold(){
+  if(!confirm("Reset sold count?"))return;
+  products.forEach(p=>p.sold=0);
+  staffLog.push({user:currentUserName,action:"Reset Sold Count",details:"All sold=0",date:new Date()});
+  renderAll();
+}
+function resetFullSystem(){
+  if(!confirm("Full reset? Products SAFE."))return;
+  sales=[];orders=[];expenses=[];staffLog=[];
+  nextSaleId=1;nextOrderId=1;nextExpenseId=1;
+  products.forEach(p=>p.sold=0);
+  staffLog.push({user:currentUserName,action:"Full Reset",details:"System reset (products safe)",date:new Date()});
   renderAll();
 }
 
-function resetOrders() {
-  if (!confirm("Reset all customer orders?")) return;
-  orders = [];
-  nextOrderId = 1;
-  staffLog.push({ user: currentUserName, action: "Reset Orders", details: "All orders cleared", date: new Date() });
+function fakeLogin(){
+  const email=document.getElementById("loginEmail").value.trim().toLowerCase();
+  const pass=document.getElementById("loginPassword").value.trim().toLowerCase();
+  if(email==="admin"&&pass==="admin"){currentRole="admin";currentUserName="Admin";}
+  else if(email==="staff"&&pass==="staff"){currentRole="staff";currentUserName="Staff";}
+  else{alert("Wrong login. Use admin/admin or staff/staff");return;}
+  document.getElementById("userName").innerText=currentUserName;
+  document.getElementById("userRoleLabel").innerText=currentRole;
+  document.getElementById("loginOverlay").style.display="none";
   renderAll();
 }
 
-function resetExpenses() {
-  if (!confirm("Reset all expenses?")) return;
-  expenses = [];
-  nextExpenseId = 1;
-  staffLog.push({ user: currentUserName, action: "Reset Expenses", details: "All expenses cleared", date: new Date() });
-  renderAll();
-}
-
-function resetStaffLog() {
-  if (!confirm("Reset staff activity log?")) return;
-  staffLog = [];
-  renderAll();
-}
-
-function resetProductSold() {
-  if (!confirm("Reset sold count for all products? (Stock safe)")) return;
-  products.forEach(p => p.sold = 0);
-  staffLog.push({ user: currentUserName, action: "Reset Product Sold", details: "All sold counts set to 0", date: new Date() });
-  renderAll();
-}
-
-function resetFullSystem() {
-  if (!confirm("Full reset? Sales, orders, expenses, staff log, sold count will be cleared. Products SAFE.")) return;
-  sales = [];
-  orders = [];
-  expenses = [];
-  staffLog = [];
-  nextSaleId = 1;
-  nextOrderId = 1;
-  nextExpenseId = 1;
-  products.forEach(p => p.sold = 0);
-  staffLog.push({ user: currentUserName, action: "Full Reset", details: "System reset (products safe)", date: new Date() });
-  renderAll();
-}
-
-// LOGIN
-function fakeLogin() {
-  const email = (document.getElementById('loginEmail').value || "").toLowerCase().trim();
-  const pass = (document.getElementById('loginPassword').value || "").toLowerCase().trim();
-
-  if (email === "admin" && pass === "admin") {
-    currentRole = "admin";
-    currentUserName = "Admin";
-  } else if (email === "staff" && pass === "staff") {
-    currentRole = "staff";
-    currentUserName = "Staff";
-  } else {
-    alert("Wrong login. Use admin/admin or staff/staff");
-    return;
-  }
-
-  document.getElementById('userName').innerText = currentUserName;
-  document.getElementById('userRoleLabel').innerText = currentRole === "admin" ? "Admin" : "Staff";
-
-  if (currentRole === "admin") {
-    document.getElementById('adminProductFormWrapper').classList.remove('hidden');
-    document.getElementById('staffStockAdjustWrapper').classList.add('hidden');
-  } else {
-    document.getElementById('adminProductFormWrapper').classList.add('hidden');
-    document.getElementById('staffStockAdjustWrapper').classList.remove('hidden');
-  }
-
-  document.getElementById('loginOverlay').style.display = 'none';
-  renderAll();
-}
-
-// NAV
-function showSection(ev, name) {
-  const sections = ["dashboard","products","sales","orders","expenses","alerts"];
-  sections.forEach(s => {
-    document.getElementById("section-" + s).classList.add("hidden");
+function showSection(ev,name){
+  ["dashboard","products","sales","orders","expenses","alerts"].forEach(s=>{
+    document.getElementById("section-"+s).classList.add("hidden");
   });
-  document.getElementById("section-" + name).classList.remove("hidden");
-
-  document.querySelectorAll(".app-nav .nav-link").forEach(btn => btn.classList.remove("active"));
-  if (ev && ev.target && ev.target.classList.contains('nav-link')) ev.target.classList.add("active");
+  document.getElementById("section-"+name).classList.remove("hidden");
+  document.querySelectorAll(".app-nav .nav-link").forEach(b=>b.classList.remove("active"));
+  if(ev&&ev.target)ev.target.classList.add("active");
+}
+function bottomNavClick(section){
+  showSection(null,section);
+  document.querySelectorAll(".bottom-nav .nav-link").forEach(b=>b.classList.remove("active"));
+  document.getElementById("bottom-"+section).classList.add("active");
 }
 
-function bottomNavClick(section) {
-  showSection(null, section);
-  document.querySelectorAll(".bottom-nav .nav-link").forEach(btn => btn.classList.remove("active"));
-  document.getElementById("bottom-" + section).classList.add("active");
-}
-
-function toggleFabMenu() {
-  const menu = document.getElementById('fabMenu');
-  menu.classList.toggle('hidden');
-}
-
-function quickAction(type) {
-  if (type === 'addProduct') {
-    bottomNavClick('products');
-    showSection(null,'products');
-    document.getElementById('prodName').focus();
-  } else if (type === 'addStock') {
-    bottomNavClick('products');
-    showSection(null,'products');
-    document.getElementById('staffStockAdjustWrapper').scrollIntoView({behavior:'smooth'});
-  } else if (type === 'addCart') {
-    bottomNavClick('sales');
-    showSection(null,'sales');
-    document.getElementById('cartProduct').focus();
-  } else if (type === 'addExpense') {
-    bottomNavClick('expenses');
-    showSection(null,'expenses');
-    document.getElementById('expenseTitle').focus();
-  }
-  toggleFabMenu();
-}
-
-// RENDER
-function renderAll() {
+function renderAll(){
   renderMetrics();
   renderBestSelling();
   renderProductsTable();
@@ -1262,548 +1165,377 @@ function renderAll() {
   saveDataToStorage();
 }
 
-function renderMetrics() {
-  const totalProducts = products.length;
-  const totalOrders = orders.length;
-  const totalSales = sales.reduce((sum,s) => sum + s.total, 0);
-  const lowStockCount = products.filter(p => p.stock <= 5).length;
+function renderMetrics(){
+  document.getElementById("metricTotalProducts").innerText=products.length;
+  document.getElementById("metricTotalOrders").innerText=orders.length;
+  const totalSales=sales.reduce((s,x)=>s+x.total,0);
+  document.getElementById("metricTotalSales").innerText=totalSales+" PKR";
+  const lowStock=products.filter(p=>p.stock<=5).length;
+  document.getElementById("metricLowStock").innerText=lowStock;
 
-  document.getElementById('metricTotalProducts').innerText = totalProducts;
-  document.getElementById('metricTotalOrders').innerText = totalOrders;
-  document.getElementById('metricTotalSales').innerText = totalSales.toLocaleString() + " PKR";
-  document.getElementById('metricLowStock').innerText = lowStockCount;
-
-  const now = new Date();
-  const oneDay = 24*60*60*1000;
-  let dailySales = 0, monthlySales = 0;
-  let dailyProfit = 0, monthlyProfit = 0;
-
-  sales.forEach(s => {
-    const diff = (now - s.date) / oneDay;
-    if (diff <= 1) {
-      dailySales += s.total;
-      dailyProfit += s.profit || 0;
-    }
-    if (diff <= 30) {
-      monthlySales += s.total;
-      monthlyProfit += s.profit || 0;
-    }
+  const now=new Date();const oneDay=24*60*60*1000;
+  let dailySales=0,monthlySales=0,dailyProfit=0,monthlyProfit=0;
+  sales.forEach(s=>{
+    const diff=(now-s.date)/oneDay;
+    if(diff<=1){dailySales+=s.total;dailyProfit+=s.profit||0;}
+    if(diff<=30){monthlySales+=s.total;monthlyProfit+=s.profit||0;}
   });
-
-  let dailyExpense = 0, monthlyExpense = 0;
-  expenses.forEach(e => {
-    const diff = (now - e.date) / oneDay;
-    if (diff <= 1) dailyExpense += e.amount;
-    if (diff <= 30) monthlyExpense += e.amount;
+  let dailyExpense=0,monthlyExpense=0;
+  expenses.forEach(e=>{
+    const diff=(now-e.date)/oneDay;
+    if(diff<=1)dailyExpense+=e.amount;
+    if(diff<=30)monthlyExpense+=e.amount;
   });
-
-  document.getElementById('metricDailySales').innerText = dailySales.toLocaleString() + " PKR";
-  document.getElementById('metricMonthlySales').innerText = monthlySales.toLocaleString() + " PKR";
-  document.getElementById('metricDailyProfit').innerText = (dailyProfit - dailyExpense).toLocaleString() + " PKR";
-  document.getElementById('metricMonthlyProfit').innerText = (monthlyProfit - monthlyExpense).toLocaleString() + " PKR";
-  document.getElementById('metricDailyExpense').innerText = dailyExpense.toLocaleString() + " PKR";
-  document.getElementById('metricMonthlyExpense').innerText = monthlyExpense.toLocaleString() + " PKR";
-  document.getElementById('metricNetMonthlyProfit').innerText = (monthlySales - monthlyExpense).toLocaleString() + " PKR";
-
-  const pendingCount = orders.filter(o => o.paymentStatus === "Pending").length;
-  document.getElementById('metricPendingPayments').innerText = pendingCount;
+  document.getElementById("metricDailySales").innerText=dailySales+" PKR";
+  document.getElementById("metricMonthlySales").innerText=monthlySales+" PKR";
+  document.getElementById("metricDailyProfit").innerText=(dailyProfit-dailyExpense)+" PKR";
+  document.getElementById("metricMonthlyProfit").innerText=(monthlyProfit-monthlyExpense)+" PKR";
+  document.getElementById("metricDailyExpense").innerText=dailyExpense+" PKR";
+  document.getElementById("metricMonthlyExpense").innerText=monthlyExpense+" PKR";
+  document.getElementById("metricNetMonthlyProfit").innerText=(monthlySales-monthlyExpense)+" PKR";
+  const pending=orders.filter(o=>o.paymentStatus==="Pending").length;
+  document.getElementById("metricPendingPayments").innerText=pending;
 }
 
-function renderBestSelling() {
-  const container = document.getElementById('bestSellingContainer');
-  container.innerHTML = "";
-  const sorted = [...products].sort((a,b) => b.sold - a.sold).slice(0,4);
-  sorted.forEach(p => {
-    const div = document.createElement('div');
-    div.className = "col-6 col-md-3";
-    div.innerHTML = `
+function renderBestSelling(){
+  const c=document.getElementById("bestSellingContainer");
+  c.innerHTML="";
+  [...products].sort((a,b)=>b.sold-a.sold).slice(0,4).forEach(p=>{
+    const div=document.createElement("div");
+    div.className="col-6 col-md-3";
+    div.innerHTML=`
       <div class="product-card text-center">
-        <div class="mb-1"><span class="product-tag">${p.category || 'Product'}</span></div>
+        <div class="mb-1"><span class="product-tag">${p.category}</span></div>
         <strong>${p.name}</strong>
       </div>`;
-    container.appendChild(div);
+    c.appendChild(div);
   });
 }
 
-function renderProductsTable() {
-  const tbody = document.getElementById('productsTableBody');
-  tbody.innerHTML = "";
-  products.forEach(p => {
-    const tr = document.createElement('tr');
-    let actions = "";
-    if (currentRole === "admin") {
-      actions = `
-        <button class="btn btn-sm btn-outline-primary me-1" onclick='editProduct(${p.id})'>
+function renderProductsTable(){
+  const tbody=document.getElementById("productsTableBody");
+  tbody.innerHTML="";
+  products.forEach(p=>{
+    const tr=document.createElement("tr");
+    let actions="";
+    if(currentRole==="admin"){
+      actions=`
+        <button class="btn btn-sm btn-outline-primary me-1" onclick="editProduct(${p.id})">
           <i class="bi bi-pencil"></i>
         </button>
-        <button class="btn btn-sm btn-outline-danger" onclick='deleteProduct(${p.id})'>
+        <button class="btn btn-sm btn-outline-danger" onclick="deleteProduct(${p.id})">
           <i class="bi bi-trash"></i>
         </button>`;
-    } else {
-      actions = `<span class="text-muted" style="font-size:0.8rem;">View only</span>`;
+    }else{
+      actions=`<span class="text-muted" style="font-size:0.8rem;">View only</span>`;
     }
-    tr.innerHTML = `
+    tr.innerHTML=`
       <td>${p.name}</td>
-      <td>${p.category || ""}</td>
-      <td>${p.code || "-"}</td>
+      <td>${p.category}</td>
+      <td>${p.code}</td>
       <td>${p.purchase}</td>
       <td>${p.sale}</td>
-      <td>${p.discount || "-"}</td>
-      <td class="${p.stock <= 5 ? 'low-stock' : ''}">${p.stock}</td>
+      <td>${p.discount||"-"}</td>
+      <td class="${p.stock<=5?'low-stock':''}">${p.stock}</td>
       <td>${p.sold}</td>
       <td>${actions}</td>`;
     tbody.appendChild(tr);
   });
 }
 
-function renderCartProductOptions() {
-  const select = document.getElementById('cartProduct');
-  select.innerHTML = `<option value="none">Select product</option>`;
-  products.forEach(p => {
-    const opt = document.createElement('option');
-    opt.value = p.id;
-    opt.textContent = `${p.name} (${p.code || 'no-code'}) - Stock: ${p.stock}`;
+function saveProduct(e){
+  e.preventDefault();
+  if(currentRole!=="admin")return;
+  const id=document.getElementById("prodId").value;
+  const name=document.getElementById("prodName").value.trim();
+  const category=document.getElementById("prodCategory").value.trim();
+  const code=document.getElementById("prodCode").value.trim();
+  const purchase=Number(document.getElementById("prodPurchase").value);
+  const sale=Number(document.getElementById("prodSale").value);
+  const discount=Number(document.getElementById("prodDiscount").value||0);
+  const stock=Number(document.getElementById("prodStock").value);
+  if(!name)return;
+  if(id){
+    const p=products.find(x=>x.id==id);
+    if(p){p.name=name;p.category=category;p.code=code;p.purchase=purchase;p.sale=sale;p.discount=discount;p.stock=stock;}
+    staffLog.push({user:currentUserName,action:"Edit Product",details:name,date:new Date()});
+  }else{
+    products.push({id:nextProductId++,code,name,category,purchase,sale,discount,stock,sold:0});
+    staffLog.push({user:currentUserName,action:"Add Product",details:name,date:new Date()});
+  }
+  resetProductForm();renderAll();
+}
+function resetProductForm(){
+  document.getElementById("prodId").value="";
+  document.getElementById("prodName").value="";
+  document.getElementById("prodCategory").value="Jewelry";
+  document.getElementById("prodCode").value="";
+  document.getElementById("prodPurchase").value="";
+  document.getElementById("prodSale").value="";
+  document.getElementById("prodDiscount").value="";
+  document.getElementById("prodStock").value="";
+}
+function editProduct(id){
+  if(currentRole!=="admin")return;
+  const p=products.find(x=>x.id===id);if(!p)return;
+  document.getElementById("prodId").value=p.id;
+  document.getElementById("prodName").value=p.name;
+  document.getElementById("prodCategory").value=p.category;
+  document.getElementById("prodCode").value=p.code;
+  document.getElementById("prodPurchase").value=p.purchase;
+  document.getElementById("prodSale").value=p.sale;
+  document.getElementById("prodDiscount").value=p.discount;
+  document.getElementById("prodStock").value=p.stock;
+  showSection(null,"products");
+}
+function deleteProduct(id){
+  if(currentRole!=="admin")return;
+  if(!confirm("Delete product?"))return;
+  const p=products.find(x=>x.id===id);
+  products=products.filter(x=>x.id!==id);
+  staffLog.push({user:currentUserName,action:"Delete Product",details:p.name,date:new Date()});
+  renderAll();
+}
+
+function adjustStock(e){
+  e.preventDefault();
+  const prodId=Number(document.getElementById("adjustProduct").value);
+  const qty=Number(document.getElementById("adjustQuantity").value);
+  if(!prodId||!qty)return;
+  const p=products.find(x=>x.id===prodId);if(!p)return;
+  p.stock+=qty;
+  staffLog.push({user:currentUserName,action:"Stock Adjust",details:`${p.name} (${qty>0?"+":""}${qty})`,date:new Date()});
+  document.getElementById("adjustQuantity").value="";
+  document.getElementById("adjustProduct").value="";
+  renderAll();
+}
+
+function renderCartProductOptions(){
+  const select=document.getElementById("cartProduct");
+  select.innerHTML=`<option value="none">Select product</option>`;
+  products.forEach(p=>{
+    const opt=document.createElement("option");
+    opt.value=p.id;
+    opt.textContent=`${p.name} (${p.code}) - Stock: ${p.stock}`;
+    select.appendChild(opt);
+  });
+}
+function renderAdjustProductOptions(){
+  const select=document.getElementById("adjustProduct");
+  select.innerHTML=`<option value="">Select product</option>`;
+  products.forEach(p=>{
+    const opt=document.createElement("option");
+    opt.value=p.id;
+    opt.textContent=`${p.name} (${p.code}) - Stock: ${p.stock}`;
     select.appendChild(opt);
   });
 }
 
-function renderAdjustProductOptions() {
-  const select = document.getElementById('adjustProduct');
-  if (!select) return;
-  select.innerHTML = `<option value="">Select product</option>`;
-  products.forEach(p => {
-    const opt = document.createElement('option');
-    opt.value = p.id;
-    opt.textContent = `${p.name} (Stock: ${p.stock})`;
-    select.appendChild(opt);
-  });
-}
-
-function renderSalesList() {
-  const list = document.getElementById('salesList');
-  list.innerHTML = "";
-  if (sales.length === 0) {
-    const li = document.createElement('li');
-    li.className = "list-group-item text-muted";
-    li.textContent = "No sales yet. Start selling from Cart.";
-    list.appendChild(li);
-    return;
+function addToCart(e){
+  e.preventDefault();
+  const prodId=Number(document.getElementById("cartProduct").value);
+  const qty=Number(document.getElementById("cartQuantity").value);
+  if(!prodId||qty<=0)return;
+  const p=products.find(x=>x.id===prodId);if(!p)return;
+  if(p.stock<qty){alert("Not enough stock!");return;}
+  const existing=cart.find(c=>c.productId===prodId);
+  if(existing){
+    if(p.stock<existing.quantity+qty){alert("Not enough stock!");return;}
+    existing.quantity+=qty;
+  }else{
+    cart.push({productId:prodId,quantity:qty});
   }
-  sales.slice().reverse().forEach(s => {
-    const p = products.find(x => x.id === s.productId);
-    const li = document.createElement('li');
-    li.className = "list-group-item d-flex justify-content-between align-items-center";
-    const dateStr = s.date.toLocaleDateString();
-    li.innerHTML = `
-      <span>${p ? p.name : 'Product'} x ${s.quantity} <small class="text-muted">(${dateStr})</small></span>
-      <span>${s.total.toLocaleString()} PKR</span>`;
-    list.appendChild(li);
+  document.getElementById("cartQuantity").value="";
+  document.getElementById("cartProduct").value="none";
+  renderCartTable();
+}
+function renderCartTable(){
+  const tbody=document.getElementById("cartTableBody");
+  tbody.innerHTML="";
+  let total=0;
+  cart.forEach((c,idx)=>{
+    const p=products.find(x=>x.id===c.productId);if(!p)return;
+    const price=p.discount>0?p.discount:p.sale;
+    const lineTotal=price*c.quantity;
+    total+=lineTotal;
+    const tr=document.createElement("tr");
+    tr.innerHTML=`
+      <td>${p.name}</td>
+      <td>${c.quantity}</td>
+      <td>${price}</td>
+      <td>${lineTotal}</td>
+      <td><button class="btn btn-sm btn-outline-danger" onclick="removeCartItem(${idx})"><i class="bi bi-x"></i></button></td>`;
+    tbody.appendChild(tr);
+  });
+  document.getElementById("cartTotalLabel").innerText="Total: "+total+" PKR";
+}
+function removeCartItem(i){
+  cart.splice(i,1);renderCartTable();
+}
+function clearCart(){
+  cart=[];renderCartTable();
+}
+
+function checkoutCart(){
+  if(cart.length===0){alert("Cart empty");return;}
+  let total=0,profit=0;
+  const items=[];
+  cart.forEach(c=>{
+    const p=products.find(x=>x.id===c.productId);if(!p)return;
+    const price=p.discount>0?p.discount:p.sale;
+    const lineTotal=price*c.quantity;
+    total+=lineTotal;
+    const lineProfit=(price-p.purchase)*c.quantity;
+    profit+=lineProfit;
+    p.stock-=c.quantity;
+    p.sold+=c.quantity;
+    items.push({name:p.name,qty:c.quantity,price,total:lineTotal});
+  });
+
+  const customer=document.getElementById("orderCustomerName").value.trim()||"Walk-in";
+  const phone=document.getElementById("orderCustomerPhone").value.trim()||"-";
+  const paymentStatus=document.getElementById("orderPaymentStatus").value;
+
+  const sale={id:nextSaleId++,items,total,profit,date:new Date()};
+  sales.push(sale);
+
+  const order={id:nextOrderId++,customer,phone,total,paymentStatus,date:new Date()};
+  orders.push(order);
+
+  staffLog.push({user:currentUserName,action:"Checkout",details:`${customer} - ${total} PKR`,date:new Date()});
+
+  showInvoiceModal(sale,order);
+  cart=[];document.getElementById("orderCustomerName").value="";
+  document.getElementById("orderCustomerPhone").value="";
+  document.getElementById("orderPaymentStatus").value="Paid";
+  renderAll();
+}
+
+function showInvoiceModal(sale,order){
+  document.getElementById("invoiceNumber").innerText=invoiceCounter++;
+  document.getElementById("invoiceDate").innerText=new Date().toLocaleString();
+  const tbody=document.getElementById("invoiceTableBody");
+  tbody.innerHTML="";
+  sale.items.forEach(it=>{
+    const tr=document.createElement("tr");
+    tr.innerHTML=`
+      <td>${it.name}</td>
+      <td>${it.qty}</td>
+      <td>${it.price}</td>
+      <td>${it.total}</td>`;
+    tbody.appendChild(tr);
+  });
+  document.getElementById("invoiceTotal").innerText=sale.total;
+  document.getElementById("invoiceAiLine").innerText=aiLines[Math.floor(Math.random()*aiLines.length)];
+  const modal=new bootstrap.Modal(document.getElementById("invoiceModal"));
+  modal.show();
+}
+
+function renderSalesList(){
+  const ul=document.getElementById("salesList");
+  ul.innerHTML="";
+  sales.slice().reverse().slice(0,20).forEach(s=>{
+    const li=document.createElement("li");
+    li.className="list-group-item d-flex justify-content-between align-items-center";
+    li.innerHTML=`
+      <div>
+        <div><strong>Sale #${s.id}</strong> - ${s.total} PKR</div>
+        <small class="text-muted">${s.date.toLocaleString()}</small>
+      </div>
+      <span class="badge bg-dark">Items: ${s.items.length}</span>`;
+    ul.appendChild(li);
   });
 }
 
-function renderAlerts() {
-  const list = document.getElementById('alertsList');
-  list.innerHTML = "";
-  const low = products.filter(p => p.stock <= 5);
-  if (low.length === 0) {
-    const li = document.createElement('li');
-    li.className = "list-group-item";
-    li.textContent = "No low stock items.";
-    list.appendChild(li);
-    return;
-  }
-  low.forEach(p => {
-    const li = document.createElement('li');
-    li.className = "list-group-item d-flex justify-content-between align-items-center";
-    li.innerHTML = `
-      <span>${p.name} (${p.category || ''})</span>
-      <span class="low-stock">Stock: ${p.stock}</span>`;
-    list.appendChild(li);
-  });
-}
-
-function renderDashboardLowStock() {
-  const list = document.getElementById('dashboardLowStockList');
-  list.innerHTML = "";
-  const low = products.filter(p => p.stock <= 5);
-  if (low.length === 0) {
-    const li = document.createElement('li');
-    li.className = "list-group-item";
-    li.textContent = "All good. No low stock items.";
-    list.appendChild(li);
-    return;
-  }
-  low.forEach(p => {
-    const li = document.createElement('li');
-    li.className = "list-group-item d-flex justify-content-between align-items-center";
-    li.innerHTML = `
-      <span>${p.name} (${p.category})</span>
-      <span class="low-stock">Stock: ${p.stock}</span>`;
-    list.appendChild(li);
-  });
-}
-
-function renderOrdersTable() {
-  const tbody = document.getElementById('ordersTableBody');
-  tbody.innerHTML = "";
-  orders.slice().reverse().forEach(o => {
-    const tr = document.createElement('tr');
-    const badgeClass = o.paymentStatus === "Pending" ? "badge-pending" : "badge-paid";
-    tr.innerHTML = `
+function renderOrdersTable(){
+  const tbody=document.getElementById("ordersTableBody");
+  tbody.innerHTML="";
+  orders.slice().reverse().forEach(o=>{
+    const tr=document.createElement("tr");
+    tr.innerHTML=`
       <td>${o.id}</td>
-      <td>${o.customerName || '-'}</td>
-      <td>${o.customerPhone || '-'}</td>
-      <td>${o.total.toLocaleString()} PKR</td>
-      <td><span class="badge ${badgeClass}">${o.paymentStatus}</span></td>
+      <td>${o.customer}</td>
+      <td>${o.phone}</td>
+      <td>${o.total}</td>
+      <td><span class="badge ${o.paymentStatus==="Paid"?"badge-paid":"badge-pending"}">${o.paymentStatus}</span></td>
       <td>${o.date.toLocaleString()}</td>`;
     tbody.appendChild(tr);
   });
 }
 
-function renderExpensesTable() {
-  const tbody = document.getElementById('expensesTableBody');
-  tbody.innerHTML = "";
-  expenses.slice().reverse().forEach(e => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
+function addExpense(e){
+  e.preventDefault();
+  const title=document.getElementById("expenseTitle").value.trim();
+  const amount=Number(document.getElementById("expenseAmount").value);
+  const category=document.getElementById("expenseCategory").value;
+  if(!title||!amount)return;
+  const exp={id:nextExpenseId++,title,amount,category,date:new Date()};
+  expenses.push(exp);
+  staffLog.push({user:currentUserName,action:"Add Expense",details:`${title} - ${amount}`,date:new Date()});
+  document.getElementById("expenseTitle").value="";
+  document.getElementById("expenseAmount").value="";
+  document.getElementById("expenseCategory").value="Rent";
+  renderAll();
+}
+
+function renderExpensesTable(){
+  const tbody=document.getElementById("expensesTableBody");
+  tbody.innerHTML="";
+  expenses.slice().reverse().forEach(e=>{
+    const tr=document.createElement("tr");
+    tr.innerHTML=`
       <td>${e.title}</td>
       <td>${e.category}</td>
-      <td>${e.amount.toLocaleString()} PKR</td>
+      <td>${e.amount}</td>
       <td>${e.date.toLocaleString()}</td>`;
     tbody.appendChild(tr);
   });
 }
 
-function renderStaffLogTable() {
-  const tbody = document.getElementById('staffLogTableBody');
-  tbody.innerHTML = "";
-  staffLog.slice().reverse().forEach(l => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${l.user}</td>
-      <td>${l.action}</td>
-      <td>${l.details}</td>
-      <td>${l.date.toLocaleString()}</td>`;
-    tbody.appendChild(tr);
-  });
-}
-
-// PRODUCTS CRUD
-function saveProduct(e) {
-  e.preventDefault();
-  if (currentRole !== "admin") return;
-
-  const id = document.getElementById('prodId').value;
-  const name = document.getElementById('prodName').value.trim();
-  const category = document.getElementById('prodCategory').value.trim();
-  const code = document.getElementById('prodCode').value.trim();
-  const purchase = Number(document.getElementById('prodPurchase').value);
-  const sale = Number(document.getElementById('prodSale').value);
-  const discount = Number(document.getElementById('prodDiscount').value || 0);
-  const stock = Number(document.getElementById('prodStock').value);
-
-  if (!name) return;
-
-  if (id) {
-    const p = products.find(x => x.id == id);
-    if (p) {
-      p.name = name;
-      p.category = category;
-      p.code = code;
-      p.purchase = purchase;
-      p.sale = sale;
-      p.discount = discount;
-      p.stock = stock;
-    }
-    staffLog.push({ user: currentUserName, action: "Edit Product", details: name, date: new Date() });
-  } else {
-    products.push({ id: nextProductId++, code, name, category, purchase, sale, discount, stock, sold:0 });
-    staffLog.push({ user: currentUserName, action: "Add Product", details: name, date: new Date() });
-  }
-
-  resetProductForm();
-  renderAll();
-}
-
-function resetProductForm() {
-  document.getElementById('prodId').value = "";
-  document.getElementById('prodName').value = "";
-  document.getElementById('prodCategory').value = "Jewelry";
-  document.getElementById('prodCode').value = "";
-  document.getElementById('prodPurchase').value = "";
-  document.getElementById('prodSale').value = "";
-  document.getElementById('prodDiscount').value = "";
-  document.getElementById('prodStock').value = "";
-}
-
-function editProduct(id) {
-  if (currentRole !== "admin") return;
-  const p = products.find(x => x.id === id);
-  if (!p) return;
-
-  document.getElementById('prodId').value = p.id;
-  document.getElementById('prodName').value = p.name;
-  document.getElementById('prodCategory').value = p.category;
-  document.getElementById('prodCode').value = p.code || "";
-  document.getElementById('prodPurchase').value = p.purchase;
-  document.getElementById('prodSale').value = p.sale;
-  document.getElementById('prodDiscount').value = p.discount;
-  document.getElementById('prodStock').value = p.stock;
-
-  showSection(null,'products');
-  document.querySelectorAll(".bottom-nav .nav-link").forEach(btn => btn.classList.remove("active"));
-  document.getElementById("bottom-products").classList.add("active");
-}
-
-function deleteProduct(id) {
-  if (currentRole !== "admin") return;
-  if (!confirm("Delete this product?")) return;
-  const p = products.find(x => x.id === id);
-  products = products.filter(p => p.id !== id);
-  staffLog.push({ user: currentUserName, action: "Delete Product", details: p ? p.name : ("ID " + id), date: new Date() });
-  renderAll();
-}
-
-// CART
-function addToCart(e) {
-  e.preventDefault();
-  const prodId = Number(document.getElementById('cartProduct').value);
-  const qty = Number(document.getElementById('cartQuantity').value);
-  if (!prodId || qty <= 0 || isNaN(qty)) return;
-
-  const p = products.find(x => x.id === prodId);
-  if (!p) return;
-  if (p.stock < qty) {
-    alert("Not enough stock!");
+function renderAlerts(){
+  const ul=document.getElementById("alertsList");
+  ul.innerHTML="";
+  const low=products.filter(p=>p.stock<=5);
+  if(low.length===0){
+    const li=document.createElement("li");
+    li.className="list-group-item text-muted";
+    li.innerText="No low stock items.";
+    ul.appendChild(li);
     return;
   }
-
-  const existing = cart.find(c => c.productId === prodId);
-  if (existing) {
-    if (p.stock < existing.quantity + qty) {
-      alert("Not enough stock for this quantity!");
-      return;
-    }
-    existing.quantity += qty;
-  } else {
-    cart.push({productId: prodId, quantity: qty});
-  }
-
-  document.getElementById('cartQuantity').value = "";
-  document.getElementById('cartProduct').value = "none";
-  renderCartTable();
-  saveDataToStorage();
-}
-
-function renderCartTable() {
-  const tbody = document.getElementById('cartTableBody');
-  tbody.innerHTML = "";
-  let total = 0;
-
-  cart.forEach((item, index) => {
-    const p = products.find(x => x.id === item.productId);
-    if (!p) return;
-    const price = p.discount > 0 ? p.discount : p.sale;
-    const lineTotal = price * item.quantity;
-    total += lineTotal;
-
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${p.name}</td>
-      <td>
-        <input type="number" min="1" value="${item.quantity}" class="form-control form-control-sm"
-               onchange="updateCartQty(${index}, this.value)">
-      </td>
-      <td>${price}</td>
-      <td>${lineTotal}</td>
-      <td>
-        <button class="btn btn-sm btn-outline-danger" onclick="removeCartItem(${index})">
-          <i class="bi bi-x"></i>
-        </button>
-      </td>`;
-    tbody.appendChild(tr);
+  low.forEach(p=>{
+    const li=document.createElement("li");
+    li.className="list-group-item d-flex justify-content-between align-items-center";
+    li.innerHTML=`
+      <div>
+        <strong>${p.name}</strong> (${p.category})
+        <div class="text-muted" style="font-size:0.8rem;">Code: ${p.code}</div>
+      </div>
+      <span class="badge bg-danger">Stock: ${p.stock}</span>`;
+    ul.appendChild(li);
   });
-
-  document.getElementById('cartTotalLabel').innerText = "Total: " + total.toLocaleString() + " PKR";
-  document.getElementById('checkoutBtn').disabled = cart.length === 0;
 }
 
-function updateCartQty(index, value) {
-  const qty = Number(value);
-  if (qty <= 0 || isNaN(qty)) return;
-  const item = cart[index];
-  const p = products.find(x => x.id === item.productId);
-  if (!p) return;
-  if (p.stock < qty) {
-    alert("Not enough stock!");
-    renderCartTable();
+function renderDashboardLowStock(){
+  const ul=document.getElementById("dashboardLowStockList");
+  ul.innerHTML="";
+  const low=products.filter(p=>p.stock<=5);
+  if(low.length===0){
+    const li=document.createElement("li");
+    li.className="list-group-item text-muted";
+    li.innerText="All good. No low stock.";
+    ul.appendChild(li);
     return;
   }
-  item.quantity = qty;
-  renderCartTable();
-  saveDataToStorage();
-}
-
-function removeCartItem(index) {
-  cart.splice(index,1);
-  renderCartTable();
-  saveDataToStorage();
-}
-
-function clearCart() {
-  cart = [];
-  renderCartTable();
-  saveDataToStorage();
-}
-
-// SEARCH IN CART PRODUCTS
-function filterCartProducts() {
-  const term = (document.getElementById('cartSearch').value || "").toLowerCase();
-  const select = document.getElementById('cartProduct');
-  select.innerHTML = `<option value="none">Select product</option>`;
-  products.forEach(p => {
-    const text = (p.name + " " + (p.code || "")).toLowerCase();
-    if (!term || text.includes(term)) {
-      const opt = document.createElement('option');
-      opt.value = p.id;
-      opt.textContent = `${p.name} (${p.code || 'no-code'}) - Stock: ${p.stock}`;
-      select.appendChild(opt);
-    }
+  low.forEach(p=>{
+    const li=document.createElement("li");
+    li.className="list-group-item d-flex justify-content-between align-items-center";
+    li.innerHTML=`
+      <span>${p.name} (${p.category})</span>
+      <span class="badge bg-danger">Stock: ${p.stock}</span>`;
+    ul.appendChild(li);
   });
 }
 
-// CHECKOUT
-function checkoutCart() {
-  if (cart.length === 0) return;
-
-  const customerName = document.getElementById('orderCustomerName').value.trim();
-  const customerPhone = document.getElementById('orderCustomerPhone').value.trim();
-  const paymentStatus = document.getElementById('orderPaymentStatus').value;
-
-  let total = 0;
-  let totalProfit = 0;
-  const invoiceBody = document.getElementById('invoiceTableBody');
-  invoiceBody.innerHTML = "";
-  const orderItems = [];
-
-  cart.forEach(item => {
-    const p = products.find(x => x.id === item.productId);
-    if (!p) return;
-    if (p.stock < item.quantity) return;
-
-    const price = p.discount > 0 ? p.discount : p.sale;
-    const lineTotal = price * item.quantity;
-    const profitPerUnit = price - p.purchase;
-    const lineProfit = profitPerUnit * item.quantity;
-
-    total += lineTotal;
-    totalProfit += lineProfit;
-
-    p.stock -= item.quantity;
-    p.sold += item.quantity;
-
-    sales.push({ id: nextSaleId++, productId: p.id, quantity: item.quantity, total: lineTotal, profit: lineProfit, date: new Date() });
-
-    orderItems.push({ productId: p.id, name: p.name, qty: item.quantity, price: price, total: lineTotal });
-
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${p.name}</td>
-      <td>${item.quantity}</td>
-      <td>${price}</td>
-      <td>${lineTotal}</td>`;
-    invoiceBody.appendChild(tr);
-  });
-
-  const order = {
-    id: nextOrderId++,
-    customerName: customerName || "",
-    customerPhone: customerPhone || "",
-    paymentStatus,
-    total,
-    items: orderItems,
-    date: new Date()
-  };
-  orders.push(order);
-
-  staffLog.push({
-    user: currentUserName,
-    action: "Sale",
-    details: `Order #${order.id} - ${total.toLocaleString()} PKR (${paymentStatus})`,
-    date: new Date()
-  });
-
-  const aiLine = aiLines[Math.floor(Math.random()*aiLines.length)];
-  document.getElementById('invoiceAiLine').innerText = aiLine;
-  document.getElementById('invoiceTotal').innerText = total.toLocaleString();
-  document.getElementById('invoiceNumber').innerText = invoiceCounter++;
-  document.getElementById('invoiceDate').innerText = new Date().toLocaleString();
-
-  cart = [];
-  document.getElementById('orderCustomerName').value = "";
-  document.getElementById('orderCustomerPhone').value = "";
-  document.getElementById('orderPaymentStatus').value = "Paid";
-
-  renderAll();
-  saveDataToStorage();
-
-  const modal = new bootstrap.Modal(document.getElementById('invoiceModal'));
-  modal.show();
-}
-
-// STOCK ADJUST
-function adjustStock(e) {
-  e.preventDefault();
-  if (currentRole !== "staff" && currentRole !== "admin") return;
-
-  const prodId = Number(document.getElementById('adjustProduct').value);
-  const qty = Number(document.getElementById('adjustQuantity').value);
-  if (!prodId || !qty || isNaN(qty)) return;
-
-  const p = products.find(x => x.id === prodId);
-  if (!p) return;
-
-  p.stock += qty;
-  staffLog.push({
-    user: currentUserName,
-    action: "Stock Adjust",
-    details: `${p.name} (${qty > 0 ? "+" : ""}${qty})`,
-    date: new Date()
-  });
-
-  document.getElementById('adjustQuantity').value = "";
-  document.getElementById('adjustProduct').value = "";
-  renderAll();
-  saveDataToStorage();
-}
-
-// EXPENSES
-function addExpense(e) {
-  e.preventDefault();
-  const title = document.getElementById('expenseTitle').value.trim();
-  const amount = Number(document.getElementById('expenseAmount').value);
-  const category = document.getElementById('expenseCategory').value;
-  if (!title || !amount || isNaN(amount)) return;
-
-  expenses.push({ id: nextExpenseId++, title, amount, category, date: new Date() });
-  staffLog.push({
-    user: currentUserName,
-    action: "Expense",
-    details: `${title} - ${amount.toLocaleString()} PKR`,
-    date: new Date()
-  });
-
-  document.getElementById('expenseTitle').value = "";
-  document.getElementById('expenseAmount').value = "";
-  document.getElementById('expenseCategory').value = "Rent";
-
-  renderAll();
-  saveDataToStorage();
-}
-
-// INIT
-loadDataFromStorage();
-window.addEventListener('beforeunload', saveDataToStorage);
-</script>
-</body>
-</html>
+function renderStaffLogTable(){
+  const tbody=document.getElementById("staf

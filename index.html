@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Al Syed Sales Point - Admin Panel</title>
+  <title>Al Syed Sales Point - Full System</title>
 
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
@@ -23,7 +23,7 @@
       background:var(--bg);
       font-family:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color:var(--black);
-      padding-bottom:70px; /* space for bottom nav */
+      padding-bottom:70px;
     }
 
     .navbar-gradient {
@@ -212,7 +212,6 @@
       font-size:0.85rem;
     }
 
-    /* Bottom mobile nav */
     .bottom-nav {
       position:fixed;
       bottom:0;
@@ -233,7 +232,6 @@
       background:linear-gradient(135deg,#ff4b9a,#ffffff);
     }
 
-    /* Floating action button */
     .fab {
       position:fixed;
       bottom:80px;
@@ -268,6 +266,13 @@
       box-shadow:0 6px 16px rgba(0,0,0,0.4);
     }
     .fab-menu.hidden { display:none; }
+
+    .badge-pending {
+      background:#ff1744;
+    }
+    .badge-paid {
+      background:#2e7d32;
+    }
   </style>
 </head>
 
@@ -316,7 +321,7 @@
   </span>
 </nav>
 
-<!-- TOP APP NAV (optional, desktop) -->
+<!-- TOP NAV (desktop) -->
 <div class="app-nav d-none d-md-block">
   <div class="container">
     <ul class="nav nav-pills py-2 gap-2">
@@ -336,8 +341,18 @@
         </button>
       </li>
       <li class="nav-item">
+        <button class="nav-link" data-section="orders" onclick="showSection(event,'orders')">
+          <i class="bi bi-receipt me-1"></i>Orders
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" data-section="expenses" onclick="showSection(event,'expenses')">
+          <i class="bi bi-wallet2 me-1"></i>Expenses
+        </button>
+      </li>
+      <li class="nav-item">
         <button class="nav-link" data-section="alerts" onclick="showSection(event,'alerts')">
-          <i class="bi bi-exclamation-triangle me-1"></i>Stock Alerts
+          <i class="bi bi-exclamation-triangle me-1"></i>Alerts
         </button>
       </li>
     </ul>
@@ -346,7 +361,7 @@
 
 <div class="container my-3">
 
-  <!-- DASHBOARD SECTION -->
+  <!-- DASHBOARD -->
   <div id="section-dashboard">
     <div class="row g-3">
       <div class="col-6 col-md-3">
@@ -363,7 +378,7 @@
         <div class="metric-card">
           <div class="d-flex justify-content-between align-items-center mb-1">
             <span class="metric-title">Total Orders</span>
-            <span class="metric-pill"><i class="bi bi-cart-check"></i> All</span>
+            <span class="metric-pill"><i class="bi bi-receipt"></i> All</span>
           </div>
           <div class="metric-value" id="metricTotalOrders">0</div>
         </div>
@@ -390,38 +405,54 @@
       </div>
     </div>
 
-    <!-- DAILY / WEEKLY / MONTHLY SALES -->
+    <!-- SALES + PROFIT -->
     <div class="row g-3 mt-3">
-      <div class="col-md-4 col-12">
+      <div class="col-md-3 col-6">
         <div class="metric-card">
           <div class="metric-title mb-1">Daily Sales</div>
           <div class="metric-value" id="metricDailySales">0 PKR</div>
         </div>
       </div>
-      <div class="col-md-4 col-12">
+      <div class="col-md-3 col-6">
         <div class="metric-card">
-          <div class="metric-title mb-1">Weekly Sales (Last 7 days)</div>
-          <div class="metric-value" id="metricWeeklySales">0 PKR</div>
+          <div class="metric-title mb-1">Daily Profit</div>
+          <div class="metric-value" id="metricDailyProfit">0 PKR</div>
         </div>
       </div>
-      <div class="col-md-4 col-12">
+      <div class="col-md-3 col-6">
         <div class="metric-card">
-          <div class="metric-title mb-1">Monthly Sales (Last 30 days)</div>
+          <div class="metric-title mb-1">Monthly Sales</div>
           <div class="metric-value" id="metricMonthlySales">0 PKR</div>
         </div>
       </div>
-    </div>
-
-    <!-- BEST SELLING -->
-    <div class="mt-4">
-      <div class="d-flex justify-content-between align-items-center mb-2">
-        <div class="section-title">Best Selling Items</div>
-        <span class="chip"><i class="bi bi-fire"></i> Hot Products</span>
+      <div class="col-md-3 col-6">
+        <div class="metric-card">
+          <div class="metric-title mb-1">Monthly Profit</div>
+          <div class="metric-value" id="metricMonthlyProfit">0 PKR</div>
+        </div>
       </div>
-      <div class="row g-3" id="bestSellingContainer"></div>
     </div>
 
-    <!-- LOW STOCK LIST ON DASHBOARD -->
+    <!-- PENDING PAYMENTS -->
+    <div class="row g-3 mt-3">
+      <div class="col-md-4 col-12">
+        <div class="metric-card">
+          <div class="metric-title mb-1">Pending Payments</div>
+          <div class="metric-value" id="metricPendingPayments">0</div>
+        </div>
+      </div>
+      <div class="col-md-8 col-12">
+        <div class="metric-card">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="section-title">Best Selling Items</span>
+            <span class="chip"><i class="bi bi-fire"></i> Hot Products</span>
+          </div>
+          <div class="row g-3" id="bestSellingContainer"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOW STOCK LIST -->
     <div class="mt-4">
       <div class="d-flex justify-content-between align-items-center mb-2">
         <div class="section-title">Low Stock Items</div>
@@ -431,14 +462,13 @@
     </div>
   </div>
 
-  <!-- PRODUCTS SECTION -->
+  <!-- PRODUCTS -->
   <div id="section-products" class="hidden">
     <div class="section-title mb-2 d-flex justify-content-between align-items-center">
       <span>Products</span>
       <span class="chip"><i class="bi bi-box-seam"></i> Manage Inventory</span>
     </div>
 
-    <!-- Add/Edit Form (Admin only) -->
     <div id="adminProductFormWrapper" class="card mb-3 shadow-sm border-0">
       <div class="card-header bg-dark text-white fw-bold">
         Add / Edit Product (Admin)
@@ -486,7 +516,6 @@
       </div>
     </div>
 
-    <!-- Staff stock adjust (inventory in/out) -->
     <div id="staffStockAdjustWrapper" class="card mb-3 shadow-sm border-0 hidden">
       <div class="card-header bg-dark text-white fw-bold">
         Inventory In / Out (Staff)
@@ -510,7 +539,6 @@
       </div>
     </div>
 
-    <!-- Products Table -->
     <div class="card shadow-sm border-0">
       <div class="card-header bg-dark text-white fw-bold d-flex justify-content-between align-items-center">
         <span>All Products</span>
@@ -536,14 +564,13 @@
     </div>
   </div>
 
-  <!-- SALES + CART SECTION -->
+  <!-- SALES + CART -->
   <div id="section-sales" class="hidden">
     <div class="section-title mb-2 d-flex justify-content-between align-items-center">
       <span>Sales & Cart</span>
       <span class="chip"><i class="bi bi-cart-check"></i> POS Style</span>
     </div>
 
-    <!-- Add to Cart -->
     <div class="card mb-3 shadow-sm border-0">
       <div class="card-header bg-dark text-white fw-bold">
         Add to Cart (Admin + Staff)
@@ -574,7 +601,6 @@
       </div>
     </div>
 
-    <!-- Cart Table + Checkout -->
     <div class="card mb-3 shadow-sm border-0">
       <div class="card-header bg-dark text-white fw-bold d-flex justify-content-between align-items-center">
         <span>Cart</span>
@@ -593,15 +619,31 @@
           </thead>
           <tbody id="cartTableBody"></tbody>
         </table>
-        <div class="text-end">
-          <button class="btn btn-success" onclick="checkoutCart()" id="checkoutBtn">
-            <i class="bi bi-cash-stack me-1"></i>Checkout & Invoice
-          </button>
+        <div class="row g-2 mt-2">
+          <div class="col-md-3">
+            <label class="form-label">Customer Name (optional)</label>
+            <input id="orderCustomerName" type="text" class="form-control">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Mobile (optional)</label>
+            <input id="orderCustomerPhone" type="text" class="form-control">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Payment Status</label>
+            <select id="orderPaymentStatus" class="form-select">
+              <option value="Paid">Paid</option>
+              <option value="Pending">Pending</option>
+            </select>
+          </div>
+          <div class="col-md-3 d-flex align-items-end justify-content-end">
+            <button class="btn btn-success" onclick="checkoutCart()" id="checkoutBtn">
+              <i class="bi bi-cash-stack me-1"></i>Checkout & Invoice
+            </button>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Recent Sales -->
     <div class="card shadow-sm border-0">
       <div class="card-header bg-dark text-white fw-bold">
         Recent Sales
@@ -612,15 +654,142 @@
     </div>
   </div>
 
-  <!-- ALERTS SECTION -->
-  <div id="section-alerts" class="hidden">
+  <!-- ORDERS -->
+  <div id="section-orders" class="hidden">
     <div class="section-title mb-2 d-flex justify-content-between align-items-center">
-      <span>Low Stock & Out of Stock</span>
-      <span class="chip"><i class="bi bi-bell"></i> Alerts</span>
+      <span>Customer Orders</span>
+      <span class="chip"><i class="bi bi-receipt"></i> Paid / Pending</span>
     </div>
     <div class="card shadow-sm border-0">
+      <div class="card-body table-responsive">
+        <table class="table table-bordered table-sm align-middle">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Customer</th>
+              <th>Phone</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="ordersTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPENSES + PROFIT -->
+  <div id="section-expenses" class="hidden">
+    <div class="section-title mb-2 d-flex justify-content-between align-items-center">
+      <span>Expenses & Profit</span>
+      <span class="chip"><i class="bi bi-wallet2"></i> Daily / Monthly</span>
+    </div>
+
+    <div class="card mb-3 shadow-sm border-0">
+      <div class="card-header bg-dark text-white fw-bold">
+        Add Expense
+      </div>
+      <div class="card-body">
+        <form class="row g-2" onsubmit="addExpense(event)">
+          <div class="col-md-4">
+            <label class="form-label">Title</label>
+            <input id="expenseTitle" type="text" class="form-control" required>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Amount</label>
+            <input id="expenseAmount" type="number" class="form-control" required>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Category</label>
+            <select id="expenseCategory" class="form-select">
+              <option value="Rent">Rent</option>
+              <option value="Bills">Bills</option>
+              <option value="Salary">Salary</option>
+              <option value="Misc">Misc</option>
+            </select>
+          </div>
+          <div class="col-md-2 d-flex align-items-end">
+            <button class="btn btn-primary w-100" style="background:linear-gradient(135deg,#ff4b9a,#ffffff);border:0;color:#000;">
+              <i class="bi bi-plus-circle me-1"></i>Add
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-md-4 col-12">
+        <div class="metric-card">
+          <div class="metric-title mb-1">Today Expenses</div>
+          <div class="metric-value" id="metricDailyExpense">0 PKR</div>
+        </div>
+      </div>
+      <div class="col-md-4 col-12">
+        <div class="metric-card">
+          <div class="metric-title mb-1">Monthly Expenses</div>
+          <div class="metric-value" id="metricMonthlyExpense">0 PKR</div>
+        </div>
+      </div>
+      <div class="col-md-4 col-12">
+        <div class="metric-card">
+          <div class="metric-title mb-1">Net Monthly Profit</div>
+          <div class="metric-value" id="metricNetMonthlyProfit">0 PKR</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-3 shadow-sm border-0">
+      <div class="card-header bg-dark text-white fw-bold">
+        Expense History
+      </div>
+      <div class="card-body table-responsive">
+        <table class="table table-bordered table-sm align-middle">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Amount</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="expensesTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALERTS + STAFF LOG -->
+  <div id="section-alerts" class="hidden">
+    <div class="section-title mb-2 d-flex justify-content-between align-items-center">
+      <span>Low Stock & Staff Activity</span>
+      <span class="chip"><i class="bi bi-bell"></i> Alerts & Log</span>
+    </div>
+    <div class="card mb-3 shadow-sm border-0">
+      <div class="card-header bg-dark text-white fw-bold">
+        Low Stock Alerts
+      </div>
       <div class="card-body">
         <ul class="list-group" id="alertsList"></ul>
+      </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+      <div class="card-header bg-dark text-white fw-bold">
+        Staff Activity Log
+      </div>
+      <div class="card-body table-responsive">
+        <table class="table table-bordered table-sm align-middle">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Action</th>
+              <th>Details</th>
+              <th>Date/Time</th>
+            </tr>
+          </thead>
+          <tbody id="staffLogTableBody"></tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -698,6 +867,12 @@
       </button>
     </li>
     <li class="nav-item">
+      <button class="nav-link" id="bottom-orders" onclick="bottomNavClick('orders')">
+        <i class="bi bi-receipt d-block"></i>
+        <span>Orders</span>
+      </button>
+    </li>
+    <li class="nav-item">
       <button class="nav-link" id="bottom-alerts" onclick="bottomNavClick('alerts')">
         <i class="bi bi-bell d-block"></i>
         <span>Alerts</span>
@@ -706,7 +881,7 @@
   </ul>
 </nav>
 
-<!-- FLOATING ACTION BUTTON -->
+<!-- FAB -->
 <button class="fab d-md-none" onclick="toggleFabMenu()">
   <i class="bi bi-plus-lg"></i>
 </button>
@@ -714,6 +889,7 @@
   <button onclick="quickAction('addProduct')"><i class="bi bi-box-seam me-1"></i>Add Product</button>
   <button onclick="quickAction('addStock')"><i class="bi bi-arrow-up-right-square me-1"></i>Stock In/Out</button>
   <button onclick="quickAction('addCart')"><i class="bi bi-cart-plus me-1"></i>Add to Cart</button>
+  <button onclick="quickAction('addExpense')"><i class="bi bi-wallet2 me-1"></i>Add Expense</button>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -727,15 +903,22 @@
     {id:6, name:"Men Undershirt", category:"Undergarments", purchase:500, sale:900, discount:0, stock:10, sold:40}
   ];
   let sales = [
-    {id:1, productId:1, quantity:2, total:36000, date:new Date()},
-    {id:2, productId:2, quantity:5, total:2250, date:new Date()}
+    {id:1, productId:1, quantity:2, total:36000, profit: (18000-15000)*2, date:new Date()},
+    {id:2, productId:2, quantity:5, total:2250, profit: (450-300)*5, date:new Date()}
   ];
+  let orders = [];
+  let expenses = [];
+  let staffLog = [];
+
   let cart = [];
   let nextProductId = 7;
   let nextSaleId = 3;
+  let nextOrderId = 1;
+  let nextExpenseId = 1;
   let invoiceCounter = 1001;
 
   let currentRole = "admin";
+  let currentUserName = "Admin";
 
   const aiLines = [
     "AI note: Aaj ki sale strong hai — pace maintain rakho, profit line healthy lag rahi hai.",
@@ -751,16 +934,17 @@
 
     if (email === "admin" && pass === "admin") {
       currentRole = "admin";
-      document.getElementById('userName').innerText = "Admin";
-      document.getElementById('userRoleLabel').innerText = "Admin";
+      currentUserName = "Admin";
     } else if (email === "staff" && pass === "staff") {
       currentRole = "staff";
-      document.getElementById('userName').innerText = "Staff";
-      document.getElementById('userRoleLabel').innerText = "Staff";
+      currentUserName = "Staff";
     } else {
       alert("Wrong login. Use admin/admin or staff/staff");
       return;
     }
+
+    document.getElementById('userName').innerText = currentUserName;
+    document.getElementById('userRoleLabel').innerText = currentRole === "admin" ? "Admin" : "Staff";
 
     if (currentRole === "admin") {
       document.getElementById('adminProductFormWrapper').classList.remove('hidden');
@@ -775,7 +959,7 @@
   }
 
   function showSection(ev, name) {
-    const sections = ["dashboard","products","sales","alerts"];
+    const sections = ["dashboard","products","sales","orders","expenses","alerts"];
     sections.forEach(s => {
       document.getElementById("section-"+s).classList.add("hidden");
     });
@@ -809,6 +993,10 @@
       bottomNavClick('sales');
       showSection(null,'sales');
       document.getElementById('cartProduct').focus();
+    } else if (type === 'addExpense') {
+      bottomNavClick('expenses');
+      showSection(null,'expenses');
+      document.getElementById('expenseTitle').focus();
     }
     toggleFabMenu();
   }
@@ -823,11 +1011,14 @@
     renderAlerts();
     renderDashboardLowStock();
     renderCartTable();
+    renderOrdersTable();
+    renderExpensesTable();
+    renderStaffLogTable();
   }
 
   function renderMetrics() {
     const totalProducts = products.length;
-    const totalOrders = sales.length;
+    const totalOrders = orders.length;
     const totalSales = sales.reduce((sum,s) => sum + s.total, 0);
     const lowStockCount = products.filter(p => p.stock <= 5).length;
 
@@ -838,18 +1029,40 @@
 
     const now = new Date();
     const oneDay = 24*60*60*1000;
-    let daily = 0, weekly = 0, monthly = 0;
+    let dailySales = 0, weeklySales = 0, monthlySales = 0;
+    let dailyProfit = 0, monthlyProfit = 0;
 
     sales.forEach(s => {
       const diff = (now - s.date) / oneDay;
-      if (diff <= 1) daily += s.total;
-      if (diff <= 7) weekly += s.total;
-      if (diff <= 30) monthly += s.total;
+      if (diff <= 1) {
+        dailySales += s.total;
+        dailyProfit += s.profit || 0;
+      }
+      if (diff <= 7) weeklySales += s.total;
+      if (diff <= 30) {
+        monthlySales += s.total;
+        monthlyProfit += s.profit || 0;
+      }
     });
 
-    document.getElementById('metricDailySales').innerText = daily.toLocaleString() + " PKR";
-    document.getElementById('metricWeeklySales').innerText = weekly.toLocaleString() + " PKR";
-    document.getElementById('metricMonthlySales').innerText = monthly.toLocaleString() + " PKR";
+    let dailyExpense = 0, monthlyExpense = 0;
+    expenses.forEach(e => {
+      const diff = (now - e.date) / oneDay;
+      if (diff <= 1) dailyExpense += e.amount;
+      if (diff <= 30) monthlyExpense += e.amount;
+    });
+
+    document.getElementById('metricDailySales').innerText = dailySales.toLocaleString() + " PKR";
+    document.getElementById('metricMonthlySales').innerText = monthlySales.toLocaleString() + " PKR";
+    document.getElementById('metricDailyProfit').innerText = (dailyProfit - dailyExpense).toLocaleString() + " PKR";
+    document.getElementById('metricMonthlyProfit').innerText = (monthlyProfit - monthlyExpense).toLocaleString() + " PKR";
+
+    document.getElementById('metricDailyExpense').innerText = dailyExpense.toLocaleString() + " PKR";
+    document.getElementById('metricMonthlyExpense').innerText = monthlyExpense.toLocaleString() + " PKR";
+    document.getElementById('metricNetMonthlyProfit').innerText = (monthlySales - monthlyExpense).toLocaleString() + " PKR";
+
+    const pendingCount = orders.filter(o => o.paymentStatus === "Pending").length;
+    document.getElementById('metricPendingPayments').innerText = pendingCount;
   }
 
   function renderBestSelling() {
@@ -867,9 +1080,6 @@
         </div>`;
       container.appendChild(div);
     });
-    setTimeout(() => {
-      container.style.display = "flex";
-    }, 50);
   }
 
   function renderProductsTable() {
@@ -982,6 +1192,51 @@
     });
   }
 
+  function renderOrdersTable() {
+    const tbody = document.getElementById('ordersTableBody');
+    tbody.innerHTML = "";
+    orders.slice().reverse().forEach(o => {
+      const tr = document.createElement('tr');
+      const badgeClass = o.paymentStatus === "Pending" ? "badge-pending" : "badge-paid";
+      tr.innerHTML = `
+        <td>${o.id}</td>
+        <td>${o.customerName || '-'}</td>
+        <td>${o.customerPhone || '-'}</td>
+        <td>${o.total.toLocaleString()} PKR</td>
+        <td><span class="badge ${badgeClass}">${o.paymentStatus}</span></td>
+        <td>${o.date.toLocaleString()}</td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function renderExpensesTable() {
+    const tbody = document.getElementById('expensesTableBody');
+    tbody.innerHTML = "";
+    expenses.slice().reverse().forEach(e => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${e.title}</td>
+        <td>${e.category}</td>
+        <td>${e.amount.toLocaleString()} PKR</td>
+        <td>${e.date.toLocaleString()}</td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function renderStaffLogTable() {
+    const tbody = document.getElementById('staffLogTableBody');
+    tbody.innerHTML = "";
+    staffLog.slice().reverse().forEach(l => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${l.user}</td>
+        <td>${l.action}</td>
+        <td>${l.details}</td>
+        <td>${l.date.toLocaleString()}</td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
   function saveProduct(e) {
     e.preventDefault();
     if (currentRole !== "admin") return;
@@ -1006,10 +1261,22 @@
         p.discount = discount;
         p.stock = stock;
       }
+      staffLog.push({
+        user: currentUserName,
+        action: "Edit Product",
+        details: name,
+        date: new Date()
+      });
     } else {
       products.push({
         id: nextProductId++,
         name, category, purchase, sale, discount, stock, sold:0
+      });
+      staffLog.push({
+        user: currentUserName,
+        action: "Add Product",
+        details: name,
+        date: new Date()
       });
     }
     resetProductForm();
@@ -1045,7 +1312,14 @@
   function deleteProduct(id) {
     if (currentRole !== "admin") return;
     if (!confirm("Delete this product?")) return;
+    const p = products.find(x => x.id === id);
     products = products.filter(p => p.id !== id);
+    staffLog.push({
+      user: currentUserName,
+      action: "Delete Product",
+      details: p ? p.name : ("ID " + id),
+      date: new Date()
+    });
     renderAll();
   }
 
@@ -1135,9 +1409,17 @@
 
   function checkoutCart() {
     if (cart.length === 0) return;
+
+    const customerName = document.getElementById('orderCustomerName').value.trim();
+    const customerPhone = document.getElementById('orderCustomerPhone').value.trim();
+    const paymentStatus = document.getElementById('orderPaymentStatus').value;
+
     let total = 0;
+    let totalProfit = 0;
     const invoiceBody = document.getElementById('invoiceTableBody');
     invoiceBody.innerHTML = "";
+
+    const orderItems = [];
 
     cart.forEach(item => {
       const p = products.find(x => x.id === item.productId);
@@ -1145,16 +1427,30 @@
       if (p.stock < item.quantity) return;
       const price = p.discount > 0 ? p.discount : p.sale;
       const lineTotal = price * item.quantity;
+      const profitPerUnit = price - p.purchase;
+      const lineProfit = profitPerUnit * item.quantity;
+
       total += lineTotal;
+      totalProfit += lineProfit;
 
       p.stock -= item.quantity;
       p.sold += item.quantity;
+
       sales.push({
         id: nextSaleId++,
         productId: p.id,
         quantity: item.quantity,
         total: lineTotal,
+        profit: lineProfit,
         date: new Date()
+      });
+
+      orderItems.push({
+        productId: p.id,
+        name: p.name,
+        qty: item.quantity,
+        price: price,
+        total: lineTotal
       });
 
       const tr = document.createElement('tr');
@@ -1166,6 +1462,24 @@
       invoiceBody.appendChild(tr);
     });
 
+    const order = {
+      id: nextOrderId++,
+      customerName: customerName || "",
+      customerPhone: customerPhone || "",
+      paymentStatus,
+      total,
+      items: orderItems,
+      date: new Date()
+    };
+    orders.push(order);
+
+    staffLog.push({
+      user: currentUserName,
+      action: "Sale",
+      details: `Order #${order.id} - ${total.toLocaleString()} PKR (${paymentStatus})`,
+      date: new Date()
+    });
+
     const aiLine = aiLines[Math.floor(Math.random()*aiLines.length)];
     document.getElementById('invoiceAiLine').innerText = aiLine;
     document.getElementById('invoiceTotal').innerText = total.toLocaleString();
@@ -1173,6 +1487,10 @@
     document.getElementById('invoiceDate').innerText = new Date().toLocaleString();
 
     cart = [];
+    document.getElementById('orderCustomerName').value = "";
+    document.getElementById('orderCustomerPhone').value = "";
+    document.getElementById('orderPaymentStatus').value = "Paid";
+
     renderAll();
 
     const modal = new bootstrap.Modal(document.getElementById('invoiceModal'));
@@ -1188,8 +1506,39 @@
     const p = products.find(x => x.id === prodId);
     if (!p) return;
     p.stock += qty;
+    staffLog.push({
+      user: currentUserName,
+      action: "Stock Adjust",
+      details: `${p.name} (${qty > 0 ? "+" : ""}${qty})`,
+      date: new Date()
+    });
     document.getElementById('adjustQuantity').value = "";
     document.getElementById('adjustProduct').value = "";
+    renderAll();
+  }
+
+  function addExpense(e) {
+    e.preventDefault();
+    const title = document.getElementById('expenseTitle').value.trim();
+    const amount = Number(document.getElementById('expenseAmount').value);
+    const category = document.getElementById('expenseCategory').value;
+    if (!title || !amount || isNaN(amount)) return;
+    expenses.push({
+      id: nextExpenseId++,
+      title,
+      amount,
+      category,
+      date: new Date()
+    });
+    staffLog.push({
+      user: currentUserName,
+      action: "Expense",
+      details: `${title} - ${amount.toLocaleString()} PKR`,
+      date: new Date()
+    });
+    document.getElementById('expenseTitle').value = "";
+    document.getElementById('expenseAmount').value = "";
+    document.getElementById('expenseCategory').value = "Rent";
     renderAll();
   }
 </script>

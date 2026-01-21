@@ -1,901 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Al Syed Sales Point - POS</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Al Syed Sales Point - Full System</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
 
 <style>
 :root {
-  --primary: #ff2d75;
-  --dark: #000;
-  --light: #fff;
+  --primary:#ff4b9a;
+  --primary-dark:#c2185b;
+  --bg:#f7f7fb;
+  --black:#111;
+  --card-bg:#fff;
 }
-
 body {
-  background: #000;
-  color: #fff;
-  padding-bottom: 70px;
-  font-family: system-ui, sans-serif;
+  background:var(--bg);
+  font-family:system-ui, sans-serif;
+  color:var(--black);
+  padding-bottom:70px;
 }
-
-.section { padding: 15px; }
-.hidden { display: none !important; }
-
-/* TOP BAR */
-.top-bar {
-  background: #111;
-  padding: 12px 15px;
-  border-bottom: 1px solid #222;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.top-title {
-  font-size: 1.1rem;
-  font-weight: bold;
-}
-
-/* DASHBOARD CARDS */
-.metric-card {
-  background: #111;
-  border-radius: 10px;
-  padding: 15px;
-  margin-bottom: 12px;
-  border: 1px solid #222;
-}
-
-.metric-label {
-  font-size: 0.8rem;
-  color: #bbb;
-}
-
-.metric-value {
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: var(--primary);
-}
-
-/* BOTTOM NAV */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #000;
-  border-top: 1px solid #333;
-  z-index: 999;
-}
-
-.bottom-nav .nav-link {
-  color: #ccc;
-  font-size: 0.75rem;
-  padding: 6px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.bottom-nav .nav-link i {
-  font-size: 1.2rem;
-  margin-bottom: 2px;
-}
-
-.bottom-nav .nav-link.active {
-  color: var(--primary);
-  font-weight: bold;
-}
-
-/* SETTINGS DRAWER */
-#settingsOverlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  display: none;
-}
-
-#settingsOverlay.active { display: block; }
-
-#settingsSheet {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 260px;
-  height: 100%;
-  background: #111;
-  border-right: 1px solid #333;
-  transform: translateX(-100%);
-  transition: 0.3s;
-  padding: 15px;
-}
-
-#settingsSheet.active { transform: translateX(0); }
-
-.settings-title {
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin-bottom: 15px;
-}
+.hidden{display:none!important}
+.low-stock{color:#ff1744;font-weight:600}
 </style>
 </head>
 
 <body>
 
-<!-- TOP BAR -->
-<div class="top-bar">
-  <div class="top-title">Al Syed Sales Point</div>
-  <button class="btn btn-sm btn-outline-light" onclick="openSettings()">
-    <i class="bi bi-gear"></i>
-  </button>
-</div>
-
-<!-- LOGIN OVERLAY (same look, direct enter) -->
-<div id="loginOverlay" style="position:fixed; inset:0; background:#000; z-index:9999; padding:20px;">
-  <h3 class="text-center mb-3">Login</h3>
-  <button class="btn btn-primary w-100" onclick="fakeLogin()">Enter</button>
-</div>
-
-<!-- DASHBOARD -->
-<div id="section-dashboard" class="section">
-  <h4 class="mb-3">Dashboard</h4>
-
-  <div class="metric-card">
-    <div class="metric-label">TOTAL SALES</div>
-    <div id="metricTotalSales" class="metric-value">0 PKR</div>
-  </div>
-
-  <div class="metric-card">
-    <div class="metric-label">LOW STOCK</div>
-    <div id="metricLowStock" class="metric-value">0</div>
-  </div>
-
-  <div class="metric-card">
-    <div class="metric-label">DAILY SALES</div>
-    <div id="metricDailySales" class="metric-value">0 PKR</div>
-  </div>
-
-  <div class="metric-card">
-    <div class="metric-label">DAILY PROFIT</div>
-    <div id="metricDailyProfit" class="metric-value">0 PKR</div>
-  </div>
-
-  <div class="metric-card">
-    <div class="metric-label">MONTHLY SALES</div>
-    <div id="metricMonthlySales" class="metric-value">0 PKR</div>
-  </div>
-
-  <div class="metric-card">
-    <div class="metric-label">MONTHLY PROFIT</div>
-    <div id="metricMonthlyProfit" class="metric-value">0 PKR</div>
+<!-- LOGIN -->
+<div id="loginOverlay" style="position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;z-index:9999;">
+  <div style="background:#111;padding:24px;border-radius:16px;color:#fff;width:100%;max-width:360px;">
+    <h4 class="text-center mb-2">Al Syed Sales Point</h4>
+    <input id="loginEmail" class="form-control mb-2" placeholder="admin or staff">
+    <input id="loginPassword" type="password" class="form-control mb-2" placeholder="password">
+    <button class="btn w-100" style="background:#ff4b9a" onclick="fakeLogin()">Login</button>
+    <small class="d-block text-center mt-2">admin/admin • staff/staff</small>
   </div>
 </div>
 
-<!-- PRODUCTS -->
-<div id="section-products" class="section hidden">
-  <h4 class="mb-3">Products</h4>
-
-  <form onsubmit="saveProduct(event)" class="mb-3">
-    <input type="hidden" id="prodId">
-
-    <input id="prodName" class="form-control mb-2" placeholder="Product Name">
-    <select id="prodCategory" class="form-control mb-2">
-      <option>Jewelry</option>
-      <option>Cosmetics</option>
-      <option>Undergarments</option>
-    </select>
-
-    <input id="prodCode" class="form-control mb-2" placeholder="Product Code">
-    <input id="prodPurchase" class="form-control mb-2" placeholder="Purchase Price" type="number">
-    <input id="prodSale" class="form-control mb-2" placeholder="Sale Price" type="number">
-    <input id="prodDiscount" class="form-control mb-2" placeholder="Discount Price" type="number">
-    <input id="prodStock" class="form-control mb-2" placeholder="Stock" type="number">
-
-    <button class="btn btn-primary w-100">Save Product</button>
-  </form>
-
-  <table class="table table-dark table-striped">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Cat</th>
-        <th>Code</th>
-        <th>Buy</th>
-        <th>Sale</th>
-        <th>Disc</th>
-        <th>Stock</th>
-        <th>Sold</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody id="productsTableBody"></tbody>
-  </table>
-</div>
-
-<!-- SALES / CART -->
-<div id="section-sales" class="section hidden">
-  <h4 class="mb-3">Cart / POS</h4>
-
-  <form onsubmit="addToCart(event)" class="mb-3">
-    <select id="cartProduct" class="form-control mb-2"></select>
-    <input id="cartQuantity" class="form-control mb-2" placeholder="Quantity" type="number">
-    <button class="btn btn-primary w-100">Add to Cart</button>
-  </form>
-
-  <table class="table table-dark table-striped">
-    <thead>
-      <tr>
-        <th>Product</th>
-        <th>Qty</th>
-        <th>Price</th>
-        <th>Total</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody id="cartTableBody"></tbody>
-  </table>
-
-  <div class="text-end fw-bold mb-2" id="cartTotalLabel">Total: 0 PKR</div>
-
-  <input id="orderCustomerName" class="form-control mb-2" placeholder="Customer Name">
-  <input id="orderCustomerPhone" class="form-control mb-2" placeholder="Phone">
-
-  <select id="orderPaymentStatus" class="form-control mb-3">
-    <option>Paid</option>
-    <option>Pending</option>
-  </select>
-
-  <button class="btn btn-success w-100 mb-2" onclick="checkoutCart()">Checkout</button>
-  <button class="btn btn-outline-danger w-100" onclick="clearCart()">Clear Cart</button>
-</div>
-<!-- ORDERS SECTION -->
-<div id="section-orders" class="section hidden">
-  <h4 class="mb-3">Orders</h4>
-
-  <table class="table table-dark table-striped">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Customer</th>
-        <th>Phone</th>
-        <th>Total</th>
-        <th>Status</th>
-        <th>Date</th>
-      </tr>
-    </thead>
-    <tbody id="ordersTableBody"></tbody>
-  </table>
-</div>
-
-<!-- EXPENSES SECTION -->
-<div id="section-expenses" class="section hidden">
-  <h4 class="mb-3">Expenses</h4>
-
-  <form onsubmit="addExpense(event)" class="mb-3">
-    <input id="expenseTitle" class="form-control mb-2" placeholder="Expense Title">
-    <input id="expenseAmount" class="form-control mb-2" placeholder="Amount" type="number">
-
-    <select id="expenseCategory" class="form-control mb-2">
-      <option>Stock</option>
-      <option>Rent</option>
-      <option>Electricity</option>
-      <option>Misc</option>
-    </select>
-
-    <button class="btn btn-primary w-100">Add Expense</button>
-  </form>
-
-  <table class="table table-dark table-striped">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Category</th>
-        <th>Amount</th>
-        <th>Date</th>
-      </tr>
-    </thead>
-    <tbody id="expensesTableBody"></tbody>
-  </table>
-</div>
-
-<!-- ALERTS SECTION -->
-<div id="section-alerts" class="section hidden">
-  <h4 class="mb-3">Low Stock Alerts</h4>
-  <ul class="list-group mb-4" id="alertsList"></ul>
-
-  <h4 class="mb-3">Staff Activity Log</h4>
-  <table class="table table-dark table-striped">
-    <thead>
-      <tr>
-        <th>User</th>
-        <th>Action</th>
-        <th>Details</th>
-        <th>Date/Time</th>
-      </tr>
-    </thead>
-    <tbody id="staffLogTableBody"></tbody>
-  </table>
-</div>
-
-<!-- INVOICE MODAL -->
-<div class="modal fade" id="invoiceModal">
-  <div class="modal-dialog modal-dialog-scrollable">
-    <div class="modal-content bg-dark text-white">
-      <div class="modal-header">
-        <h5 class="modal-title">Invoice</h5>
-        <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
-
-      <div class="modal-body">
-        <div class="mb-2">Invoice #: <span id="invoiceNumber"></span></div>
-        <div class="mb-2">Date: <span id="invoiceDate"></span></div>
-
-        <table class="table table-dark table-striped">
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>Qty</th>
-              <th>Price</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody id="invoiceTableBody"></tbody>
-        </table>
-
-        <h5 class="text-end mt-3">Total: <span id="invoiceTotal"></span> PKR</h5>
-
-        <div class="mt-3 text-center">
-          <i><span id="invoiceAiLine"></span></i>
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <button class="btn btn-primary" data-bs-dismiss="modal">Done</button>
-      </div>
-    </div>
+<div class="container my-3">
+  <h4>Dashboard</h4>
+  <div class="row g-3">
+    <div class="col-6 col-md-3"><b>Total Products</b><br><span id="metricTotalProducts">0</span></div>
+    <div class="col-6 col-md-3"><b>Total Orders</b><br><span id="metricTotalOrders">0</span></div>
+    <div class="col-6 col-md-3"><b>Total Sales</b><br><span id="metricTotalSales">0 PKR</span></div>
+    <div class="col-6 col-md-3"><b>Low Stock</b><br><span id="metricLowStock">0</span></div>
   </div>
 </div>
 
-<!-- SETTINGS DRAWER -->
-<div id="settingsOverlay" onclick="closeSettings()"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<div id="settingsSheet">
-  <div class="settings-title">Settings</div>
-
-  <button class="btn btn-outline-light w-100 mb-2" onclick="resetSales()">Reset Sales</button>
-  <button class="btn btn-outline-light w-100 mb-2" onclick="resetOrders()">Reset Orders</button>
-  <button class="btn btn-outline-light w-100 mb-2" onclick="resetExpenses()">Reset Expenses</button>
-  <button class="btn btn-outline-light w-100 mb-2" onclick="resetStaffLog()">Reset Staff Log</button>
-  <button class="btn btn-outline-light w-100 mb-2" onclick="resetProductSold()">Reset Product Sold</button>
-  <button class="btn btn-danger w-100" onclick="resetFullSystem()">Full Reset (Safe)</button>
-</div>
-
-<!-- BOTTOM NAV -->
-<nav class="bottom-nav d-md-none">
-  <ul class="nav nav-justified">
-    <li class="nav-item">
-      <button class="nav-link active" id="bottom-dashboard" onclick="bottomNavClick('dashboard')">
-        <i class="bi bi-speedometer2"></i>
-        <span>Home</span>
-      </button>
-    </li>
-
-    <li class="nav-item">
-      <button class="nav-link" id="bottom-products" onclick="bottomNavClick('products')">
-        <i class="bi bi-box-seam"></i>
-        <span>Products</span>
-      </button>
-    </li>
-
-    <li class="nav-item">
-      <button class="nav-link" id="bottom-sales" onclick="bottomNavClick('sales')">
-        <i class="bi bi-cart-check"></i>
-        <span>Cart</span>
-      </button>
-    </li>
-
-    <li class="nav-item">
-      <button class="nav-link" id="bottom-orders" onclick="bottomNavClick('orders')">
-        <i class="bi bi-receipt"></i>
-        <span>Orders</span>
-      </button>
-    </li>
-
-    <li class="nav-item">
-      <button class="nav-link" id="bottom-alerts" onclick="bottomNavClick('alerts')">
-        <i class="bi bi-bell"></i>
-        <span>Alerts</span>
-      </button>
-    </li>
-  </ul>
-</nav>
-
-<!-- JAVASCRIPT -->
 <script>
-/* DATA ARRAYS */
-let products = [];
+/* ================= STORAGE ================= */
+function saveData(){
+  localStorage.setItem("asp_products",JSON.stringify(products));
+  localStorage.setItem("asp_sales",JSON.stringify(sales));
+  localStorage.setItem("asp_orders",JSON.stringify(orders));
+  localStorage.setItem("asp_expenses",JSON.stringify(expenses));
+}
+function loadData(){
+  products = JSON.parse(localStorage.getItem("asp_products")) || products;
+  sales = JSON.parse(localStorage.getItem("asp_sales")) || [];
+  orders = JSON.parse(localStorage.getItem("asp_orders")) || [];
+  expenses = JSON.parse(localStorage.getItem("asp_expenses")) || [];
+}
+
+/* ================= CLEAN START ================= */
+let products = [
+ {id:1,name:"Ruby Necklace",category:"Jewelry",purchase:15000,sale:20000,discount:18000,stock:300,sold:0},
+ {id:2,name:"Matte Lipstick",category:"Cosmetics",purchase:300,sale:600,discount:450,stock:80,sold:0},
+ {id:3,name:"Jewelry Set",category:"Jewelry",purchase:1200,sale:2400,discount:2000,stock:3,sold:0},
+ {id:4,name:"Premium Bra Set",category:"Undergarments",purchase:800,sale:1500,discount:1300,stock:5,sold:0},
+ {id:5,name:"Cotton Panty Pack",category:"Undergarments",purchase:200,sale:400,discount:350,stock:2,sold:0},
+ {id:6,name:"Men Undershirt",category:"Undergarments",purchase:500,sale:900,discount:0,stock:10,sold:0}
+];
+
 let sales = [];
 let orders = [];
 let expenses = [];
 let staffLog = [];
-let cart = [];
 
-let nextProductId = 1;
-let nextSaleId = 1;
-let nextOrderId = 1;
-let nextExpenseId = 1;
+let nextSaleId=1;
+let nextOrderId=1;
+let nextExpenseId=1;
+let invoiceCounter=1001;
 
-let invoiceCounter = 1;
-let currentUserName = "Admin";
+let currentRole="";
+let currentUserName="";
 
-const aiLines = [
-  "Thank you for shopping with us!",
-  "Visit again — we appreciate your business.",
-  "Al Syed Sales Point — Quality you trust.",
-  "Your satisfaction is our priority."
-];
+/* ================= LOGIN ================= */
+function fakeLogin(){
+  const u=loginEmail.value.toLowerCase();
+  const p=loginPassword.value.toLowerCase();
 
-/* LOGIN — DIRECT OPEN */
-function fakeLogin() {
-  currentUserName = "Admin";
-  document.getElementById("loginOverlay").style.display = "none";
+  if(u==="admin" && p==="admin"){currentRole="admin";currentUserName="Admin";}
+  else if(u==="staff" && p==="staff"){currentRole="staff";currentUserName="Staff";}
+  else{alert("Wrong login");return;}
 
-  document.getElementById("metricTotalSales").innerText = "0 PKR";
-  document.getElementById("metricDailySales").innerText = "0 PKR";
-  document.getElementById("metricMonthlySales").innerText = "0 PKR";
-  document.getElementById("metricDailyProfit").innerText = "0 PKR";
-  document.getElementById("metricMonthlyProfit").innerText = "0 PKR";
-  document.getElementById("metricLowStock").innerText = "0";
+  loadData();
+  document.getElementById("loginOverlay").style.display="none";
+  renderMetrics();
 }
 
-/* NAVIGATION */
-function bottomNavClick(section) {
-  document.querySelectorAll(".section").forEach(s => s.classList.add("hidden"));
-  document.getElementById("section-" + section).classList.remove("hidden");
-
-  document.querySelectorAll(".bottom-nav .nav-link")
-    .forEach(btn => btn.classList.remove("active"));
-
-  document.getElementById("bottom-" + section).classList.add("active");
-
-  renderAll();
+/* ================= METRICS ================= */
+function renderMetrics(){
+  document.getElementById("metricTotalProducts").innerText=products.length;
+  document.getElementById("metricTotalOrders").innerText=orders.length;
+  document.getElementById("metricTotalSales").innerText=
+    sales.reduce((s,x)=>s+x.total,0).toLocaleString()+" PKR";
+  document.getElementById("metricLowStock").innerText=
+    products.filter(p=>p.stock<=5).length;
 }
 
-/* RENDER ALL */
-function renderAll() {
-  renderProductsTable();
-  renderCartProductOptions();
-  renderCartTable();
-  renderOrdersTable();
-  renderExpensesTable();
-  renderAlerts();
-  renderStaffLogTable();
-}
-
-/* PRODUCTS */
-function saveProduct(e) {
-  e.preventDefault();
-
-  const id = document.getElementById("prodId").value;
-  const name = document.getElementById("prodName").value.trim();
-  const category = document.getElementById("prodCategory").value;
-  const code = document.getElementById("prodCode").value.trim();
-  const purchase = Number(document.getElementById("prodPurchase").value);
-  const sale = Number(document.getElementById("prodSale").value);
-  const discount = Number(document.getElementById("prodDiscount").value);
-  const stock = Number(document.getElementById("prodStock").value);
-
-  if (!name || !code || !purchase || !sale || !stock) return;
-
-  if (id) {
-    const p = products.find(x => x.id == id);
-    p.name = name;
-    p.category = category;
-    p.code = code;
-    p.purchase = purchase;
-    p.sale = sale;
-    p.discount = discount;
-    p.stock = stock;
-  } else {
-    products.push({
-      id: nextProductId++,
-      name,
-      category,
-      code,
-      purchase,
-      sale,
-      discount,
-      stock,
-      sold: 0
-    });
+/* ================= SECRET RESET ================= */
+document.addEventListener("keydown",function(e){
+  if(currentRole==="admin" && e.ctrlKey && e.shiftKey && e.key==="R"){
+    if(!confirm("RESET ALL SALES DATA?"))return;
+    sales=[];orders=[];expenses=[];
+    products.forEach(p=>p.sold=0);
+    localStorage.clear();
+    location.reload();
   }
-
-  document.getElementById("prodId").value = "";
-  document.getElementById("prodName").value = "";
-  document.getElementById("prodCode").value = "";
-  document.getElementById("prodPurchase").value = "";
-  document.getElementById("prodSale").value = "";
-  document.getElementById("prodDiscount").value = "";
-  document.getElementById("prodStock").value = "";
-
-  renderAll();
-}
-
-/* PRODUCTS TABLE */
-function renderProductsTable() {
-  const tbody = document.getElementById("productsTableBody");
-  tbody.innerHTML = "";
-
-  products.forEach(p => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${p.name}</td>
-      <td>${p.category}</td>
-      <td>${p.code}</td>
-      <td>${p.purchase}</td>
-      <td>${p.sale}</td>
-      <td>${p.discount}</td>
-      <td>${p.stock}</td>
-      <td>${p.sold}</td>
-      <td>
-        <button class="btn btn-sm btn-outline-light" onclick="editProduct(${p.id})">Edit</button>
-      </td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-function editProduct(id) {
-  const p = products.find(x => x.id === id);
-  document.getElementById("prodId").value = p.id;
-  document.getElementById("prodName").value = p.name;
-  document.getElementById("prodCategory").value = p.category;
-  document.getElementById("prodCode").value = p.code;
-  document.getElementById("prodPurchase").value = p.purchase;
-  document.getElementById("prodSale").value = p.sale;
-  document.getElementById("prodDiscount").value = p.discount;
-  document.getElementById("prodStock").value = p.stock;
-}
-
-/* CART OPTIONS */
-function renderCartProductOptions() {
-  const select = document.getElementById("cartProduct");
-  select.innerHTML = `<option value="">Select product</option>`;
-
-  products.forEach(p => {
-    const opt = document.createElement("option");
-    opt.value = p.id;
-    opt.textContent = `${p.name} (${p.code}) - Stock: ${p.stock}`;
-    select.appendChild(opt);
-  });
-}
-
-/* ADD TO CART */
-function addToCart(e) {
-  e.preventDefault();
-
-  const prodId = Number(document.getElementById("cartProduct").value);
-  const qty = Number(document.getElementById("cartQuantity").value);
-
-  if (!prodId || qty <= 0) return;
-
-  const p = products.find(x => x.id === prodId);
-  if (!p) return;
-
-  if (p.stock < qty) {
-    alert("Not enough stock!");
-    return;
-  }
-
-  const existing = cart.find(c => c.productId === prodId);
-  if (existing) {
-    if (p.stock < existing.quantity + qty) {
-      alert("Not enough stock!");
-      return;
-    }
-    existing.quantity += qty;
-  } else {
-    cart.push({productId: prodId, quantity: qty});
-  }
-
-  document.getElementById("cartQuantity").value = "";
-  document.getElementById("cartProduct").value = "";
-
-  renderCartTable();
-}
-
-/* CART TABLE */
-function renderCartTable() {
-  const tbody = document.getElementById("cartTableBody");
-  tbody.innerHTML = "";
-
-  let total = 0;
-
-  cart.forEach((c, idx) => {
-    const p = products.find(x => x.id === c.productId);
-    if (!p) return;
-
-    const price = p.discount > 0 ? p.discount : p.sale;
-    const lineTotal = price * c.quantity;
-    total += lineTotal;
-
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${p.name}</td>
-      <td>${c.quantity}</td>
-      <td>${price}</td>
-      <td>${lineTotal}</td>
-      <td>
-        <button class="btn btn-sm btn-outline-danger" onclick="removeCartItem(${idx})">
-          X
-        </button>
-      </td>
-    `;
-    tbody.appendChild(tr);
-  });
-
-  document.getElementById("cartTotalLabel").innerText = "Total: " + total + " PKR";
-}
-
-function removeCartItem(i) {
-  cart.splice(i, 1);
-  renderCartTable();
-}
-
-function clearCart() {
-  cart = [];
-  renderCartTable();
-}
-
-/* CHECKOUT */
-function checkoutCart() {
-  if (cart.length === 0) {
-    alert("Cart empty");
-    return;
-  }
-
-  let total = 0, profit = 0;
-  const items = [];
-
-  cart.forEach(c => {
-    const p = products.find(x => x.id === c.productId);
-    if (!p) return;
-
-    const price = p.discount > 0 ? p.discount : p.sale;
-    const lineTotal = price * c.quantity;
-    total += lineTotal;
-
-    const lineProfit = (price - p.purchase) * c.quantity;
-    profit += lineProfit;
-
-    p.stock -= c.quantity;
-    p.sold += c.quantity;
-
-    items.push({name: p.name, qty: c.quantity, price, total: lineTotal});
-  });
-
-  const customer = document.getElementById("orderCustomerName").value.trim() || "Walk-in";
-  const phone = document.getElementById("orderCustomerPhone").value.trim() || "-";
-  const paymentStatus = document.getElementById("orderPaymentStatus").value;
-
-  const sale = {
-    id: nextSaleId++,
-    items,
-    total,
-    profit,
-    date: new Date()
-  };
-
-  sales.push(sale);
-
-  const order = {
-    id: nextOrderId++,
-    customer,
-    phone,
-    total,
-    paymentStatus,
-    date: new Date()
-  };
-
-  orders.push(order);
-
-  staffLog.push({
-    user: currentUserName,
-    action: "Checkout",
-    details: `Sale: ${total} PKR`,
-    date: new Date()
-  });
-
-  showInvoice(items, total);
-
-  cart = [];
-  renderAll();
-}
-
-/* INVOICE */
-function showInvoice(items, total) {
-  const tbody = document.getElementById("invoiceTableBody");
-  tbody.innerHTML = "";
-
-  items.forEach(i => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${i.name}</td>
-      <td>${i.qty}</td>
-      <td>${i.price}</td>
-      <td>${i.total}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-
-  document.getElementById("invoiceTotal").innerText = total;
-  document.getElementById("invoiceNumber").innerText = invoiceCounter++;
-  document.getElementById("invoiceDate").innerText = new Date().toLocaleString();
-  document.getElementById("invoiceAiLine").innerText =
-    aiLines[Math.floor(Math.random() * aiLines.length)];
-
-  const modal = new bootstrap.Modal(document.getElementById("invoiceModal"));
-  modal.show();
-}
-
-/* ORDERS TABLE */
-function renderOrdersTable() {
-  const tbody = document.getElementById("ordersTableBody");
-  tbody.innerHTML = "";
-
-  orders.slice().reverse().forEach(o => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${o.id}</td>
-      <td>${o.customer}</td>
-      <td>${o.phone}</td>
-      <td>${o.total}</td>
-      <td>${o.paymentStatus}</td>
-      <td>${new Date(o.date).toLocaleString()}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-/* EXPENSES TABLE */
-function renderExpensesTable() {
-  const tbody = document.getElementById("expensesTableBody");
-  tbody.innerHTML = "";
-
-  expenses.slice().reverse().forEach(e => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${e.title}</td>
-      <td>${e.category}</td>
-      <td>${e.amount}</td>
-      <td>${new Date(e.date).toLocaleString()}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-/* ADD EXPENSE */
-function addExpense(e) {
-  e.preventDefault();
-
-  const title = document.getElementById("expenseTitle").value.trim();
-  const amount = Number(document.getElementById("expenseAmount").value);
-  const category = document.getElementById("expenseCategory").value;
-
-  if (!title || !amount) return;
-
-  expenses.push({
-    id: nextExpenseId++,
-    title,
-    amount,
-    category,
-    date: new Date()
-  });
-
-  staffLog.push({
-    user: currentUserName,
-    action: "Add Expense",
-    details: `${title} (${amount})`,
-    date: new Date()
-  });
-
-  document.getElementById("expenseTitle").value = "";
-  document.getElementById("expenseAmount").value = "";
-
-  renderAll();
-}
-
-/* ALERTS */
-function renderAlerts() {
-  const list = document.getElementById("alertsList");
-  list.innerHTML = "";
-
-  products.filter(p => p.stock <= 5).forEach(p => {
-    const li = document.createElement("li");
-    li.className = "list-group-item";
-    li.innerHTML = `<b>${p.name}</b> — Stock: ${p.stock}`;
-    list.appendChild(li);
-  });
-}
-
-/* STAFF LOG */
-function renderStaffLogTable() {
-  const tbody = document.getElementById("staffLogTableBody");
-  tbody.innerHTML = "";
-
-  staffLog.slice().reverse().forEach(l => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${l.user}</td>
-      <td>${l.action}</td>
-      <td>${l.details}</td>
-      <td>${new Date(l.date).toLocaleString()}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-/* RESET FUNCTIONS */
-function resetSales() {
-  if (!confirm("Clear all sales?")) return;
-  sales = [];
-  renderAll();
-}
-
-function resetOrders() {
-  if (!confirm("Clear all orders?")) return;
-  orders = [];
-  renderAll();
-}
-
-function resetExpenses() {
-  if (!confirm("Clear all expenses?")) return;
-  expenses = [];
-  renderAll();
-}
-
-function resetStaffLog() {
-  if (!confirm("Clear staff log?")) return;
-  staffLog = [];
-  renderAll();
-}
-
-function resetProductSold() {
-  if (!confirm("Set all sold = 0? Stock safe.")) return;
-  products.forEach(p => p.sold = 0);
-  renderAll();
-}
-
-function resetFullSystem() {
-  if (!confirm("Full reset? Products safe.")) return;
-
-  sales = [];
-  orders = [];
-  expenses = [];
-  staffLog = [];
-  products.forEach(p => p.sold = 0);
-
-  renderAll();
-}
-
-/* SETTINGS DRAWER */
-function openSettings() {
-  document.getElementById("settingsOverlay").classList.add("active");
-  document.getElementById("settingsSheet").classList.add("active");
-}
-
-function closeSettings() {
-  document.getElementById("settingsOverlay").classList.remove("active");
-  document.getElementById("settingsSheet").classList.remove("active");
-}
-
-/* INITIAL LOAD */
-renderAll();
+});
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

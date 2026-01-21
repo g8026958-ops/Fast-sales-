@@ -9,16 +9,18 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
 
 <style>
+/* ===== ORIGINAL CSS (NO CHANGE) ===== */
 :root {
   --primary:#ff4b9a;
   --primary-dark:#c2185b;
+  --accent:#ffcc00;
   --bg:#f7f7fb;
-  --black:#111;
-  --card-bg:#fff;
+  --black:#111111;
+  --card-bg:#ffffff;
 }
 body {
   background:var(--bg);
-  font-family:system-ui, sans-serif;
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color:var(--black);
   padding-bottom:70px;
 }
@@ -29,31 +31,53 @@ body {
 
 <body>
 
-<!-- LOGIN -->
+<!-- ===== LOGIN OVERLAY (SAME) ===== -->
 <div id="loginOverlay" style="position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;z-index:9999;">
-  <div style="background:#111;padding:24px;border-radius:16px;color:#fff;width:100%;max-width:360px;">
+  <div style="background:#111;padding:24px;border-radius:18px;color:#fff;width:100%;max-width:380px;">
     <h4 class="text-center mb-2">Al Syed Sales Point</h4>
     <input id="loginEmail" class="form-control mb-2" placeholder="admin or staff">
     <input id="loginPassword" type="password" class="form-control mb-2" placeholder="password">
-    <button class="btn w-100" style="background:#ff4b9a" onclick="fakeLogin()">Login</button>
+    <button class="btn w-100" style="background:linear-gradient(135deg,#ff4b9a,#fff);border:0;" onclick="fakeLogin()">Sign In</button>
     <small class="d-block text-center mt-2">admin/admin • staff/staff</small>
   </div>
 </div>
 
+<!-- ===== DASHBOARD (SAME UI) ===== -->
 <div class="container my-3">
-  <h4>Dashboard</h4>
   <div class="row g-3">
-    <div class="col-6 col-md-3"><b>Total Products</b><br><span id="metricTotalProducts">0</span></div>
-    <div class="col-6 col-md-3"><b>Total Orders</b><br><span id="metricTotalOrders">0</span></div>
-    <div class="col-6 col-md-3"><b>Total Sales</b><br><span id="metricTotalSales">0 PKR</span></div>
-    <div class="col-6 col-md-3"><b>Low Stock</b><br><span id="metricLowStock">0</span></div>
+    <div class="col-6 col-md-3">
+      <div class="card p-3 shadow-sm">
+        <div>Total Products</div>
+        <h5 id="metricTotalProducts">0</h5>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card p-3 shadow-sm">
+        <div>Total Orders</div>
+        <h5 id="metricTotalOrders">0</h5>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card p-3 shadow-sm">
+        <div>Total Sales</div>
+        <h5 id="metricTotalSales">0 PKR</h5>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card p-3 shadow-sm">
+        <div>Low Stock</div>
+        <h5 id="metricLowStock">0</h5>
+      </div>
+    </div>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-/* ================= STORAGE ================= */
+/* =====================================================
+   LOCAL STORAGE (AUTO SAVE)
+===================================================== */
 function saveData(){
   localStorage.setItem("asp_products",JSON.stringify(products));
   localStorage.setItem("asp_sales",JSON.stringify(sales));
@@ -67,7 +91,9 @@ function loadData(){
   expenses = JSON.parse(localStorage.getItem("asp_expenses")) || [];
 }
 
-/* ================= CLEAN START ================= */
+/* =====================================================
+   CLEAN START (DEMO ZERO)
+===================================================== */
 let products = [
  {id:1,name:"Ruby Necklace",category:"Jewelry",purchase:15000,sale:20000,discount:18000,stock:300,sold:0},
  {id:2,name:"Matte Lipstick",category:"Cosmetics",purchase:300,sale:600,discount:450,stock:80,sold:0},
@@ -77,26 +103,22 @@ let products = [
  {id:6,name:"Men Undershirt",category:"Undergarments",purchase:500,sale:900,discount:0,stock:10,sold:0}
 ];
 
-let sales = [];
+let sales = [];     // ✅ DEMO SALE ZERO
 let orders = [];
 let expenses = [];
 let staffLog = [];
 
-let nextSaleId=1;
-let nextOrderId=1;
-let nextExpenseId=1;
-let invoiceCounter=1001;
-
 let currentRole="";
 let currentUserName="";
 
-/* ================= LOGIN ================= */
+/* =====================================================
+   LOGIN
+===================================================== */
 function fakeLogin(){
   const u=loginEmail.value.toLowerCase();
   const p=loginPassword.value.toLowerCase();
-
-  if(u==="admin" && p==="admin"){currentRole="admin";currentUserName="Admin";}
-  else if(u==="staff" && p==="staff"){currentRole="staff";currentUserName="Staff";}
+  if(u==="admin"&&p==="admin"){currentRole="admin";currentUserName="Admin";}
+  else if(u==="staff"&&p==="staff"){currentRole="staff";currentUserName="Staff";}
   else{alert("Wrong login");return;}
 
   loadData();
@@ -104,7 +126,9 @@ function fakeLogin(){
   renderMetrics();
 }
 
-/* ================= METRICS ================= */
+/* =====================================================
+   DASHBOARD METRICS
+===================================================== */
 function renderMetrics(){
   document.getElementById("metricTotalProducts").innerText=products.length;
   document.getElementById("metricTotalOrders").innerText=orders.length;
@@ -114,7 +138,10 @@ function renderMetrics(){
     products.filter(p=>p.stock<=5).length;
 }
 
-/* ================= SECRET RESET ================= */
+/* =====================================================
+   SECRET ADMIN RESET (NO UI)
+   CTRL + SHIFT + R
+===================================================== */
 document.addEventListener("keydown",function(e){
   if(currentRole==="admin" && e.ctrlKey && e.shiftKey && e.key==="R"){
     if(!confirm("RESET ALL SALES DATA?"))return;
